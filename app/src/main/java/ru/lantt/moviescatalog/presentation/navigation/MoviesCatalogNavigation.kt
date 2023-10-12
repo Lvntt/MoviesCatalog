@@ -4,6 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import ru.lantt.moviescatalog.presentation.ui.screen.auth.authorization.AuthorizationScreen
+import ru.lantt.moviescatalog.presentation.ui.screen.auth.login.LoginScreen
+import ru.lantt.moviescatalog.presentation.ui.screen.auth.registration.RegistrationScreen
 
 object MoviesCatalogDestinations {
     const val AUTHORIZATION = "authorization"
@@ -20,13 +23,13 @@ fun MoviesCatalogNavigation(
         startDestination = MoviesCatalogDestinations.AUTHORIZATION
     ) {
         composable(MoviesCatalogDestinations.AUTHORIZATION) {
-            // AuthScreen
+            AuthorizationScreen()
         }
         composable(MoviesCatalogDestinations.LOGIN) {
-            // LoginScreen
+            LoginScreen()
         }
         composable(MoviesCatalogDestinations.REGISTRATION) {
-            // RegistrationScreen
+            RegistrationScreen()
         }
     }
 }
