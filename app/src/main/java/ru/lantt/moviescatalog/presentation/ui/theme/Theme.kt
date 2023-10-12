@@ -1,4 +1,4 @@
-package ru.lantt.moviescatalog.ui.theme
+package ru.lantt.moviescatalog.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build

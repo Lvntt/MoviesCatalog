@@ -1,4 +1,4 @@
-package ru.lantt.moviescatalog.ui.theme
+package ru.lantt.moviescatalog.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

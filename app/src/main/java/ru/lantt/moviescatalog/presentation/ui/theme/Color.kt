@@ -1,4 +1,4 @@
-package ru.lantt.moviescatalog.ui.theme
+package ru.lantt.moviescatalog.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
