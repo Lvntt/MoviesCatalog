@@ -54,9 +54,11 @@ dependencies {
 
     val navigationVersion = "2.5.3"
     val accompanistVersion = "0.28.0"
+    val material3Version = "1.1.1"
 
     val navigationCompose = "androidx.navigation:navigation-compose:$navigationVersion"
     val accompanist = "com.google.accompanist:accompanist-systemuicontroller:$accompanistVersion"
+    val material3 = "androidx.compose.material3:material3:$material3Version"
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
@@ -69,6 +71,7 @@ dependencies {
 
     implementation(navigationCompose)
     implementation(accompanist)
+    implementation(material3)
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
