@@ -22,8 +22,26 @@ val Text_R_15 = TextStyle(
     fontSize = 15.sp
 )
 
+val Text_R_14 = TextStyle(
+    fontFamily = Inter,
+    fontWeight = FontWeight.Normal,
+    fontSize = 14.sp
+)
+
 val Label_SB_15 = TextStyle(
     fontFamily = Inter,
     fontWeight = FontWeight.SemiBold,
     fontSize = 15.sp
+)
+
+val Label_M_15 = TextStyle(
+    fontFamily = Inter,
+    fontWeight = FontWeight.Medium,
+    fontSize = 15.sp
+)
+
+val Label_M_14 = TextStyle(
+    fontFamily = Inter,
+    fontWeight = FontWeight.Medium,
+    fontSize = 14.sp
 )
