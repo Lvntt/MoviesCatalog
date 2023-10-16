@@ -14,6 +14,7 @@ import ru.lantt.moviescatalog.presentation.ui.theme.Padding8
 
 @Composable
 fun GenderPicker(
+    selectedItemIndex: Int,
     onItemSelection: (Int) -> Unit
 ) {
     Text(
@@ -29,6 +30,7 @@ fun GenderPicker(
             stringResource(id = R.string.man),
             stringResource(id = R.string.woman)
         ),
-        onItemSelection = onItemSelection
+        onItemSelection = onItemSelection,
+        selectedItemIndex = selectedItemIndex
     )
 }

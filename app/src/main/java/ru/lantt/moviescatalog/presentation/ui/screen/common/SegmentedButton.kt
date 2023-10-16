@@ -36,12 +36,12 @@ import ru.lantt.moviescatalog.presentation.ui.theme.Text_R_14
 fun SegmentedButton(
     modifier: Modifier = Modifier,
     labels: List<String>,
-    defaultSelectedItemIndex: Int = 0,
+    selectedItemIndex: Int = 0,
     cornerRadius: Int = 24,
     onItemSelection: (selectedItemIndex: Int) -> Unit
 ) {
-    val selectedIndex = remember { mutableStateOf(defaultSelectedItemIndex) }
-    val itemIndex = remember { mutableStateOf(defaultSelectedItemIndex) }
+    val selectedIndex = remember { mutableStateOf(selectedItemIndex) }
+    val itemIndex = remember { mutableStateOf(selectedItemIndex) }
 
     Card(
         modifier = Modifier

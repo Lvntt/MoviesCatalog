@@ -102,8 +102,8 @@ fun BirthdayTextField(
             }
         )
 
-        if (isError && errorId != null) {
-            Spacer(modifier = Modifier.padding(Padding8))
+        if (errorId != null) {
+            Spacer(modifier = Modifier.height(Padding8))
 
             Text(
                 text = stringResource(id = errorId),

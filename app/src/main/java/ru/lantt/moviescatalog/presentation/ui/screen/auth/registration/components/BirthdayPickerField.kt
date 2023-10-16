@@ -12,7 +12,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import ru.lantt.moviescatalog.R
@@ -26,7 +25,6 @@ import java.util.Calendar
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BirthdayPickerField(
-    modifier: Modifier = Modifier,
     textFieldValue: String = Constants.EMPTY_STRING,
     onDatePick: (Long) -> Unit,
     isError: Boolean = false,
@@ -97,12 +95,11 @@ fun BirthdayPickerField(
 
     BirthdayTextField(
         textFieldValue = textFieldValue,
-        enabled = true,
+        enabled = false,
         isError = isError,
         onCalendarClick = {
-            // TODO invoke VM method
             datePickerOpened = true
         },
-        errorId = null
+        errorId = errorId
     )
 }

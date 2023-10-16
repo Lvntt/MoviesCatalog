@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -20,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -28,29 +28,30 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import ru.lantt.moviescatalog.R
 import ru.lantt.moviescatalog.presentation.ui.theme.BorderDefault
-import ru.lantt.moviescatalog.presentation.ui.theme.LightAccent
 import ru.lantt.moviescatalog.presentation.ui.theme.BorderSize
 import ru.lantt.moviescatalog.presentation.ui.theme.ErrorTextFieldOpacity
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray400
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
 import ru.lantt.moviescatalog.presentation.ui.theme.IconPadding
 import ru.lantt.moviescatalog.presentation.ui.theme.Label_M_15
+import ru.lantt.moviescatalog.presentation.ui.theme.LightAccent
 import ru.lantt.moviescatalog.presentation.ui.theme.Padding12
 import ru.lantt.moviescatalog.presentation.ui.theme.Padding8
 import ru.lantt.moviescatalog.presentation.ui.theme.RoundedCornerRadius
 import ru.lantt.moviescatalog.presentation.ui.theme.SmallIconSize
+import ru.lantt.moviescatalog.presentation.ui.theme.Text_R_14
 import ru.lantt.moviescatalog.presentation.ui.theme.Text_R_15
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AuthPasswordTextField(
     label: String,
     textFieldValue: String,
     onValueChange: (String) -> Unit,
     isError: Boolean,
-    enabled: Boolean,
     isVisible: Boolean,
-    onVisibilityClick: () -> Unit
+    onVisibilityClick: () -> Unit,
+    enabled: Boolean = true,
+    errorId: Int? = null
 ) {
     Text(
         text = label,
@@ -68,6 +69,7 @@ fun AuthPasswordTextField(
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         visualTransformation = if (isVisible) VisualTransformation.None else PasswordVisualTransformation(),
         singleLine = true,
+        cursorBrush = SolidColor(Color.White),
         decorationBox = { innerTextField ->
             Box(
                 modifier = Modifier.fillMaxWidth(),
@@ -116,4 +118,14 @@ fun AuthPasswordTextField(
             }
         }
     )
+
+    if (errorId != null) {
+        Spacer(modifier = Modifier.height(Padding8))
+
+        Text(
+            text = stringResource(id = errorId),
+            style = Text_R_14,
+            color = LightAccent
+        )
+    }
 }

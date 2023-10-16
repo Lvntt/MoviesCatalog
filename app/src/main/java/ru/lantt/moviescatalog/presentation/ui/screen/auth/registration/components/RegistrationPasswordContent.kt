@@ -10,9 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.Color
@@ -26,14 +24,14 @@ import ru.lantt.moviescatalog.presentation.ui.theme.Padding15
 import ru.lantt.moviescatalog.presentation.ui.theme.Padding16
 import ru.lantt.moviescatalog.presentation.ui.theme.Padding20
 import ru.lantt.moviescatalog.presentation.ui.theme.Title_2_B_20
+import ru.lantt.moviescatalog.presentation.viewmodel.RegistrationViewModel
 
 @Composable
 fun RegistrationPasswordContent(
+    viewModel: RegistrationViewModel,
     modifier: Modifier = Modifier
 ) {
-    // TODO for testing purposes only, to be replaced with VM field
-    var passwordIsVisible by remember { mutableStateOf(false) }
-    var text by remember { mutableStateOf("") }
+    val registrationContent by remember { viewModel.registrationContent }
 
     Column(
         modifier = Modifier
@@ -56,37 +54,36 @@ fun RegistrationPasswordContent(
 
         AuthPasswordTextField(
             label = stringResource(id = R.string.password),
-            textFieldValue = text,
-            onValueChange = {text = it},
-            isError = false,
-            enabled = true,
-            isVisible = passwordIsVisible,
-            onVisibilityClick = {
-                passwordIsVisible = !passwordIsVisible
-            }
+            textFieldValue = registrationContent.password,
+            onValueChange = viewModel::setPassword,
+            isError = registrationContent.passwordErrorId != null,
+            isVisible = registrationContent.passwordIsVisible,
+            onVisibilityClick = viewModel::changePasswordVisibility,
+            errorId = registrationContent.passwordErrorId
         )
 
         Spacer(modifier = Modifier.height(Padding15))
 
         AuthPasswordTextField(
             label = stringResource(id = R.string.repeat_password),
-            textFieldValue = text,
-            onValueChange = {text = it},
-            isError = false,
-            enabled = true,
-            isVisible = passwordIsVisible,
-            onVisibilityClick = {
-                passwordIsVisible = !passwordIsVisible
-            }
+            textFieldValue = registrationContent.repeatedPassword,
+            onValueChange = viewModel::setRepeatedPassword,
+            isError = registrationContent.repeatedPasswordErrorId != null,
+            isVisible = registrationContent.passwordIsVisible,
+            onVisibilityClick = viewModel::changePasswordVisibility,
+            errorId = registrationContent.repeatedPasswordErrorId
         )
 
         Spacer(modifier = Modifier.height(Padding20))
 
         AccentButton(
             modifier = Modifier.fillMaxWidth(),
-            enabled = false,
-            onClick = { /*TODO*/ },
-            text = stringResource(id = R.string.login_2)
+            enabled = viewModel.registrationIsAllowed(),
+            onClick = {
+                // TODO navigate to main screen
+                viewModel.onRegister()
+            },
+            text = stringResource(id = R.string.register_1)
         )
     }
 }

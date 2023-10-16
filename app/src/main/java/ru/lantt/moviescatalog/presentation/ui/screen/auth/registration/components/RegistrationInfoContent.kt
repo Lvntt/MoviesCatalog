@@ -10,9 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.Color
@@ -26,13 +24,14 @@ import ru.lantt.moviescatalog.presentation.ui.theme.Padding15
 import ru.lantt.moviescatalog.presentation.ui.theme.Padding16
 import ru.lantt.moviescatalog.presentation.ui.theme.Padding20
 import ru.lantt.moviescatalog.presentation.ui.theme.Title_2_B_20
+import ru.lantt.moviescatalog.presentation.viewmodel.RegistrationViewModel
 
 @Composable
 fun RegistrationInfoContent(
+    viewModel: RegistrationViewModel,
     modifier: Modifier = Modifier
 ) {
-    // TODO for testing purposes only, to be replaced with VM field
-    var text by remember { mutableStateOf("") }
+    val registrationContent by remember { viewModel.registrationContent }
 
     Column(
         modifier = Modifier
@@ -55,51 +54,54 @@ fun RegistrationInfoContent(
 
         AuthRegularTextField(
             label = stringResource(id = R.string.name),
-            textFieldValue = "test",
-            onValueChange = {},
-            isError = false,
-            enabled = true
+            textFieldValue = registrationContent.name,
+            onValueChange = viewModel::setName,
+            isError = registrationContent.nameErrorId != null,
+            errorId = registrationContent.nameErrorId
         )
 
         Spacer(modifier = Modifier.height(Padding15))
 
-        GenderPicker(onItemSelection = {})
+        GenderPicker(
+            selectedItemIndex = viewModel.getChosenGenderIndex(),
+            onItemSelection = viewModel::setGender
+        )
 
         Spacer(modifier = Modifier.height(Padding15))
 
         AuthRegularTextField(
             label = stringResource(id = R.string.login_1),
-            textFieldValue = "test",
-            onValueChange = {},
-            isError = false,
-            enabled = true
+            textFieldValue = registrationContent.login,
+            onValueChange = viewModel::setLogin,
+            isError = registrationContent.loginErrorId != null,
+            errorId = registrationContent.loginErrorId
         )
 
         Spacer(modifier = Modifier.height(Padding15))
 
         AuthRegularTextField(
             label = stringResource(id = R.string.email),
-            textFieldValue = "test",
-            onValueChange = {},
-            isError = false,
-            enabled = true
+            textFieldValue = registrationContent.email,
+            onValueChange = viewModel::setEmail,
+            isError = registrationContent.emailErrorId != null,
+            errorId = registrationContent.emailErrorId
         )
 
         Spacer(modifier = Modifier.height(Padding15))
 
         BirthdayPickerField(
-            textFieldValue = "21.11.2004",
-            onDatePick = {
-                // TODO invoke VM method
-            }
+            textFieldValue = registrationContent.dateOfBirth,
+            onDatePick = viewModel::setDateOfBirth,
+            isError = registrationContent.dateOfBirthErrorId != null,
+            errorId = registrationContent.dateOfBirthErrorId
         )
 
         Spacer(modifier = Modifier.height(Padding20))
 
         AccentButton(
             modifier = Modifier.fillMaxWidth(),
-            enabled = false,
-            onClick = { /*TODO*/ },
+            enabled = viewModel.canGoToPasswordScreen(),
+            onClick = viewModel::goToPasswordScreen,
             text = stringResource(id = R.string.continue_label)
         )
     }

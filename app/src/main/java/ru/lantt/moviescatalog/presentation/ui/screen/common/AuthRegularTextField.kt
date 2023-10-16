@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.res.stringResource
 import ru.lantt.moviescatalog.presentation.ui.theme.BorderDefault
 import ru.lantt.moviescatalog.presentation.ui.theme.LightAccent
 import ru.lantt.moviescatalog.presentation.ui.theme.BorderSize
@@ -25,6 +26,7 @@ import ru.lantt.moviescatalog.presentation.ui.theme.Label_M_15
 import ru.lantt.moviescatalog.presentation.ui.theme.Padding12
 import ru.lantt.moviescatalog.presentation.ui.theme.Padding8
 import ru.lantt.moviescatalog.presentation.ui.theme.RoundedCornerRadius
+import ru.lantt.moviescatalog.presentation.ui.theme.Text_R_14
 import ru.lantt.moviescatalog.presentation.ui.theme.Text_R_15
 
 // TODO Remove ugly underline
@@ -34,8 +36,9 @@ fun AuthRegularTextField(
     textFieldValue: String,
     onValueChange: (String) -> Unit,
     isError: Boolean,
-    enabled: Boolean,
-    keyboardOptions: KeyboardOptions = KeyboardOptions.Default
+    enabled: Boolean = true,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    errorId: Int? = null
 ) {
     Text(
         text = label,
@@ -73,4 +76,14 @@ fun AuthRegularTextField(
             }
         }
     )
+
+    if (errorId != null) {
+        Spacer(modifier = Modifier.height(Padding8))
+
+        Text(
+            text = stringResource(id = errorId),
+            style = Text_R_14,
+            color = LightAccent
+        )
+    }
 }
