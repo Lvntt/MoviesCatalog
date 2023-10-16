@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "ru.lantt.moviescatalog"
-        minSdk = 24
+        minSdk = 26
         //noinspection OldTargetApi
         targetSdk = 33
         versionCode = 1
@@ -55,10 +55,15 @@ dependencies {
     val navigationVersion = "2.5.3"
     val accompanistVersion = "0.28.0"
     val material3Version = "1.1.1"
+    val koinVersion = "3.3.2"
+    val koinComposeVersion = "3.4.1"
 
     val navigationCompose = "androidx.navigation:navigation-compose:$navigationVersion"
     val accompanist = "com.google.accompanist:accompanist-systemuicontroller:$accompanistVersion"
     val material3 = "androidx.compose.material3:material3:$material3Version"
+    val koinCore = "io.insert-koin:koin-core:$koinVersion"
+    val koinAndroid = "io.insert-koin:koin-android:$koinVersion"
+    val koinAndroidCompose = "io.insert-koin:koin-androidx-compose:$koinComposeVersion"
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
@@ -72,6 +77,9 @@ dependencies {
     implementation(navigationCompose)
     implementation(accompanist)
     implementation(material3)
+    implementation(koinCore)
+    implementation(koinAndroid)
+    implementation(koinAndroidCompose)
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
