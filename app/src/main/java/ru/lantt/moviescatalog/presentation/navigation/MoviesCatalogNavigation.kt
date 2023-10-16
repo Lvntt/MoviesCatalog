@@ -23,7 +23,7 @@ fun MoviesCatalogNavigation(
         startDestination = MoviesCatalogDestinations.AUTHORIZATION
     ) {
         composable(MoviesCatalogDestinations.AUTHORIZATION) {
-            AuthorizationScreen()
+            AuthorizationScreen(navController = navController)
         }
         composable(MoviesCatalogDestinations.LOGIN) {
             LoginScreen()
