@@ -12,9 +12,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
@@ -29,9 +27,12 @@ import ru.lantt.moviescatalog.presentation.ui.screen.common.AuthPasswordTextFiel
 import ru.lantt.moviescatalog.presentation.ui.screen.common.AuthRegularTextField
 import ru.lantt.moviescatalog.presentation.ui.screen.common.AuthTopBar
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
+import ru.lantt.moviescatalog.presentation.ui.theme.LightAccent
 import ru.lantt.moviescatalog.presentation.ui.theme.Padding15
 import ru.lantt.moviescatalog.presentation.ui.theme.Padding16
 import ru.lantt.moviescatalog.presentation.ui.theme.Padding20
+import ru.lantt.moviescatalog.presentation.ui.theme.Padding8
+import ru.lantt.moviescatalog.presentation.ui.theme.Text_R_14
 import ru.lantt.moviescatalog.presentation.ui.theme.Title_2_B_20
 import ru.lantt.moviescatalog.presentation.viewmodel.LoginViewModel
 
@@ -40,8 +41,9 @@ fun LoginScreen(
     onFunctionalTextClick: () -> Unit,
     goToAuthorizationScreen: () -> Unit,
     modifier: Modifier = Modifier,
-    loginViewModel: LoginViewModel = koinViewModel()
+    viewModel: LoginViewModel = koinViewModel()
 ) {
+    val loginContent by remember { viewModel.loginContent }
     val focusManager = LocalFocusManager.current
 
     Scaffold(
@@ -58,10 +60,6 @@ fun LoginScreen(
             )
         }
     ) { paddingValues ->
-        // TODO for testing purposes only, to be replaced with VM field
-        var passwordIsVisible by remember { mutableStateOf(false)}
-        var text by remember { mutableStateOf("")}
-
         Column(
             modifier = modifier
                 .fillMaxSize()
@@ -88,29 +86,37 @@ fun LoginScreen(
 
             AuthRegularTextField(
                 label = stringResource(id = R.string.login_1),
-                textFieldValue = "test",
-                onValueChange = {},
-                isError = false,
+                textFieldValue = loginContent.login,
+                onValueChange = viewModel::setLogin,
+                isError = loginContent.isError
             )
 
             Spacer(modifier = Modifier.height(Padding15))
 
             AuthPasswordTextField(
                 label = stringResource(id = R.string.password),
-                textFieldValue = text,
-                onValueChange = {text = it},
-                isError = false,
-                isVisible = passwordIsVisible,
-                onVisibilityClick = {
-                    passwordIsVisible = !passwordIsVisible
-                }
+                textFieldValue = loginContent.password,
+                onValueChange = viewModel::setPassword,
+                isError = loginContent.isError,
+                isVisible = loginContent.passwordIsVisible,
+                onVisibilityClick = viewModel::changePasswordVisibility
             )
+            
+            if (loginContent.isError) {
+                Spacer(modifier = Modifier.height(Padding8))
+
+                Text(
+                    text = stringResource(id = R.string.invalid_login_or_password_error),
+                    style = Text_R_14,
+                    color = LightAccent
+                )
+            }
             
             Spacer(modifier = Modifier.height(Padding20))
 
             AccentButton(
                 modifier = Modifier.fillMaxWidth(),
-                enabled = false,
+                enabled = viewModel.canLogIn(),
                 onClick = { /*TODO*/ },
                 text = stringResource(id = R.string.login_2)
             )

@@ -33,4 +33,5 @@
     <string name="password_mismatch_error">Пароли не совпадают.</string>
     <string name="invalid_email_error">Введен некорректный email.</string>
     <string name="invalid_date_of_birth_error">Введена некорректная дата рождения.</string>
+    <string name="invalid_login_or_password_error">Неверный логин или пароль.</string>
 </resources>
