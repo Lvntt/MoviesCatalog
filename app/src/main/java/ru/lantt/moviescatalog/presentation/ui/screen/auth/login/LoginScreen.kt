@@ -21,7 +21,6 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import org.koin.androidx.compose.koinViewModel
 import ru.lantt.moviescatalog.R
 import ru.lantt.moviescatalog.presentation.ui.screen.common.AccentButton
@@ -38,6 +37,8 @@ import ru.lantt.moviescatalog.presentation.viewmodel.LoginViewModel
 
 @Composable
 fun LoginScreen(
+    onFunctionalTextClick: () -> Unit,
+    goToAuthorizationScreen: () -> Unit,
     modifier: Modifier = Modifier,
     loginViewModel: LoginViewModel = koinViewModel()
 ) {
@@ -45,13 +46,15 @@ fun LoginScreen(
 
     Scaffold(
         topBar = {
-            AuthTopBar()
+            AuthTopBar(
+                onBackButtonClick = goToAuthorizationScreen
+            )
         },
         bottomBar = {
             AuthBottomBar(
                 descriptionText = stringResource(id = R.string.no_account_yet),
                 functionalText = stringResource(id = R.string.register_2),
-                onFunctionalTextClick = {}
+                onFunctionalTextClick = onFunctionalTextClick
             )
         }
     ) { paddingValues ->
@@ -113,10 +116,4 @@ fun LoginScreen(
             )
         }
     }
-}
-
-@Preview
-@Composable
-fun LoginScreenPreview() {
-    LoginScreen()
 }

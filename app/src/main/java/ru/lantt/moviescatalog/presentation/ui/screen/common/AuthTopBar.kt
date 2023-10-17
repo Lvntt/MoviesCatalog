@@ -21,7 +21,9 @@ import ru.lantt.moviescatalog.presentation.ui.theme.Label_SB_17
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AuthTopBar() {
+fun AuthTopBar(
+    onBackButtonClick: () -> Unit
+) {
     CenterAlignedTopAppBar(
         title = {
             Text(
@@ -31,7 +33,7 @@ fun AuthTopBar() {
         },
         navigationIcon = {
             IconButton(
-                onClick = {}
+                onClick = onBackButtonClick
             ) {
                 Icon(
                     imageVector = Icons.Filled.KeyboardArrowLeft,

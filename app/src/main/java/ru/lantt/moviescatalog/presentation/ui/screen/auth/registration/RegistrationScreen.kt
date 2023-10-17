@@ -10,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import org.koin.androidx.compose.koinViewModel
 import ru.lantt.moviescatalog.R
 import ru.lantt.moviescatalog.presentation.ui.screen.auth.registration.components.RegistrationInfoContent
@@ -22,6 +21,8 @@ import ru.lantt.moviescatalog.presentation.viewmodel.RegistrationViewModel
 
 @Composable
 fun RegistrationScreen(
+    onFunctionalTextClick: () -> Unit,
+    goToAuthorizationScreen: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: RegistrationViewModel = koinViewModel()
 ) {
@@ -30,13 +31,20 @@ fun RegistrationScreen(
 
     Scaffold(
         topBar = {
-            AuthTopBar()
+            AuthTopBar(
+                onBackButtonClick = {
+                    when (registrationState) {
+                        is RegistrationState.RegistrationInfo -> goToAuthorizationScreen()
+                        is RegistrationState.RegistrationPassword -> viewModel.goToRegistrationInfoScreen()
+                    }
+                }
+            )
         },
         bottomBar = {
             AuthBottomBar(
                 descriptionText = stringResource(id = R.string.already_have_an_account),
                 functionalText = stringResource(id = R.string.login_4),
-                onFunctionalTextClick = {}
+                onFunctionalTextClick = onFunctionalTextClick
             )
         }
     ) { paddingValues ->
@@ -67,10 +75,4 @@ fun RegistrationScreen(
             )
         }
     }
-}
-
-@Preview
-@Composable
-fun RegistrationScreenPreview() {
-    RegistrationScreen()
 }

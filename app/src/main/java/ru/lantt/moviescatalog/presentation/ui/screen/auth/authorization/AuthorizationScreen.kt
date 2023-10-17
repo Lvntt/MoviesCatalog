@@ -18,9 +18,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.navigation.NavController
 import ru.lantt.moviescatalog.R
-import ru.lantt.moviescatalog.presentation.navigation.MoviesCatalogDestinations
 import ru.lantt.moviescatalog.presentation.ui.screen.common.AccentButton
 import ru.lantt.moviescatalog.presentation.ui.screen.common.SecondaryButton
 import ru.lantt.moviescatalog.presentation.ui.theme.Accent
@@ -34,7 +32,8 @@ import ru.lantt.moviescatalog.presentation.ui.theme.Title_2_B_20
 
 @Composable
 fun AuthorizationScreen(
-    navController: NavController,
+    goToRegistrationScreen: () -> Unit,
+    goToLoginScreen: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -83,9 +82,7 @@ fun AuthorizationScreen(
         AccentButton(
             modifier = modifier.fillMaxWidth(),
             enabled = true,
-            onClick = {
-                navController.navigate(MoviesCatalogDestinations.REGISTRATION)
-            },
+            onClick = goToRegistrationScreen,
             text = stringResource(id = R.string.registration)
         )
 
@@ -94,9 +91,7 @@ fun AuthorizationScreen(
         SecondaryButton(
             modifier = modifier.fillMaxWidth(),
             enabled = true,
-            onClick = {
-                navController.navigate(MoviesCatalogDestinations.LOGIN)
-            },
+            onClick = goToLoginScreen,
             text = stringResource(id = R.string.login_2)
         )
     }

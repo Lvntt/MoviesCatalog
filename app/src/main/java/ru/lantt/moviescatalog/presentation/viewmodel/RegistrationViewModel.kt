@@ -141,6 +141,10 @@ class RegistrationViewModel(
                 && registrationContent.dateOfBirthErrorId == null
     }
 
+    fun goToRegistrationInfoScreen() {
+        _registrationState.value = RegistrationState.RegistrationInfo
+    }
+
     fun registrationIsAllowed(): Boolean {
         val registrationContent = _registrationContent.value
         return canGoToPasswordScreen()

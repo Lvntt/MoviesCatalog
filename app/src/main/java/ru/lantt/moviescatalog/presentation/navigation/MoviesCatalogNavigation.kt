@@ -23,13 +23,34 @@ fun MoviesCatalogNavigation(
         startDestination = MoviesCatalogDestinations.AUTHORIZATION
     ) {
         composable(MoviesCatalogDestinations.AUTHORIZATION) {
-            AuthorizationScreen(navController = navController)
+            AuthorizationScreen(
+                goToRegistrationScreen = {
+                    navController.navigate(MoviesCatalogDestinations.REGISTRATION)
+                },
+                goToLoginScreen = {
+                    navController.navigate(MoviesCatalogDestinations.LOGIN)
+                }
+            )
         }
         composable(MoviesCatalogDestinations.LOGIN) {
-            LoginScreen()
+            LoginScreen(
+                onFunctionalTextClick = {
+                    navController.navigate(MoviesCatalogDestinations.REGISTRATION)
+                },
+                goToAuthorizationScreen = {
+                    navController.navigate(MoviesCatalogDestinations.AUTHORIZATION)
+                }
+            )
         }
         composable(MoviesCatalogDestinations.REGISTRATION) {
-            RegistrationScreen()
+            RegistrationScreen(
+                onFunctionalTextClick = {
+                    navController.navigate(MoviesCatalogDestinations.LOGIN)
+                },
+                goToAuthorizationScreen = {
+                    navController.navigate(MoviesCatalogDestinations.AUTHORIZATION)
+                }
+            )
         }
     }
 }
