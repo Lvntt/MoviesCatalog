@@ -24,7 +24,7 @@ import ru.lantt.moviescatalog.presentation.ui.theme.ErrorTextFieldOpacity
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
 import ru.lantt.moviescatalog.presentation.ui.theme.Label_M_15
 import ru.lantt.moviescatalog.presentation.ui.theme.Padding12
-import ru.lantt.moviescatalog.presentation.ui.theme.Padding8
+import ru.lantt.moviescatalog.presentation.ui.theme.PaddingSmall
 import ru.lantt.moviescatalog.presentation.ui.theme.RoundedCornerRadius
 import ru.lantt.moviescatalog.presentation.ui.theme.Text_R_14
 import ru.lantt.moviescatalog.presentation.ui.theme.Text_R_15
@@ -46,7 +46,7 @@ fun AuthRegularTextField(
         color = White
     )
 
-    Spacer(modifier = Modifier.height(Padding8))
+    Spacer(modifier = Modifier.height(PaddingSmall))
 
     BasicTextField(
         value = textFieldValue,
@@ -78,7 +78,7 @@ fun AuthRegularTextField(
     )
 
     if (errorId != null) {
-        Spacer(modifier = Modifier.height(Padding8))
+        Spacer(modifier = Modifier.height(PaddingSmall))
 
         Text(
             text = stringResource(id = errorId),

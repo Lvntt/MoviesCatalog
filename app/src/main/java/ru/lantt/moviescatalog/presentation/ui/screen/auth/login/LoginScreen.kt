@@ -32,10 +32,10 @@ import ru.lantt.moviescatalog.presentation.ui.screen.common.AuthRegularTextField
 import ru.lantt.moviescatalog.presentation.ui.screen.common.AuthTopBar
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
 import ru.lantt.moviescatalog.presentation.ui.theme.LightAccent
-import ru.lantt.moviescatalog.presentation.ui.theme.Padding15
-import ru.lantt.moviescatalog.presentation.ui.theme.Padding16
+import ru.lantt.moviescatalog.presentation.ui.theme.DefaultPaddingBetweenElements
+import ru.lantt.moviescatalog.presentation.ui.theme.PaddingMedium
 import ru.lantt.moviescatalog.presentation.ui.theme.Padding20
-import ru.lantt.moviescatalog.presentation.ui.theme.Padding8
+import ru.lantt.moviescatalog.presentation.ui.theme.PaddingSmall
 import ru.lantt.moviescatalog.presentation.ui.theme.Text_R_14
 import ru.lantt.moviescatalog.presentation.ui.theme.Title_2_B_20
 import ru.lantt.moviescatalog.presentation.uistate.auth.login.LoginUiState
@@ -71,7 +71,7 @@ fun LoginScreen(
             modifier = modifier
                 .fillMaxSize()
                 .background(Gray900)
-                .padding(Padding16)
+                .padding(PaddingMedium)
                 .padding(paddingValues)
                 .pointerInput(Unit) {
                     detectTapGestures(
@@ -100,7 +100,7 @@ fun LoginScreen(
                 textAlign = TextAlign.Center
             )
 
-            Spacer(modifier = Modifier.height(Padding15))
+            Spacer(modifier = Modifier.height(DefaultPaddingBetweenElements))
 
             AuthRegularTextField(
                 label = stringResource(id = R.string.login_1),
@@ -109,7 +109,7 @@ fun LoginScreen(
                 isError = loginContent.isError
             )
 
-            Spacer(modifier = Modifier.height(Padding15))
+            Spacer(modifier = Modifier.height(DefaultPaddingBetweenElements))
 
             AuthPasswordTextField(
                 label = stringResource(id = R.string.password),
@@ -121,7 +121,7 @@ fun LoginScreen(
             )
             
             if (loginContent.isError) {
-                Spacer(modifier = Modifier.height(Padding8))
+                Spacer(modifier = Modifier.height(PaddingSmall))
 
                 Text(
                     text = stringResource(id = R.string.invalid_login_or_password_error),

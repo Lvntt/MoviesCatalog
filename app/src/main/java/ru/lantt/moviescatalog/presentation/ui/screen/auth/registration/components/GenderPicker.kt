@@ -10,7 +10,7 @@ import androidx.compose.ui.res.stringResource
 import ru.lantt.moviescatalog.R
 import ru.lantt.moviescatalog.presentation.ui.screen.common.SegmentedButton
 import ru.lantt.moviescatalog.presentation.ui.theme.Label_M_15
-import ru.lantt.moviescatalog.presentation.ui.theme.Padding8
+import ru.lantt.moviescatalog.presentation.ui.theme.PaddingSmall
 
 @Composable
 fun GenderPicker(
@@ -23,7 +23,7 @@ fun GenderPicker(
         color = Color.White
     )
 
-    Spacer(modifier = Modifier.height(Padding8))
+    Spacer(modifier = Modifier.height(PaddingSmall))
 
     SegmentedButton(
         labels = listOf(

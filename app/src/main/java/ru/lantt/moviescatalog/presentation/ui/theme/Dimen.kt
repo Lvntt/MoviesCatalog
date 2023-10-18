@@ -2,10 +2,11 @@ package ru.lantt.moviescatalog.presentation.ui.theme
 
 import androidx.compose.ui.unit.dp
 
-val Padding8 = 8.dp
+val PaddingSmall = 8.dp
+val PaddingMedium = 16.dp
+val DefaultPaddingBetweenElements = 15.dp
+
 val Padding12 = 12.dp
-val Padding15 = 15.dp
-val Padding16 = 16.dp
 val Padding20 = 20.dp
 val Padding35 = 35.dp
 

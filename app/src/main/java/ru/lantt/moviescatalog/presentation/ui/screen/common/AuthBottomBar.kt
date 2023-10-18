@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import ru.lantt.moviescatalog.presentation.ui.theme.Accent
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray200
 import ru.lantt.moviescatalog.presentation.ui.theme.Label_M_14
-import ru.lantt.moviescatalog.presentation.ui.theme.Padding16
+import ru.lantt.moviescatalog.presentation.ui.theme.PaddingMedium
 import ru.lantt.moviescatalog.presentation.ui.util.noRippleClickable
 
 @Composable
@@ -44,6 +44,6 @@ fun AuthBottomBar(
             }
         }
 
-        Spacer(modifier = Modifier.height(Padding16))
+        Spacer(modifier = Modifier.height(PaddingMedium))
     }
 }

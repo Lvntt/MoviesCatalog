@@ -25,10 +25,10 @@ import ru.lantt.moviescatalog.presentation.ui.screen.common.AccentButton
 import ru.lantt.moviescatalog.presentation.ui.screen.common.AuthPasswordTextField
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
 import ru.lantt.moviescatalog.presentation.ui.theme.LightAccent
-import ru.lantt.moviescatalog.presentation.ui.theme.Padding15
-import ru.lantt.moviescatalog.presentation.ui.theme.Padding16
+import ru.lantt.moviescatalog.presentation.ui.theme.DefaultPaddingBetweenElements
+import ru.lantt.moviescatalog.presentation.ui.theme.PaddingMedium
 import ru.lantt.moviescatalog.presentation.ui.theme.Padding20
-import ru.lantt.moviescatalog.presentation.ui.theme.Padding8
+import ru.lantt.moviescatalog.presentation.ui.theme.PaddingSmall
 import ru.lantt.moviescatalog.presentation.ui.theme.Text_R_14
 import ru.lantt.moviescatalog.presentation.ui.theme.Title_2_B_20
 import ru.lantt.moviescatalog.presentation.uistate.auth.register.RegistrationUiState
@@ -48,7 +48,7 @@ fun RegistrationPasswordContent(
         modifier = Modifier
             .fillMaxSize()
             .background(Gray900)
-            .padding(Padding16)
+            .padding(PaddingMedium)
             .composed {
                 modifier
             }
@@ -72,7 +72,7 @@ fun RegistrationPasswordContent(
             textAlign = TextAlign.Center
         )
 
-        Spacer(modifier = Modifier.height(Padding15))
+        Spacer(modifier = Modifier.height(DefaultPaddingBetweenElements))
 
         AuthPasswordTextField(
             label = stringResource(id = R.string.password),
@@ -84,7 +84,7 @@ fun RegistrationPasswordContent(
             errorId = registrationContent.passwordErrorId
         )
 
-        Spacer(modifier = Modifier.height(Padding15))
+        Spacer(modifier = Modifier.height(DefaultPaddingBetweenElements))
 
         AuthPasswordTextField(
             label = stringResource(id = R.string.repeat_password),
@@ -106,7 +106,7 @@ fun RegistrationPasswordContent(
         )
 
         if (registrationContent.isRegistrationError) {
-            Spacer(modifier = Modifier.height(Padding8))
+            Spacer(modifier = Modifier.height(PaddingSmall))
 
             Text(
                 text = stringResource(id = R.string.unable_to_register),

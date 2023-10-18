@@ -32,7 +32,7 @@ import ru.lantt.moviescatalog.presentation.ui.theme.IconPadding
 import ru.lantt.moviescatalog.presentation.ui.theme.Label_M_15
 import ru.lantt.moviescatalog.presentation.ui.theme.LightAccent
 import ru.lantt.moviescatalog.presentation.ui.theme.Padding12
-import ru.lantt.moviescatalog.presentation.ui.theme.Padding8
+import ru.lantt.moviescatalog.presentation.ui.theme.PaddingSmall
 import ru.lantt.moviescatalog.presentation.ui.theme.RoundedCornerRadius
 import ru.lantt.moviescatalog.presentation.ui.theme.SmallIconSize
 import ru.lantt.moviescatalog.presentation.ui.theme.Text_R_14
@@ -53,7 +53,7 @@ fun BirthdayTextField(
             color = Color.White
         )
 
-        Spacer(modifier = Modifier.height(Padding8))
+        Spacer(modifier = Modifier.height(PaddingSmall))
 
         BasicTextField(
             value = textFieldValue,
@@ -103,7 +103,7 @@ fun BirthdayTextField(
         )
 
         if (errorId != null) {
-            Spacer(modifier = Modifier.height(Padding8))
+            Spacer(modifier = Modifier.height(PaddingSmall))
 
             Text(
                 text = stringResource(id = errorId),

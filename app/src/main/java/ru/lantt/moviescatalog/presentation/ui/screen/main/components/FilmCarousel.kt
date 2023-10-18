@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import ru.lantt.moviescatalog.R
 import ru.lantt.moviescatalog.presentation.ui.theme.CarouselImageHeight
 import ru.lantt.moviescatalog.presentation.ui.theme.LargeRoundedCornerRadius
-import ru.lantt.moviescatalog.presentation.ui.theme.Padding8
+import ru.lantt.moviescatalog.presentation.ui.theme.PaddingSmall
 import ru.lantt.moviescatalog.presentation.ui.theme.TinyIconSize
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -85,7 +85,7 @@ fun CarouselPagination(
                 color = Color.White.copy(alpha = 0.1f),
                 shape = RoundedCornerShape(LargeRoundedCornerRadius)
             )
-            .padding(Padding8)
+            .padding(PaddingSmall)
     ) {
         Row {
             repeat(pageCount) {
@@ -97,7 +97,7 @@ fun CarouselPagination(
                 )
 
                 if (it != pageCount - 1) {
-                    Spacer(modifier = Modifier.width(Padding8))
+                    Spacer(modifier = Modifier.width(PaddingSmall))
                 }
             }
         }

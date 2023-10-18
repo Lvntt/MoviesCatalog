@@ -20,8 +20,8 @@ import ru.lantt.moviescatalog.R
 import ru.lantt.moviescatalog.presentation.ui.screen.common.AccentButton
 import ru.lantt.moviescatalog.presentation.ui.screen.common.AuthRegularTextField
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
-import ru.lantt.moviescatalog.presentation.ui.theme.Padding15
-import ru.lantt.moviescatalog.presentation.ui.theme.Padding16
+import ru.lantt.moviescatalog.presentation.ui.theme.DefaultPaddingBetweenElements
+import ru.lantt.moviescatalog.presentation.ui.theme.PaddingMedium
 import ru.lantt.moviescatalog.presentation.ui.theme.Padding20
 import ru.lantt.moviescatalog.presentation.ui.theme.Title_2_B_20
 import ru.lantt.moviescatalog.presentation.viewmodel.RegistrationViewModel
@@ -37,7 +37,7 @@ fun RegistrationInfoContent(
         modifier = Modifier
             .fillMaxSize()
             .background(Gray900)
-            .padding(Padding16)
+            .padding(PaddingMedium)
             .composed {
                 modifier
             }
@@ -50,7 +50,7 @@ fun RegistrationInfoContent(
             textAlign = TextAlign.Center
         )
 
-        Spacer(modifier = Modifier.height(Padding15))
+        Spacer(modifier = Modifier.height(DefaultPaddingBetweenElements))
 
         AuthRegularTextField(
             label = stringResource(id = R.string.name),
@@ -60,14 +60,14 @@ fun RegistrationInfoContent(
             errorId = registrationContent.nameErrorId
         )
 
-        Spacer(modifier = Modifier.height(Padding15))
+        Spacer(modifier = Modifier.height(DefaultPaddingBetweenElements))
 
         GenderPicker(
             selectedItemIndex = viewModel.getChosenGenderIndex(),
             onItemSelection = viewModel::setGender
         )
 
-        Spacer(modifier = Modifier.height(Padding15))
+        Spacer(modifier = Modifier.height(DefaultPaddingBetweenElements))
 
         AuthRegularTextField(
             label = stringResource(id = R.string.login_1),
@@ -77,7 +77,7 @@ fun RegistrationInfoContent(
             errorId = registrationContent.loginErrorId
         )
 
-        Spacer(modifier = Modifier.height(Padding15))
+        Spacer(modifier = Modifier.height(DefaultPaddingBetweenElements))
 
         AuthRegularTextField(
             label = stringResource(id = R.string.email),
@@ -87,7 +87,7 @@ fun RegistrationInfoContent(
             errorId = registrationContent.emailErrorId
         )
 
-        Spacer(modifier = Modifier.height(Padding15))
+        Spacer(modifier = Modifier.height(DefaultPaddingBetweenElements))
 
         BirthdayPickerField(
             textFieldValue = registrationContent.dateOfBirth,
