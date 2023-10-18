@@ -59,12 +59,15 @@ class LoginViewModel(
 
     fun logIn() {
         _loginUiState.value = LoginUiState.Loading
+        _loginContent.value = _loginContent.value.copy(isError = false)
         viewModelScope.launch(Dispatchers.IO + loginExceptionHandler) {
             loginUserUseCase(
-                LoginCredentials(
-                    username = _loginContent.value.login,
-                    password = _loginContent.value.password
-                )
+                with (_loginContent.value) {
+                    LoginCredentials(
+                        username = login,
+                        password = password
+                    )
+                }
             )
             _loginUiState.value = LoginUiState.Success
         }
