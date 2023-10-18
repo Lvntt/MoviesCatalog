@@ -20,6 +20,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
+import ru.lantt.moviescatalog.presentation.ui.screen.auth.authorization.AuthorizationScreen
+import ru.lantt.moviescatalog.presentation.ui.screen.auth.login.LoginScreen
+import ru.lantt.moviescatalog.presentation.ui.screen.auth.registration.RegistrationScreen
+import ru.lantt.moviescatalog.presentation.ui.screen.main.MainScreen
 import ru.lantt.moviescatalog.presentation.ui.theme.Accent
 import ru.lantt.moviescatalog.presentation.ui.theme.BottomNavigationBackground
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray400
