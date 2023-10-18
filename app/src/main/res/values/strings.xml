@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">MoviesCatalog</string>
+    <string name="main">Главная</string>
+    <string name="favorite">Любимое</string>
+    <string name="profile">Профиль</string>
 </resources>
