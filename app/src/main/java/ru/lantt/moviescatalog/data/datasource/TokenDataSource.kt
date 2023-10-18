@@ -30,4 +30,10 @@ class TokenDataSource(context: Context) {
             .apply()
     }
 
+    fun deleteToken() {
+        sharedPreferences.edit()
+            .remove(USER_TOKEN_KEY)
+            .apply()
+    }
+
 }

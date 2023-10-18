@@ -23,6 +23,7 @@ class AuthRepositoryImpl(
 
     override suspend fun logout() {
         authApiService.logout()
+        tokenDataSource.deleteToken()
     }
 
 }
