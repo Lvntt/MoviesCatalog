@@ -54,6 +54,9 @@ fun MoviesCatalogNavigation(
                 },
                 goToAuthorizationScreen = {
                     navController.navigate(MoviesCatalogDestinations.AUTHORIZATION)
+                },
+                goToMainScreen = {
+                    navController.navigate(MoviesCatalogDestinations.MAIN)
                 }
             )
         }

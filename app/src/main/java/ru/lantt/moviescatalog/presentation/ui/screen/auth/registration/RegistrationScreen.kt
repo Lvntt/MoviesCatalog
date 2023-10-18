@@ -1,6 +1,7 @@
 package ru.lantt.moviescatalog.presentation.ui.screen.auth.registration
 
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -23,6 +24,7 @@ import ru.lantt.moviescatalog.presentation.viewmodel.RegistrationViewModel
 fun RegistrationScreen(
     onFunctionalTextClick: () -> Unit,
     goToAuthorizationScreen: () -> Unit,
+    goToMainScreen: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: RegistrationViewModel = koinViewModel()
 ) {
@@ -48,31 +50,35 @@ fun RegistrationScreen(
             )
         }
     ) { paddingValues ->
-        when (registrationState) {
-            RegistrationState.RegistrationInfo -> RegistrationInfoContent(
-                viewModel = viewModel,
-                modifier = modifier
-                    .padding(paddingValues)
-                    .pointerInput(Unit) {
-                        detectTapGestures(
-                            onTap = {
-                                focusManager.clearFocus()
-                            }
-                        )
-                    }
-            )
-            RegistrationState.RegistrationPassword -> RegistrationPasswordContent(
-                viewModel = viewModel,
-                modifier = modifier
-                    .padding(paddingValues)
-                    .pointerInput(Unit) {
-                        detectTapGestures(
-                            onTap = {
-                                focusManager.clearFocus()
-                            }
-                        )
-                    }
-            )
+        Column {
+            when (registrationState) {
+                RegistrationState.RegistrationInfo -> RegistrationInfoContent(
+                    viewModel = viewModel,
+                    modifier = modifier
+                        .padding(paddingValues)
+                        .pointerInput(Unit) {
+                            detectTapGestures(
+                                onTap = {
+                                    focusManager.clearFocus()
+                                }
+                            )
+                        }
+                )
+                RegistrationState.RegistrationPassword -> RegistrationPasswordContent(
+                    viewModel = viewModel,
+                    goToAuthorizationScreen = goToAuthorizationScreen,
+                    goToMainScreen = goToMainScreen,
+                    modifier = modifier
+                        .padding(paddingValues)
+                        .pointerInput(Unit) {
+                            detectTapGestures(
+                                onTap = {
+                                    focusManager.clearFocus()
+                                }
+                            )
+                        }
+                )
+            }
         }
     }
 }

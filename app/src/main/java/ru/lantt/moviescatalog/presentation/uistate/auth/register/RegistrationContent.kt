@@ -11,10 +11,12 @@ data class RegistrationContent(
     val email: String = "",
     val emailErrorId: Int? = null,
     val dateOfBirth: String = "",
+    val dateOfBirthMillis: Long? = null,
     val dateOfBirthErrorId: Int? = null,
     val password: String = "",
     val passwordErrorId: Int? = null,
     val repeatedPassword: String = "",
     val repeatedPasswordErrorId: Int? = null,
-    val passwordIsVisible: Boolean = false
+    val passwordIsVisible: Boolean = false,
+    val isRegistrationError: Boolean = false
 )

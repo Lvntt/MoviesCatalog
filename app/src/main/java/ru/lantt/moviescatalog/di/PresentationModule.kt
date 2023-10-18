@@ -16,7 +16,7 @@ fun providePresentationModule(): Module = module {
 
     viewModel {
         RegistrationViewModel(
-            get(), get(), get(), get(), get(), get()
+            get(), get(), get(), get(), get(), get(), get()
         )
     }
 

@@ -4,20 +4,31 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import ru.lantt.moviescatalog.common.Constants
 import ru.lantt.moviescatalog.domain.entity.ErrorType
 import ru.lantt.moviescatalog.domain.entity.Gender
+import ru.lantt.moviescatalog.domain.entity.UserRegisterModel
+import ru.lantt.moviescatalog.domain.usecase.RegisterUserUseCase
 import ru.lantt.moviescatalog.domain.usecase.ValidateDateOfBirthUseCase
 import ru.lantt.moviescatalog.domain.usecase.ValidateEmailUseCase
 import ru.lantt.moviescatalog.domain.usecase.ValidateLoginUseCase
 import ru.lantt.moviescatalog.domain.usecase.ValidateNameUseCase
 import ru.lantt.moviescatalog.domain.usecase.ValidatePasswordUseCase
 import ru.lantt.moviescatalog.domain.usecase.ValidateRepeatedPasswordUseCase
+import ru.lantt.moviescatalog.presentation.common.ErrorCodes
 import ru.lantt.moviescatalog.presentation.mapper.ErrorTypeToStringRes
 import ru.lantt.moviescatalog.presentation.uistate.auth.register.RegistrationContent
 import ru.lantt.moviescatalog.presentation.uistate.auth.register.RegistrationState
+import ru.lantt.moviescatalog.presentation.uistate.auth.register.RegistrationUiState
 import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
+import java.util.TimeZone
 
 class RegistrationViewModel(
     private val validateNameUseCase: ValidateNameUseCase,
@@ -25,17 +36,25 @@ class RegistrationViewModel(
     private val validateEmailUseCase: ValidateEmailUseCase,
     private val validateDateOfBirthUseCase: ValidateDateOfBirthUseCase,
     private val validatePasswordUseCase: ValidatePasswordUseCase,
-    private val validateRepeatedPasswordUseCase: ValidateRepeatedPasswordUseCase
+    private val validateRepeatedPasswordUseCase: ValidateRepeatedPasswordUseCase,
+    private val registerUserUseCase: RegisterUserUseCase
 ) : ViewModel() {
 
     val registrationState: State<RegistrationState>
         get() = _registrationState
     private val _registrationState: MutableState<RegistrationState> = mutableStateOf(
-        RegistrationState.RegistrationInfo)
+        RegistrationState.RegistrationInfo
+    )
 
     val registrationContent: State<RegistrationContent>
         get() = _registrationContent
     private val _registrationContent = mutableStateOf(RegistrationContent())
+
+    val registrationUiState: State<RegistrationUiState>
+        get() = _registrationUiState
+    private val _registrationUiState: MutableState<RegistrationUiState> = mutableStateOf(
+        RegistrationUiState.Initial
+    )
 
     private fun getErrorDescription(errorType: ErrorType?): Int? {
         if (errorType == null) {
@@ -48,8 +67,29 @@ class RegistrationViewModel(
         if (dateOfBirthMillis == null) {
             return Constants.EMPTY_STRING
         }
-        val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+        val simpleDateFormat = SimpleDateFormat(DATE_PATTERN, Locale.getDefault())
         return simpleDateFormat.format(dateOfBirthMillis)
+    }
+
+    private fun formatDateOfBirthForRegistration(): String {
+        val dateOfBirthMillis = _registrationContent.value.dateOfBirthMillis
+        val dateFormat = SimpleDateFormat(REQUEST_DATE_PATTERN, Locale.getDefault())
+        dateFormat.timeZone = TimeZone.getTimeZone(UTC)
+
+        return dateFormat.format(Date(dateOfBirthMillis ?: DATE_ERROR_VALUE))
+    }
+
+    private val registrationExceptionHandler = CoroutineExceptionHandler { _, exception ->
+        when (exception) {
+            is HttpException -> when (exception.code()) {
+                ErrorCodes.BAD_REQUEST -> {
+                    _registrationContent.value = _registrationContent.value.copy(isRegistrationError = true)
+                    _registrationUiState.value = RegistrationUiState.Initial
+                }
+                else -> _registrationUiState.value = RegistrationUiState.Error
+            }
+            else -> _registrationUiState.value = RegistrationUiState.Error
+        }
     }
 
     fun setName(name: String) {
@@ -91,6 +131,7 @@ class RegistrationViewModel(
         val errorDescriptionId = getErrorDescription(validationResult.errorType)
         _registrationContent.value = _registrationContent.value.copy(
             dateOfBirth = getFormattedDate(dateOfBirthMillis),
+            dateOfBirthMillis = dateOfBirthMillis,
             dateOfBirthErrorId = errorDescriptionId
         )
     }
@@ -156,7 +197,31 @@ class RegistrationViewModel(
     }
 
     fun onRegister() {
-        // TODO
+        _registrationUiState.value = RegistrationUiState.Loading
+        _registrationContent.value = _registrationContent.value.copy(isRegistrationError = false)
+        val birthDate = formatDateOfBirthForRegistration()
+        viewModelScope.launch(Dispatchers.IO + registrationExceptionHandler) {
+            registerUserUseCase(
+                with (_registrationContent.value) {
+                    UserRegisterModel(
+                        userName = login,
+                        name = name,
+                        password = password,
+                        email = email,
+                        birthDate = birthDate,
+                        gender = gender.ordinal
+                    )
+                }
+            )
+            _registrationUiState.value = RegistrationUiState.Success
+        }
+    }
+
+    private companion object {
+        const val DATE_ERROR_VALUE = 0L
+        const val UTC = "UTC"
+        const val DATE_PATTERN = "dd.MM.yyyy"
+        const val REQUEST_DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
     }
 
 }
