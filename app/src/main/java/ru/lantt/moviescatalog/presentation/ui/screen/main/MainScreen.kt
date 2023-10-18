@@ -1,17 +1,41 @@
 package ru.lantt.moviescatalog.presentation.ui.screen.main
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import ru.lantt.moviescatalog.presentation.ui.theme.Main
+import androidx.navigation.NavController
+import ru.lantt.moviescatalog.presentation.navigation.BottomNavItems
+import ru.lantt.moviescatalog.presentation.navigation.BottomNavigationBar
+import ru.lantt.moviescatalog.presentation.ui.screen.main.components.FilmCarousel
+import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
 
 @Composable
-fun MainScreen() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Main)
-    )
+fun MainScreen(
+    navController: NavController,
+    modifier: Modifier = Modifier
+) {
+    Scaffold(
+        bottomBar = {
+            BottomNavigationBar(
+                buttons = BottomNavItems.items,
+                navController = navController,
+                onItemClick = {
+                    navController.navigate(it.route)
+                }
+            )
+        }
+    ) { paddingValues ->
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .background(Gray900)
+                .padding(paddingValues)
+        ) {
+            FilmCarousel()
+        }
+    }
 }

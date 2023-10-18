@@ -9,13 +9,18 @@ val Padding16 = 16.dp
 val Padding20 = 20.dp
 val Padding35 = 35.dp
 
-val BorderSize = 1.dp
-val RoundedCornerRadius = 10.dp
+val TinyIconSize = 8.dp
+val SmallIconSize = 20.dp
 val DefaultIconSize = 28.dp
+
+val RoundedCornerRadius = 10.dp
+val LargeRoundedCornerRadius = 28.dp
+
+val BorderSize = 1.dp
 val IconPadding = Padding12 * 3.5f
 val SegmentedButtonHeight = 42.dp
 val SegmentedButtonInnerPadding = 2.dp
-val SmallIconSize = 20.dp
+val CarouselImageHeight = 570.dp
 
 const val OneFractionWeight = 1f
 const val DisabledButtonOpacity = 0.45f
