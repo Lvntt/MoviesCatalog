@@ -34,22 +34,53 @@ object MoviesCatalogDestinations {
     const val PROFILE = "profile"
 }
 
+
 @Composable
 fun MoviesCatalogNavigation(
     navController: NavHostController
 ) {
     NavHost(
         navController = navController,
-        startDestination = MoviesCatalogDestinations.MAIN
+        startDestination = MoviesCatalogDestinations.AUTHORIZATION
     ) {
         composable(MoviesCatalogDestinations.AUTHORIZATION) {
-            // AuthScreen
+            AuthorizationScreen(
+                goToRegistrationScreen = {
+                    navController.navigate(MoviesCatalogDestinations.REGISTRATION)
+                },
+                goToLoginScreen = {
+                    navController.navigate(MoviesCatalogDestinations.LOGIN)
+                }
+            )
         }
         composable(MoviesCatalogDestinations.LOGIN) {
-            // LoginScreen
+            LoginScreen(
+                onFunctionalTextClick = {
+                    navController.navigate(MoviesCatalogDestinations.REGISTRATION)
+                },
+                goToAuthorizationScreen = {
+                    navController.navigate(MoviesCatalogDestinations.AUTHORIZATION)
+                },
+                goToMainScreen = {
+                    navController.navigate(MoviesCatalogDestinations.MAIN)
+                }
+            )
         }
         composable(MoviesCatalogDestinations.REGISTRATION) {
-            // RegistrationScreen
+            RegistrationScreen(
+                onFunctionalTextClick = {
+                    navController.navigate(MoviesCatalogDestinations.LOGIN)
+                },
+                goToAuthorizationScreen = {
+                    navController.navigate(MoviesCatalogDestinations.AUTHORIZATION)
+                },
+                goToMainScreen = {
+                    navController.navigate(MoviesCatalogDestinations.MAIN)
+                }
+            )
+        }
+        composable(MoviesCatalogDestinations.MAIN) {
+            MainScreen()
         }
         composable(MoviesCatalogDestinations.MAIN) {
             // MainScreen
