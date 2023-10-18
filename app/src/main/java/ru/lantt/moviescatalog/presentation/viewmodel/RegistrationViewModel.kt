@@ -14,8 +14,8 @@ import ru.lantt.moviescatalog.domain.usecase.ValidateNameUseCase
 import ru.lantt.moviescatalog.domain.usecase.ValidatePasswordUseCase
 import ru.lantt.moviescatalog.domain.usecase.ValidateRepeatedPasswordUseCase
 import ru.lantt.moviescatalog.presentation.mapper.ErrorTypeToStringRes
-import ru.lantt.moviescatalog.presentation.uistate.RegistrationContent
-import ru.lantt.moviescatalog.presentation.uistate.RegistrationState
+import ru.lantt.moviescatalog.presentation.uistate.auth.register.RegistrationContent
+import ru.lantt.moviescatalog.presentation.uistate.auth.register.RegistrationState
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -30,7 +30,8 @@ class RegistrationViewModel(
 
     val registrationState: State<RegistrationState>
         get() = _registrationState
-    private val _registrationState: MutableState<RegistrationState> = mutableStateOf(RegistrationState.RegistrationInfo)
+    private val _registrationState: MutableState<RegistrationState> = mutableStateOf(
+        RegistrationState.RegistrationInfo)
 
     val registrationContent: State<RegistrationContent>
         get() = _registrationContent

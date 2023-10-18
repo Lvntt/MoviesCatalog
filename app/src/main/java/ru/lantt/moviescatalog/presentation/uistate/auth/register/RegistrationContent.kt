@@ -1,4 +1,4 @@
-package ru.lantt.moviescatalog.presentation.uistate
+package ru.lantt.moviescatalog.presentation.uistate.auth.register
 
 import ru.lantt.moviescatalog.domain.entity.Gender
 

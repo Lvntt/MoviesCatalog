@@ -2,17 +2,21 @@ package ru.lantt.moviescatalog.presentation.ui.screen.auth.login
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
@@ -34,16 +38,19 @@ import ru.lantt.moviescatalog.presentation.ui.theme.Padding20
 import ru.lantt.moviescatalog.presentation.ui.theme.Padding8
 import ru.lantt.moviescatalog.presentation.ui.theme.Text_R_14
 import ru.lantt.moviescatalog.presentation.ui.theme.Title_2_B_20
+import ru.lantt.moviescatalog.presentation.uistate.auth.login.LoginUiState
 import ru.lantt.moviescatalog.presentation.viewmodel.LoginViewModel
 
 @Composable
 fun LoginScreen(
     onFunctionalTextClick: () -> Unit,
     goToAuthorizationScreen: () -> Unit,
+    goToMainScreen: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: LoginViewModel = koinViewModel()
 ) {
     val loginContent by remember { viewModel.loginContent }
+    val loginUiState by remember { viewModel.loginUiState }
     val focusManager = LocalFocusManager.current
 
     Scaffold(
@@ -74,6 +81,17 @@ fun LoginScreen(
                     )
                 }
         ) {
+            when (loginUiState) {
+                LoginUiState.Initial -> Unit
+                LoginUiState.Loading -> Unit
+                LoginUiState.Error -> LaunchedEffect(Unit) {
+                    goToAuthorizationScreen()
+                }
+                LoginUiState.Success -> LaunchedEffect(Unit) {
+                    goToMainScreen()
+                }
+            }
+
             Text(
                 text = stringResource(id = R.string.login_3),
                 style = Title_2_B_20,
@@ -117,9 +135,18 @@ fun LoginScreen(
             AccentButton(
                 modifier = Modifier.fillMaxWidth(),
                 enabled = viewModel.canLogIn(),
-                onClick = { /*TODO*/ },
+                onClick = viewModel::logIn,
                 text = stringResource(id = R.string.login_2)
             )
+        }
+
+        if (loginUiState is LoginUiState.Loading) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
         }
     }
 }

@@ -16,7 +16,7 @@ import ru.lantt.moviescatalog.presentation.ui.screen.auth.registration.component
 import ru.lantt.moviescatalog.presentation.ui.screen.auth.registration.components.RegistrationPasswordContent
 import ru.lantt.moviescatalog.presentation.ui.screen.common.AuthBottomBar
 import ru.lantt.moviescatalog.presentation.ui.screen.common.AuthTopBar
-import ru.lantt.moviescatalog.presentation.uistate.RegistrationState
+import ru.lantt.moviescatalog.presentation.uistate.auth.register.RegistrationState
 import ru.lantt.moviescatalog.presentation.viewmodel.RegistrationViewModel
 
 @Composable

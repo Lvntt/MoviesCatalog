@@ -9,7 +9,9 @@ import ru.lantt.moviescatalog.presentation.viewmodel.RegistrationViewModel
 fun providePresentationModule(): Module = module {
 
     viewModel {
-        LoginViewModel()
+        LoginViewModel(
+            get()
+        )
     }
 
     viewModel {

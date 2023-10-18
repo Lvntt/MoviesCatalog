@@ -2,6 +2,7 @@ package ru.lantt.moviescatalog.di
 
 import org.koin.core.module.Module
 import org.koin.dsl.module
+import ru.lantt.moviescatalog.domain.usecase.LoginUserUseCase
 import ru.lantt.moviescatalog.domain.usecase.ValidateDateOfBirthUseCase
 import ru.lantt.moviescatalog.domain.usecase.ValidateEmailUseCase
 import ru.lantt.moviescatalog.domain.usecase.ValidateLoginUseCase
@@ -33,6 +34,10 @@ fun provideDomainModule(): Module = module {
 
     factory {
         ValidateRepeatedPasswordUseCase()
+    }
+
+    factory {
+        LoginUserUseCase(get())
     }
 
 }
