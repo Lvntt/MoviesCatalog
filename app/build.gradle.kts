@@ -57,6 +57,11 @@ dependencies {
     val material3Version = "1.1.1"
     val koinVersion = "3.3.2"
     val koinComposeVersion = "3.4.1"
+    val retrofitVersion = "2.9.0"
+    val gsonVersion = "2.10.1"
+    val gsonConverterVersion = "2.9.0"
+    val securityVersion = "1.1.0-alpha06"
+    val loggingInterceptorVersion = "3.9.0"
 
     val navigationCompose = "androidx.navigation:navigation-compose:$navigationVersion"
     val accompanist = "com.google.accompanist:accompanist-systemuicontroller:$accompanistVersion"
@@ -64,6 +69,11 @@ dependencies {
     val koinCore = "io.insert-koin:koin-core:$koinVersion"
     val koinAndroid = "io.insert-koin:koin-android:$koinVersion"
     val koinAndroidCompose = "io.insert-koin:koin-androidx-compose:$koinComposeVersion"
+    val retrofit = "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    val gson = "com.google.code.gson:gson:$gsonVersion"
+    val gsonConverter = "com.squareup.retrofit2:converter-gson:$gsonConverterVersion"
+    val security = "androidx.security:security-crypto:$securityVersion"
+    val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$loggingInterceptorVersion"
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
@@ -80,6 +90,11 @@ dependencies {
     implementation(koinCore)
     implementation(koinAndroid)
     implementation(koinAndroidCompose)
+    implementation(retrofit)
+    implementation(gson)
+    implementation(gsonConverter)
+    implementation(security)
+    implementation(loggingInterceptor)
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
