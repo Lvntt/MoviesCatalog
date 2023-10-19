@@ -14,40 +14,22 @@ import ru.lantt.moviescatalog.domain.usecase.ValidateRepeatedPasswordUseCase
 
 fun provideDomainModule(): Module = module {
 
-    factory {
-        ValidateNameUseCase()
-    }
+    factory { ValidateNameUseCase() }
 
-    factory {
-        ValidateLoginUseCase()
-    }
+    factory { ValidateLoginUseCase() }
 
-    factory {
-        ValidateEmailUseCase()
-    }
+    factory { ValidateEmailUseCase() }
 
-    factory {
-        ValidateDateOfBirthUseCase()
-    }
+    factory { ValidateDateOfBirthUseCase() }
 
-    factory {
-        ValidatePasswordUseCase()
-    }
+    factory { ValidatePasswordUseCase() }
 
-    factory {
-        ValidateRepeatedPasswordUseCase()
-    }
+    factory { ValidateRepeatedPasswordUseCase() }
 
-    factory {
-        LoginUserUseCase(get())
-    }
+    factory { LoginUserUseCase(get()) }
 
-    factory {
-        RegisterUserUseCase(get())
-    }
+    factory { RegisterUserUseCase(get()) }
 
-    factory {
-        LogoutUserUseCase(get())
-    }
+    factory { LogoutUserUseCase(get()) }
 
 }
