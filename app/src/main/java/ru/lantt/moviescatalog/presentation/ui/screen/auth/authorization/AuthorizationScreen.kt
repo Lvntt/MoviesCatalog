@@ -21,9 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import ru.lantt.moviescatalog.R
 import ru.lantt.moviescatalog.presentation.ui.screen.common.AccentButton
 import ru.lantt.moviescatalog.presentation.ui.screen.common.SecondaryButton
-import ru.lantt.moviescatalog.presentation.ui.theme.Accent
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
-import ru.lantt.moviescatalog.presentation.ui.theme.Label_SB_17
 import ru.lantt.moviescatalog.presentation.ui.theme.Padding15
 import ru.lantt.moviescatalog.presentation.ui.theme.Padding16
 import ru.lantt.moviescatalog.presentation.ui.theme.Padding35
@@ -42,18 +40,10 @@ fun AuthorizationScreen(
             .background(Gray900)
             .padding(Padding16)
     ) {
-        Text(
-            text = stringResource(id = R.string.app_name),
-            style = Label_SB_17,
-            color = Accent,
-            modifier = Modifier.fillMaxWidth(),
-            textAlign = TextAlign.Center
-        )
-
         Box(
             modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center
-        ){
+        ) {
             Image(
                 imageVector = ImageVector.vectorResource(R.drawable.movie_night_pic),
                 contentDescription = null,
