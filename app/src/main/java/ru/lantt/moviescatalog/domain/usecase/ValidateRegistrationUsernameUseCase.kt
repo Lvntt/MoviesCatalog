@@ -2,19 +2,19 @@ package ru.lantt.moviescatalog.domain.usecase
 
 import ru.lantt.moviescatalog.domain.entity.ErrorType
 import ru.lantt.moviescatalog.domain.entity.ValidationResult
-import ru.lantt.moviescatalog.domain.util.Constants.MIN_LOGIN_LENGTH
+import ru.lantt.moviescatalog.domain.util.Constants.MIN_USERNAME_LENGTH
 
-class ValidateLoginUseCase {
+class ValidateRegistrationUsernameUseCase {
 
-    operator fun invoke(login: String): ValidationResult {
+    operator fun invoke(username: String): ValidationResult {
         when {
-            login.isEmpty() -> {
+            username.isEmpty() -> {
                 return ValidationResult(
                     isSuccessful = false,
                     errorType = ErrorType.EMPTY_FIELD
                 )
             }
-            login.length < MIN_LOGIN_LENGTH -> {
+            username.length < MIN_USERNAME_LENGTH -> {
                 return ValidationResult(
                     isSuccessful = false,
                     errorType = ErrorType.INVALID_LOGIN_LENGTH
