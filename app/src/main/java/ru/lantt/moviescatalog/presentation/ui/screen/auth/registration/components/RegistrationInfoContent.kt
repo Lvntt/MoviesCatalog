@@ -72,7 +72,7 @@ fun RegistrationInfoContent(
         AuthRegularTextField(
             label = stringResource(id = R.string.login_1),
             textFieldValue = registrationContent.login,
-            onValueChange = viewModel::setLogin,
+            onValueChange = viewModel::setUsername,
             isError = registrationContent.loginErrorId != null,
             errorId = registrationContent.loginErrorId
         )

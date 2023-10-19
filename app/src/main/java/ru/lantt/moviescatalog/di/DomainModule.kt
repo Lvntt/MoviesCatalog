@@ -7,9 +7,9 @@ import ru.lantt.moviescatalog.domain.usecase.LogoutUserUseCase
 import ru.lantt.moviescatalog.domain.usecase.RegisterUserUseCase
 import ru.lantt.moviescatalog.domain.usecase.ValidateDateOfBirthUseCase
 import ru.lantt.moviescatalog.domain.usecase.ValidateEmailUseCase
-import ru.lantt.moviescatalog.domain.usecase.ValidateLoginUseCase
+import ru.lantt.moviescatalog.domain.usecase.ValidateRegistrationUsernameUseCase
 import ru.lantt.moviescatalog.domain.usecase.ValidateNameUseCase
-import ru.lantt.moviescatalog.domain.usecase.ValidatePasswordUseCase
+import ru.lantt.moviescatalog.domain.usecase.ValidateRegistrationPasswordUseCase
 import ru.lantt.moviescatalog.domain.usecase.ValidateRepeatedPasswordUseCase
 
 fun provideDomainModule(): Module = module {
@@ -19,7 +19,7 @@ fun provideDomainModule(): Module = module {
     }
 
     factory {
-        ValidateLoginUseCase()
+        ValidateRegistrationUsernameUseCase()
     }
 
     factory {
@@ -31,7 +31,7 @@ fun provideDomainModule(): Module = module {
     }
 
     factory {
-        ValidatePasswordUseCase()
+        ValidateRegistrationPasswordUseCase()
     }
 
     factory {
