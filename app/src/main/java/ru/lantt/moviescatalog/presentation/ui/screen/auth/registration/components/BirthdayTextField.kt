@@ -37,6 +37,7 @@ import ru.lantt.moviescatalog.presentation.ui.theme.RoundedCornerRadius
 import ru.lantt.moviescatalog.presentation.ui.theme.SmallIconSize
 import ru.lantt.moviescatalog.presentation.ui.theme.Text_R_14
 import ru.lantt.moviescatalog.presentation.ui.theme.Text_R_15
+import ru.lantt.moviescatalog.presentation.ui.util.noRippleClickable
 
 @Composable
 fun BirthdayTextField(
@@ -44,7 +45,7 @@ fun BirthdayTextField(
     enabled: Boolean,
     isError: Boolean,
     errorId: Int?,
-    onCalendarClick: () -> Unit
+    onPickDate: () -> Unit
 ) {
     Column {
         Text(
@@ -69,6 +70,9 @@ fun BirthdayTextField(
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
+                            .noRippleClickable {
+                                onPickDate()
+                            }
                             .background(
                                 color = if (!isError) Gray900 else LightAccent.copy(alpha = ErrorTextFieldOpacity),
                                 shape = RoundedCornerShape(RoundedCornerRadius)
@@ -89,7 +93,7 @@ fun BirthdayTextField(
                         innerTextField()
                     }
                     IconButton(
-                        onClick = onCalendarClick
+                        onClick = onPickDate
                     ) {
                         Icon(
                             imageVector = ImageVector.vectorResource(id = R.drawable.calendar_icon),

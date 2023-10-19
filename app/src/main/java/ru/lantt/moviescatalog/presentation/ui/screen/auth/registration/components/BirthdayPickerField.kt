@@ -97,7 +97,7 @@ fun BirthdayPickerField(
         textFieldValue = textFieldValue,
         enabled = false,
         isError = isError,
-        onCalendarClick = {
+        onPickDate = {
             datePickerOpened = true
         },
         errorId = errorId
