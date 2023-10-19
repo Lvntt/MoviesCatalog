@@ -38,7 +38,11 @@ fun FilmCarousel(
     modifier: Modifier = Modifier
 ) {
     val filmCarouselItems = FilmCarouselItems.items
-    val pagerState = rememberPagerState()
+    val posterCount = filmCarouselItems.size
+    val pageCount = Int.MAX_VALUE
+    val pagerState = rememberPagerState(
+        initialPage = pageCount / 2 + 1
+    )
 
     Box(
         modifier = modifier
@@ -47,10 +51,10 @@ fun FilmCarousel(
     ) {
         HorizontalPager(
             state = pagerState,
-            pageCount = filmCarouselItems.size,
+            pageCount = pageCount,
             modifier = modifier
         ) { page ->
-            val currentFilmPoster = filmCarouselItems[page]
+            val currentFilmPoster = filmCarouselItems[page % posterCount]
 
             Image(
                 painter = painterResource(id = currentFilmPoster),
@@ -65,8 +69,8 @@ fun FilmCarousel(
         ) {
             Column {
                 CarouselPagination(
-                    pageCount = filmCarouselItems.size,
-                    selectedPage = pagerState.currentPage
+                    pageCount = posterCount,
+                    selectedPage = pagerState.currentPage % posterCount
                 )
                 Spacer(modifier = Modifier.height(10.dp))
             }
