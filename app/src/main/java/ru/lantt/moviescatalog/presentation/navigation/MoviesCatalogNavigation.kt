@@ -143,7 +143,7 @@ fun BottomNavigationBar(
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = Accent,
                     selectedTextColor = Accent,
-                    indicatorColor = Color.Transparent,
+                    indicatorColor = BottomNavigationBackground,
                     unselectedIconColor = Gray400,
                     unselectedTextColor = Gray400
                 ),
