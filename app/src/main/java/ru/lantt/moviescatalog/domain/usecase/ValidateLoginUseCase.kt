@@ -4,7 +4,7 @@ import ru.lantt.moviescatalog.domain.entity.ErrorType
 import ru.lantt.moviescatalog.domain.entity.ValidationResult
 import ru.lantt.moviescatalog.domain.util.Constants.MIN_USERNAME_LENGTH
 
-class ValidateRegistrationUsernameUseCase {
+class ValidateLoginUseCase {
 
     operator fun invoke(username: String): ValidationResult {
         when {
