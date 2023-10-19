@@ -1,29 +1,14 @@
 package ru.lantt.moviescatalog.domain.usecase
 
-import ru.lantt.moviescatalog.domain.entity.ErrorType
-import ru.lantt.moviescatalog.domain.entity.ValidationResult
+import ru.lantt.moviescatalog.domain.entity.ValidationErrorType
 
 class ValidateRepeatedPasswordUseCase {
 
-    operator fun invoke(password: String, repeatedPassword: String): ValidationResult {
-        when {
-            password.isEmpty() || repeatedPassword.isEmpty() -> {
-                return ValidationResult(
-                    isSuccessful = false,
-                    errorType = ErrorType.EMPTY_FIELD
-                )
-            }
-            password != repeatedPassword -> {
-                return ValidationResult(
-                    isSuccessful = false,
-                    errorType = ErrorType.PASSWORDS_MISMATCH
-                )
-            }
-            else -> {
-                return ValidationResult(
-                    isSuccessful = true
-                )
-            }
+    operator fun invoke(password: String, repeatedPassword: String): ValidationErrorType? {
+        return when {
+            password.isEmpty() || repeatedPassword.isEmpty() -> ValidationErrorType.EMPTY_FIELD
+            password != repeatedPassword -> ValidationErrorType.PASSWORDS_MISMATCH
+            else -> null
         }
     }
 

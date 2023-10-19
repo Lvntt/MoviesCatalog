@@ -1,6 +1,6 @@
 package ru.lantt.moviescatalog.domain.entity
 
-enum class ErrorType {
+enum class ValidationErrorType {
     EMPTY_FIELD,
     INVALID_LOGIN_LENGTH,
     INVALID_PASSWORD_LENGTH,
