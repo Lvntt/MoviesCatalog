@@ -35,7 +35,6 @@ private fun provideRetrofit(
     .baseUrl(baseUrl)
     .client(okHttpClient)
     .addConverterFactory(GsonConverterFactory.create())
-//    .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
     .build()
 
 private fun provideAuthApiService(
@@ -45,25 +44,12 @@ private fun provideAuthApiService(
 
 fun provideNetworkModule(): Module = module {
 
-    single {
-        provideRetrofit(
-            get(),
-            BASE_URL
-        )
-    }
+    single { provideRetrofit(get(), BASE_URL) }
 
-    single {
-        provideLoggingInterceptor()
-    }
+    single { provideLoggingInterceptor() }
 
-    single {
-        provideOkHttpClient(
-            get()
-        )
-    }
+    single { provideOkHttpClient(get()) }
 
-    single {
-        provideAuthApiService(get())
-    }
+    single { provideAuthApiService(get()) }
 
 }
