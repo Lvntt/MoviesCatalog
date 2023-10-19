@@ -12,13 +12,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import ru.lantt.moviescatalog.R
 import ru.lantt.moviescatalog.common.Constants
-import ru.lantt.moviescatalog.presentation.ui.theme.Accent
-import ru.lantt.moviescatalog.presentation.ui.theme.DarkGray
-import ru.lantt.moviescatalog.presentation.ui.theme.Gray
+import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
 import java.util.Calendar
 
 // TODO change colors
@@ -64,24 +61,7 @@ fun BirthdayPickerField(
                 }
             },
             colors = DatePickerDefaults.colors(
-                titleContentColor = Color.White,
-                headlineContentColor = Color.White,
-                weekdayContentColor = Color.White,
-                subheadContentColor = Color.White,
-                yearContentColor = Color.White,
-                currentYearContentColor = Color.White,
-                selectedYearContentColor = Color.White,
-                selectedYearContainerColor = Accent,
-                dayContentColor = Color.White,
-                disabledDayContentColor = DarkGray,
-                selectedDayContentColor = Color.White,
-                selectedDayContainerColor = Accent,
-                disabledSelectedDayContainerColor = Gray,
-                disabledSelectedDayContentColor = DarkGray,
-                todayContentColor = Accent,
-                todayDateBorderColor = Accent,
-                dayInSelectionRangeContainerColor = DarkGray,
-                dayInSelectionRangeContentColor = Color.White
+                containerColor = Gray900
             )
         ) {
             DatePicker(
