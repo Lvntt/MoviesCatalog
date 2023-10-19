@@ -10,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import ru.lantt.moviescatalog.common.Constants
-import ru.lantt.moviescatalog.domain.entity.ErrorType
+import ru.lantt.moviescatalog.domain.entity.ValidationErrorType
 import ru.lantt.moviescatalog.domain.entity.Gender
 import ru.lantt.moviescatalog.domain.entity.UserRegisterModel
 import ru.lantt.moviescatalog.domain.usecase.RegisterUserUseCase
@@ -56,11 +56,11 @@ class RegistrationViewModel(
         RegistrationUiState.Initial
     )
 
-    private fun getErrorDescription(errorType: ErrorType?): Int? {
-        if (errorType == null) {
+    private fun getErrorDescription(validationErrorType: ValidationErrorType?): Int? {
+        if (validationErrorType == null) {
             return null
         }
-        return ErrorTypeToStringRes.errors[errorType]
+        return ErrorTypeToStringRes.errors[validationErrorType]
     }
 
     private fun getFormattedDate(dateOfBirthMillis: Long?): String {
@@ -94,7 +94,7 @@ class RegistrationViewModel(
 
     fun setName(name: String) {
         val validationResult = validateNameUseCase(name)
-        val errorDescriptionId = getErrorDescription(validationResult.errorType)
+        val errorDescriptionId = getErrorDescription(validationResult)
         _registrationContent.value = _registrationContent.value.copy(
             name = name,
             nameErrorId = errorDescriptionId
@@ -110,7 +110,7 @@ class RegistrationViewModel(
 
     fun setUsername(username: String) {
         val validationResult = validateLoginUseCase(username)
-        val errorDescriptionId = getErrorDescription(validationResult.errorType)
+        val errorDescriptionId = getErrorDescription(validationResult)
         _registrationContent.value = _registrationContent.value.copy(
             login = username,
             loginErrorId = errorDescriptionId
@@ -119,7 +119,7 @@ class RegistrationViewModel(
 
     fun setEmail(email: String) {
         val validationResult = validateEmailUseCase(email)
-        val errorDescriptionId = getErrorDescription(validationResult.errorType)
+        val errorDescriptionId = getErrorDescription(validationResult)
         _registrationContent.value = _registrationContent.value.copy(
             email = email,
             emailErrorId = errorDescriptionId
@@ -128,7 +128,7 @@ class RegistrationViewModel(
 
     fun setDateOfBirth(dateOfBirthMillis: Long) {
         val validationResult = validateDateOfBirthUseCase(dateOfBirthMillis)
-        val errorDescriptionId = getErrorDescription(validationResult.errorType)
+        val errorDescriptionId = getErrorDescription(validationResult)
         _registrationContent.value = _registrationContent.value.copy(
             dateOfBirth = getFormattedDate(dateOfBirthMillis),
             dateOfBirthMillis = dateOfBirthMillis,
@@ -138,7 +138,7 @@ class RegistrationViewModel(
 
     fun setPassword(password: String) {
         val validationResult = validatePasswordUseCase(password)
-        val errorDescriptionId = getErrorDescription(validationResult.errorType)
+        val errorDescriptionId = getErrorDescription(validationResult)
         _registrationContent.value = _registrationContent.value.copy(
             password = password,
             passwordErrorId = errorDescriptionId
@@ -148,7 +148,7 @@ class RegistrationViewModel(
     fun setRepeatedPassword(repeatedPassword: String) {
         val password = _registrationContent.value.password
         val validationResult = validateRepeatedPasswordUseCase(password, repeatedPassword)
-        val errorDescriptionId = getErrorDescription(validationResult.errorType)
+        val errorDescriptionId = getErrorDescription(validationResult)
         _registrationContent.value = _registrationContent.value.copy(
             repeatedPassword = repeatedPassword,
             repeatedPasswordErrorId = errorDescriptionId
