@@ -4,7 +4,7 @@ import ru.lantt.moviescatalog.domain.entity.ErrorType
 import ru.lantt.moviescatalog.domain.entity.ValidationResult
 import ru.lantt.moviescatalog.domain.util.Constants.MIN_PASSWORD_LENGTH
 
-class ValidateRegistrationPasswordUseCase {
+class ValidatePasswordUseCase {
 
     operator fun invoke(password: String): ValidationResult {
         when {

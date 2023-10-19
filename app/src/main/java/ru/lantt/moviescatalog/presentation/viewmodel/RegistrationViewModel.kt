@@ -16,9 +16,9 @@ import ru.lantt.moviescatalog.domain.entity.UserRegisterModel
 import ru.lantt.moviescatalog.domain.usecase.RegisterUserUseCase
 import ru.lantt.moviescatalog.domain.usecase.ValidateDateOfBirthUseCase
 import ru.lantt.moviescatalog.domain.usecase.ValidateEmailUseCase
-import ru.lantt.moviescatalog.domain.usecase.ValidateRegistrationUsernameUseCase
+import ru.lantt.moviescatalog.domain.usecase.ValidateLoginUseCase
 import ru.lantt.moviescatalog.domain.usecase.ValidateNameUseCase
-import ru.lantt.moviescatalog.domain.usecase.ValidateRegistrationPasswordUseCase
+import ru.lantt.moviescatalog.domain.usecase.ValidatePasswordUseCase
 import ru.lantt.moviescatalog.domain.usecase.ValidateRepeatedPasswordUseCase
 import ru.lantt.moviescatalog.presentation.common.ErrorCodes
 import ru.lantt.moviescatalog.presentation.mapper.ErrorTypeToStringRes
@@ -32,10 +32,10 @@ import java.util.TimeZone
 
 class RegistrationViewModel(
     private val validateNameUseCase: ValidateNameUseCase,
-    private val validateRegistrationUsernameUseCase: ValidateRegistrationUsernameUseCase,
+    private val validateLoginUseCase: ValidateLoginUseCase,
     private val validateEmailUseCase: ValidateEmailUseCase,
     private val validateDateOfBirthUseCase: ValidateDateOfBirthUseCase,
-    private val validateRegistrationPasswordUseCase: ValidateRegistrationPasswordUseCase,
+    private val validatePasswordUseCase: ValidatePasswordUseCase,
     private val validateRepeatedPasswordUseCase: ValidateRepeatedPasswordUseCase,
     private val registerUserUseCase: RegisterUserUseCase
 ) : ViewModel() {
@@ -109,7 +109,7 @@ class RegistrationViewModel(
     }
 
     fun setUsername(username: String) {
-        val validationResult = validateRegistrationUsernameUseCase(username)
+        val validationResult = validateLoginUseCase(username)
         val errorDescriptionId = getErrorDescription(validationResult.errorType)
         _registrationContent.value = _registrationContent.value.copy(
             login = username,
@@ -137,7 +137,7 @@ class RegistrationViewModel(
     }
 
     fun setPassword(password: String) {
-        val validationResult = validateRegistrationPasswordUseCase(password)
+        val validationResult = validatePasswordUseCase(password)
         val errorDescriptionId = getErrorDescription(validationResult.errorType)
         _registrationContent.value = _registrationContent.value.copy(
             password = password,
