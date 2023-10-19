@@ -1,31 +1,15 @@
 package ru.lantt.moviescatalog.domain.usecase
 
 import android.util.Patterns
-import ru.lantt.moviescatalog.domain.entity.ErrorType
-import ru.lantt.moviescatalog.domain.entity.ValidationResult
+import ru.lantt.moviescatalog.domain.entity.ValidationErrorType
 
 class ValidateEmailUseCase {
 
-    operator fun invoke(email: String): ValidationResult {
-
-        when {
-            email.isEmpty() -> {
-                return ValidationResult(
-                    isSuccessful = false,
-                    errorType = ErrorType.EMPTY_FIELD
-                )
-            }
-            !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
-                return ValidationResult(
-                    isSuccessful = false,
-                    errorType = ErrorType.INVALID_EMAIL
-                )
-            }
-            else -> {
-                return ValidationResult(
-                    isSuccessful = true
-                )
-            }
+    operator fun invoke(email: String): ValidationErrorType? {
+        return when {
+            email.isEmpty() -> ValidationErrorType.EMPTY_FIELD
+            !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> ValidationErrorType.INVALID_EMAIL
+            else -> null
         }
     }
 
