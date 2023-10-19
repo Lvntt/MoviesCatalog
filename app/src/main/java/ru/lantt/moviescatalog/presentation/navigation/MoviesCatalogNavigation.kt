@@ -28,6 +28,7 @@ import ru.lantt.moviescatalog.presentation.ui.theme.Accent
 import ru.lantt.moviescatalog.presentation.ui.theme.BottomNavigationBackground
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray400
 import ru.lantt.moviescatalog.presentation.ui.theme.Label_R_11
+import ru.lantt.moviescatalog.presentation.ui.util.NoRippleInteractionSource
 
 object MoviesCatalogDestinations {
     const val AUTHORIZATION = "authorization"
@@ -150,7 +151,8 @@ fun BottomNavigationBar(
                     indicatorColor = BottomNavigationBackground,
                     unselectedIconColor = Gray400,
                     unselectedTextColor = Gray400
-                )
+                ),
+                interactionSource = NoRippleInteractionSource()
             )
         }
     }
