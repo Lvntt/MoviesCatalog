@@ -20,12 +20,8 @@ private fun provideAuthRepository(
 
 fun provideDataModule(): Module = module {
 
-    single {
-        provideTokenDataSource(androidContext().applicationContext)
-    }
+    single { provideTokenDataSource(androidContext().applicationContext) }
 
-    single {
-        provideAuthRepository(get(), get())
-    }
+    single { provideAuthRepository(get(), get()) }
 
 }

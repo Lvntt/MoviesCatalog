@@ -85,12 +85,7 @@ fun MoviesCatalogNavigation(
             )
         }
         composable(MoviesCatalogDestinations.MAIN) {
-            MainScreen()
-        }
-        composable(MoviesCatalogDestinations.MAIN) {
-            // MainScreen
-            TestScreen(
-                color = Color.Magenta,
+            MainScreen(
                 navController = navController
             )
         }
@@ -148,7 +143,7 @@ fun BottomNavigationBar(
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = Accent,
                     selectedTextColor = Accent,
-                    indicatorColor = BottomNavigationBackground,
+                    indicatorColor = Color.Transparent,
                     unselectedIconColor = Gray400,
                     unselectedTextColor = Gray400
                 ),

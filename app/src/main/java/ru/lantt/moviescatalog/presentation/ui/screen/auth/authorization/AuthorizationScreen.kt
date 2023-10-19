@@ -24,8 +24,8 @@ import ru.lantt.moviescatalog.presentation.ui.screen.common.SecondaryButton
 import ru.lantt.moviescatalog.presentation.ui.theme.Accent
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
 import ru.lantt.moviescatalog.presentation.ui.theme.Label_SB_17
-import ru.lantt.moviescatalog.presentation.ui.theme.Padding15
-import ru.lantt.moviescatalog.presentation.ui.theme.Padding16
+import ru.lantt.moviescatalog.presentation.ui.theme.DefaultPaddingBetweenElements
+import ru.lantt.moviescatalog.presentation.ui.theme.PaddingMedium
 import ru.lantt.moviescatalog.presentation.ui.theme.Padding35
 import ru.lantt.moviescatalog.presentation.ui.theme.Text_R_15
 import ru.lantt.moviescatalog.presentation.ui.theme.Title_2_B_20
@@ -40,7 +40,7 @@ fun AuthorizationScreen(
         modifier = modifier
             .fillMaxSize()
             .background(Gray900)
-            .padding(Padding16)
+            .padding(PaddingMedium)
     ) {
         Text(
             text = stringResource(id = R.string.app_name),
@@ -86,7 +86,7 @@ fun AuthorizationScreen(
             text = stringResource(id = R.string.registration)
         )
 
-        Spacer(modifier = Modifier.height(Padding15))
+        Spacer(modifier = Modifier.height(DefaultPaddingBetweenElements))
 
         SecondaryButton(
             modifier = modifier.fillMaxWidth(),

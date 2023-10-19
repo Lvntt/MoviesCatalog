@@ -20,7 +20,7 @@ private fun provideLoggingInterceptor(): HttpLoggingInterceptor =
 
 private fun provideOkHttpClient(
     loggingInterceptor: HttpLoggingInterceptor
-) =
+): OkHttpClient =
     OkHttpClient.Builder()
         .addInterceptor(loggingInterceptor)
         .connectTimeout(CONNECT_TIMEOUT_SEC, TimeUnit.SECONDS)
@@ -31,11 +31,11 @@ private fun provideOkHttpClient(
 private fun provideRetrofit(
     okHttpClient: OkHttpClient,
     baseUrl: String
-): Retrofit = Retrofit.Builder()
+): Retrofit =
+    Retrofit.Builder()
     .baseUrl(baseUrl)
     .client(okHttpClient)
     .addConverterFactory(GsonConverterFactory.create())
-//    .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
     .build()
 
 private fun provideAuthApiService(
@@ -45,25 +45,12 @@ private fun provideAuthApiService(
 
 fun provideNetworkModule(): Module = module {
 
-    single {
-        provideRetrofit(
-            get(),
-            BASE_URL
-        )
-    }
+    single { provideRetrofit(get(), BASE_URL) }
 
-    single {
-        provideLoggingInterceptor()
-    }
+    single { provideLoggingInterceptor() }
 
-    single {
-        provideOkHttpClient(
-            get()
-        )
-    }
+    single { provideOkHttpClient(get()) }
 
-    single {
-        provideAuthApiService(get())
-    }
+    single { provideAuthApiService(get()) }
 
 }
