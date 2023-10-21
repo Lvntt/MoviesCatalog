@@ -62,6 +62,7 @@ dependencies {
     val gsonConverterVersion = "2.9.0"
     val securityVersion = "1.1.0-alpha06"
     val loggingInterceptorVersion = "3.9.0"
+    val coilVersion = "2.4.0"
 
     val navigationCompose = "androidx.navigation:navigation-compose:$navigationVersion"
     val accompanist = "com.google.accompanist:accompanist-systemuicontroller:$accompanistVersion"
@@ -74,6 +75,7 @@ dependencies {
     val gsonConverter = "com.squareup.retrofit2:converter-gson:$gsonConverterVersion"
     val security = "androidx.security:security-crypto:$securityVersion"
     val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$loggingInterceptorVersion"
+    val coil = "io.coil-kt:coil-compose:$coilVersion"
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
@@ -95,6 +97,7 @@ dependencies {
     implementation(gsonConverter)
     implementation(security)
     implementation(loggingInterceptor)
+    implementation(coil)
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
