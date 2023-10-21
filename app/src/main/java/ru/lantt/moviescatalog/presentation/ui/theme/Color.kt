@@ -2,14 +2,6 @@ package ru.lantt.moviescatalog.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
-
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
-
 val Gray900 = Color(0xFF1D1D1D)
 val Gray750 = Color(0xFF404040)
 val Gray400 = Color(0xFF909499)
@@ -22,3 +14,10 @@ val LightAccent = Color(0xFFE64646)
 val Main = Color(0xFF292929)
 val BorderDefault = Color(0xFF5E5E5E)
 val BottomNavigationBackground = Color(0xFF161616)
+
+val Red = Color(0xFFE64646)
+val Fire = Color(0xFFF05C44)
+val Orange = Color(0xFFFFA000)
+val Yellow = Color(0xFFFFD54F)
+val LightGreen = Color(0xFFA3CD4A)
+val Green = Color(0xFF4BB34B)

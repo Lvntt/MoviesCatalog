@@ -51,3 +51,27 @@ val Label_R_11 = TextStyle(
     fontWeight = FontWeight.Normal,
     fontSize = 11.sp
 )
+
+val Label_B_16 = TextStyle(
+    fontFamily = Inter,
+    fontWeight = FontWeight.Bold,
+    fontSize = 16.sp
+)
+
+val Label_R_12 = TextStyle(
+    fontFamily = Inter,
+    fontWeight = FontWeight.Normal,
+    fontSize = 12.sp
+)
+
+val Label_R_13 = TextStyle(
+    fontFamily = Inter,
+    fontWeight = FontWeight.Normal,
+    fontSize = 13.sp
+)
+
+val Title_B_24 = TextStyle(
+    fontFamily = Inter,
+    fontWeight = FontWeight.Bold,
+    fontSize = 24.sp
+)

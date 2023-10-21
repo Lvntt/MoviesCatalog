@@ -8,9 +8,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import ru.lantt.moviescatalog.data.datasource.MockMovieSource
 import ru.lantt.moviescatalog.presentation.navigation.BottomNavItems
 import ru.lantt.moviescatalog.presentation.navigation.BottomNavigationBar
-import ru.lantt.moviescatalog.presentation.ui.screen.main.components.FilmCarousel
+import ru.lantt.moviescatalog.presentation.ui.screen.main.components.MovieCatalog
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
 
 @Composable
@@ -35,7 +36,7 @@ fun MainScreen(
                 .background(Gray900)
                 .padding(paddingValues)
         ) {
-            FilmCarousel()
+            MovieCatalog(movies = MockMovieSource.movies)
         }
     }
 }
