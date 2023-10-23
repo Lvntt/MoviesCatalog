@@ -23,10 +23,12 @@ class MoviesPagingSource(
         return try {
             val page = params.key ?: 0
             val response = getMoviesUseCase(page + 1)
+            // TODO add use case to check user existence, get it from the net if it does not exist
+            // TODO remove fetching user id from the net from VM
             val userId = getUserIdFromLocalStorageUseCase()
             var reviewRating: Int?
 
-            response.forEach {  movie ->
+            response.forEach { movie ->
                 val movieDetails = getMovieDetailsUseCase(movie.id)
                 reviewRating = movieDetails.reviews.find { it.author?.userId == userId }?.rating
                 movie.reviewRating = reviewRating

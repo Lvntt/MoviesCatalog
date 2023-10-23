@@ -4,6 +4,6 @@ import ru.lantt.moviescatalog.domain.entity.Profile
 
 interface UserRepository {
 
-    suspend fun getUserProfile(): Profile
+    suspend fun getAndSaveUserProfile(): Profile
 
 }

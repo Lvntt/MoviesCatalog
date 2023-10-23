@@ -1,15 +1,11 @@
 package ru.lantt.moviescatalog.presentation.ui.screen.main.components
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -19,18 +15,27 @@ import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 import ru.lantt.moviescatalog.R
 import ru.lantt.moviescatalog.domain.entity.Movie
+import ru.lantt.moviescatalog.presentation.ui.screen.common.ErrorItem
+import ru.lantt.moviescatalog.presentation.ui.screen.common.LoadingItem
 import ru.lantt.moviescatalog.presentation.ui.theme.DefaultPaddingBetweenElements
-import ru.lantt.moviescatalog.presentation.ui.theme.Label_B_16
 import ru.lantt.moviescatalog.presentation.ui.theme.PaddingMedium
 import ru.lantt.moviescatalog.presentation.ui.theme.Title_B_24
+
+private const val CAROUSEL_SIZE = 4
 
 @Composable
 fun MovieCatalog(
     movies: LazyPagingItems<Movie>
 ) {
+    if (movies.itemCount < CAROUSEL_SIZE) return
+    val carouselMovies = mutableListOf<Movie>()
+    repeat(CAROUSEL_SIZE) { index ->
+        movies[index]?.let { carouselMovies.add(it) }
+    }
+
     LazyColumn {
         item {
-            FilmCarousel()
+            FilmCarousel(movies = carouselMovies)
         }
 
         item {
@@ -51,11 +56,11 @@ fun MovieCatalog(
         }
 
         items(
-            count = movies.itemCount,
+            count = movies.itemCount - CAROUSEL_SIZE,
             key = movies.itemKey { it.id },
             contentType = movies.itemContentType { "Movie" }
         ) {
-            movies[it]?.let { movie ->
+            movies[it + CAROUSEL_SIZE]?.let { movie ->
                 MovieCard(
                     movie = movie,
                     modifier = Modifier.padding(horizontal = PaddingMedium)
@@ -71,22 +76,4 @@ fun MovieCatalog(
             is LoadState.NotLoading -> Unit
         }
     }
-}
-
-@Composable
-private fun LoadingItem() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        CircularProgressIndicator(modifier = Modifier.padding(PaddingMedium))
-    }
-}
-
-@Composable
-private fun ErrorItem() {
-    Text(
-        text = stringResource(id = R.string.an_error_occurred),
-        style = Label_B_16
-    )
 }

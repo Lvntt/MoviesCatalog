@@ -22,11 +22,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import ru.lantt.moviescatalog.R
+import ru.lantt.moviescatalog.domain.entity.Movie
 import ru.lantt.moviescatalog.presentation.ui.theme.CarouselImageHeight
 import ru.lantt.moviescatalog.presentation.ui.theme.LargeRoundedCornerRadius
 import ru.lantt.moviescatalog.presentation.ui.theme.PaddingSmall
@@ -35,10 +37,10 @@ import ru.lantt.moviescatalog.presentation.ui.theme.TinyIconSize
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun FilmCarousel(
+    movies: List<Movie>,
     modifier: Modifier = Modifier
 ) {
-    val filmCarouselItems = FilmCarouselItems.items
-    val posterCount = filmCarouselItems.size
+    val posterCount = movies.size
     val pageCount = Int.MAX_VALUE
     val pagerState = rememberPagerState(
         initialPage = pageCount / 2 + 1,
@@ -56,13 +58,16 @@ fun FilmCarousel(
             state = pagerState,
             modifier = modifier
         ) { page ->
-            val currentFilmPoster = filmCarouselItems[page % posterCount]
+            val currentFilmPoster = movies[page % posterCount]
 
-            Image(
-                painter = painterResource(id = currentFilmPoster),
+            AsyncImage(
+                model = ImageRequest.Builder(context = LocalContext.current)
+                    .data(currentFilmPoster.poster)
+                    .crossfade(true)
+                    .build(),
+                contentDescription = null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize(),
-                contentDescription = null
+                modifier = Modifier.fillMaxSize()
             )
         }
         Box(
@@ -108,19 +113,4 @@ fun CarouselPagination(
             }
         }
     }
-}
-
-private object FilmCarouselItems {
-    val items = listOf(
-        R.drawable.carousel_poster_1,
-        R.drawable.carousel_poster_2,
-        R.drawable.carousel_poster_3,
-        R.drawable.carousel_poster_4
-    )
-}
-
-@Preview
-@Composable
-fun FilmCarouselPreview() {
-    FilmCarousel()
 }

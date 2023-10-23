@@ -10,7 +10,7 @@ class UserRepositoryImpl(
     private val userDataSource: UserDataSource
 ) : UserRepository {
 
-    override suspend fun getUserProfile(): Profile {
+    override suspend fun getAndSaveUserProfile(): Profile {
         val userProfile = userApiService.getUserProfile()
         userDataSource.saveUserId(userProfile.id)
         return userProfile
