@@ -2,7 +2,7 @@ package ru.lantt.moviescatalog.data.datasource
 
 import ru.lantt.moviescatalog.domain.entity.Genre
 import ru.lantt.moviescatalog.domain.entity.Movie
-import ru.lantt.moviescatalog.domain.entity.Review
+import ru.lantt.moviescatalog.domain.entity.ReviewShort
 
 // TODO to be removed
 object MockMovieSource {
@@ -41,31 +41,32 @@ object MockMovieSource {
                 ),
             ),
             reviews = listOf(
-                Review(
+                ReviewShort(
                     id = "1cd372ad-8f1d-43b5-4770-08daaed03975",
                     rating = 5
                 ),
-                Review(
+                ReviewShort(
                     id = "bcb55c07-af12-460d-dd75-08dab56fc68b",
                     rating = 10
                 ),
-                Review(
+                ReviewShort(
                     id = "1cd372ad-8f1d-43b5-4770-08daaed03975",
                     rating = 5
                 ),
-                Review(
+                ReviewShort(
                     id = "bcb55c07-af12-460d-dd75-08dab56fc68b",
                     rating = 10
                 ),
-                Review(
+                ReviewShort(
                     id = "1cd372ad-8f1d-43b5-4770-08daaed03975",
                     rating = 5
                 ),
-                Review(
+                ReviewShort(
                     id = "bcb55c07-af12-460d-dd75-08dab56fc68b",
                     rating = 10
                 ),
             ),
+            rating = 9.5,
             reviewRating = 10
         ),
         Movie(
@@ -100,32 +101,33 @@ object MockMovieSource {
                 ),
             ),
             reviews = listOf(
-                Review(
+                ReviewShort(
                     id = "1cd372ad-8f1d-43b5-4770-08daaed03975",
                     rating = 5
                 ),
-                Review(
+                ReviewShort(
                     id = "bcb55c07-af12-460d-dd75-08dab56fc68b",
                     rating = 10
                 ),
-                Review(
+                ReviewShort(
                     id = "1cd372ad-8f1d-43b5-4770-08daaed03975",
                     rating = 5
                 ),
-                Review(
+                ReviewShort(
                     id = "bcb55c07-af12-460d-dd75-08dab56fc68b",
                     rating = 10
                 ),
-                Review(
+                ReviewShort(
                     id = "1cd372ad-8f1d-43b5-4770-08daaed03975",
                     rating = 5
                 ),
-                Review(
+                ReviewShort(
                     id = "bcb55c07-af12-460d-dd75-08dab56fc68b",
                     rating = 10
                 ),
             ),
-            reviewRating = 8
+            rating = null,
+            reviewRating = null
         )
     )
 

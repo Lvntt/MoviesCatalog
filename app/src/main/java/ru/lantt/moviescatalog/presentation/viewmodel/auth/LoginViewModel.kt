@@ -1,4 +1,4 @@
-package ru.lantt.moviescatalog.presentation.viewmodel
+package ru.lantt.moviescatalog.presentation.viewmodel.auth
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
