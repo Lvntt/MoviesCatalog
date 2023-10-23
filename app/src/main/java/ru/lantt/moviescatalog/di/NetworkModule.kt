@@ -17,6 +17,10 @@ import ru.lantt.moviescatalog.data.network.api.MovieApiService
 import ru.lantt.moviescatalog.data.network.api.UserApiService
 import ru.lantt.moviescatalog.data.network.interceptor.AuthInterceptor
 import ru.lantt.moviescatalog.data.network.mapper.MovieNetworkMapper
+import ru.lantt.moviescatalog.di.Labels.REGULAR_HTTP_CLIENT_LABEL
+import ru.lantt.moviescatalog.di.Labels.REGULAR_RETROFIT_LABEL
+import ru.lantt.moviescatalog.di.Labels.TOKEN_HTTP_CLIENT_LABEL
+import ru.lantt.moviescatalog.di.Labels.TOKEN_RETROFIT_LABEL
 import java.util.concurrent.TimeUnit
 
 private fun provideLoggingInterceptor(): HttpLoggingInterceptor =
@@ -81,24 +85,23 @@ private fun provideUserApiService(
 
 fun provideNetworkModule(): Module = module {
 
-    // TODO labels to constants
-    single(named("RegularRetrofit")) { provideRetrofit(get(named("RegularHttpClient")), BASE_URL) }
+    single(named(REGULAR_RETROFIT_LABEL)) { provideRetrofit(get(named(REGULAR_HTTP_CLIENT_LABEL)), BASE_URL) }
 
-    single(named("TokenRetrofit")) { provideRetrofit(get(named("TokenHttpClient")), BASE_URL) }
+    single(named(TOKEN_RETROFIT_LABEL)) { provideRetrofit(get(named(TOKEN_HTTP_CLIENT_LABEL)), BASE_URL) }
 
     single { provideLoggingInterceptor() }
 
     single { provideAuthInterceptor(get()) }
 
-    single(named("RegularHttpClient")) { provideOkHttpClient(get()) }
+    single(named(REGULAR_HTTP_CLIENT_LABEL)) { provideOkHttpClient(get()) }
 
-    single(named("TokenHttpClient")) { provideTokenOkHttpClient(get(), get()) }
+    single(named(TOKEN_HTTP_CLIENT_LABEL)) { provideTokenOkHttpClient(get(), get()) }
 
-    single { provideAuthApiService(get(named("RegularRetrofit"))) }
+    single { provideAuthApiService(get(named(REGULAR_RETROFIT_LABEL))) }
 
-    single { provideMovieApiService(get(named("RegularRetrofit"))) }
+    single { provideMovieApiService(get(named(REGULAR_RETROFIT_LABEL))) }
 
-    single { provideUserApiService(get(named("TokenRetrofit"))) }
+    single { provideUserApiService(get(named(TOKEN_RETROFIT_LABEL))) }
 
     single { provideMovieNetworkMapper() }
 

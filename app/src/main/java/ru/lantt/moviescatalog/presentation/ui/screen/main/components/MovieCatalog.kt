@@ -71,14 +71,6 @@ fun MovieCatalog(
             is LoadState.NotLoading -> Unit
         }
     }
-
-    when (movies.loadState.refresh) {
-        // TODO Error screen
-        is LoadState.Error -> Unit
-        // TODO Loading screen
-        is LoadState.Loading -> Unit
-        is LoadState.NotLoading -> Unit
-    }
 }
 
 @Composable

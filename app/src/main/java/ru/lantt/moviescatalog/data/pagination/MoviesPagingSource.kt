@@ -1,4 +1,4 @@
-package ru.lantt.moviescatalog.presentation.pagination
+package ru.lantt.moviescatalog.data.pagination
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState

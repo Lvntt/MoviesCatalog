@@ -16,7 +16,7 @@ import ru.lantt.moviescatalog.domain.usecase.GetMovieDetailsUseCase
 import ru.lantt.moviescatalog.domain.usecase.GetMoviesUseCase
 import ru.lantt.moviescatalog.domain.usecase.GetUserIdFromLocalStorageUseCase
 import ru.lantt.moviescatalog.domain.usecase.GetUserProfileUseCase
-import ru.lantt.moviescatalog.presentation.pagination.MoviesPagingSource
+import ru.lantt.moviescatalog.data.pagination.MoviesPagingSource
 import ru.lantt.moviescatalog.presentation.uistate.main.MainUiState
 
 class MainScreenViewModel(
@@ -34,7 +34,7 @@ class MainScreenViewModel(
     }
 
     // TODO 6 to constants
-    val movies: Flow<PagingData<Movie>> = Pager(PagingConfig(pageSize = 6)) {
+    val movies: Flow<PagingData<Movie>> = Pager(PagingConfig(pageSize = PAGE_SIZE)) {
         MoviesPagingSource(
             getMoviesUseCase = getMoviesUseCase,
             getUserIdFromLocalStorageUseCase = getUserIdFromLocalStorageUseCase,
@@ -47,5 +47,9 @@ class MainScreenViewModel(
     private val _mainUiState: MutableState<MainUiState> = mutableStateOf(
         MainUiState.Initial
     )
+
+    private companion object {
+        const val PAGE_SIZE = 6
+    }
 
 }
