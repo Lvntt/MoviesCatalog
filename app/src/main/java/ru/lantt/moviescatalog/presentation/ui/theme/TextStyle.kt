@@ -75,3 +75,9 @@ val Title_B_24 = TextStyle(
     fontWeight = FontWeight.Bold,
     fontSize = 24.sp
 )
+
+val Label_B_13 = TextStyle(
+    fontFamily = Inter,
+    fontWeight = FontWeight.Bold,
+    fontSize = 13.sp
+)

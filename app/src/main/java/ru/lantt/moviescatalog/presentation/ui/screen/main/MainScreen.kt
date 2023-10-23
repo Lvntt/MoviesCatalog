@@ -8,17 +8,22 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import ru.lantt.moviescatalog.data.datasource.MockMovieSource
+import androidx.paging.compose.collectAsLazyPagingItems
+import org.koin.androidx.compose.koinViewModel
 import ru.lantt.moviescatalog.presentation.navigation.BottomNavItems
 import ru.lantt.moviescatalog.presentation.navigation.BottomNavigationBar
 import ru.lantt.moviescatalog.presentation.ui.screen.main.components.MovieCatalog
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
+import ru.lantt.moviescatalog.presentation.viewmodel.main.MainScreenViewModel
 
 @Composable
 fun MainScreen(
     navController: NavController,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: MainScreenViewModel = koinViewModel()
 ) {
+    val movies = viewModel.movies.collectAsLazyPagingItems()
+
     Scaffold(
         bottomBar = {
             BottomNavigationBar(
@@ -36,7 +41,7 @@ fun MainScreen(
                 .background(Gray900)
                 .padding(paddingValues)
         ) {
-            MovieCatalog(movies = MockMovieSource.movies)
+            MovieCatalog(movies = movies)
         }
     }
 }

@@ -32,7 +32,7 @@ import ru.lantt.moviescatalog.presentation.ui.theme.PaddingSmall
 import ru.lantt.moviescatalog.presentation.ui.theme.Text_R_14
 import ru.lantt.moviescatalog.presentation.ui.theme.Title_2_B_20
 import ru.lantt.moviescatalog.presentation.uistate.auth.register.RegistrationUiState
-import ru.lantt.moviescatalog.presentation.viewmodel.RegistrationViewModel
+import ru.lantt.moviescatalog.presentation.viewmodel.auth.RegistrationViewModel
 
 @Composable
 fun RegistrationPasswordContent(

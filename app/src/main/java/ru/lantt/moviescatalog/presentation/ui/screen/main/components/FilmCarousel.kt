@@ -41,8 +41,11 @@ fun FilmCarousel(
     val posterCount = filmCarouselItems.size
     val pageCount = Int.MAX_VALUE
     val pagerState = rememberPagerState(
-        initialPage = pageCount / 2 + 1
-    )
+        initialPage = pageCount / 2 + 1,
+        initialPageOffsetFraction = 0f
+    ) {
+        pageCount
+    }
 
     Box(
         modifier = modifier
@@ -51,7 +54,6 @@ fun FilmCarousel(
     ) {
         HorizontalPager(
             state = pagerState,
-            pageCount = pageCount,
             modifier = modifier
         ) { page ->
             val currentFilmPoster = filmCarouselItems[page % posterCount]

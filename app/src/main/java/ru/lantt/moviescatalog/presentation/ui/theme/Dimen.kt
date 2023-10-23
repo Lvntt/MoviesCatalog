@@ -20,6 +20,7 @@ val RoundedCornerRadius = 10.dp
 val LargeRoundedCornerRadius = 28.dp
 val ReviewRatingRoundedCornerRadius = 35.dp
 val GenreRoundedCornerRadius = 5.dp
+val RatingRoundedCornerRadius = 5.dp
 
 val BorderSize = 1.dp
 val IconPadding = Padding12 * 3.5f

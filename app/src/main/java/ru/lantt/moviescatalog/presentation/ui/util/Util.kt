@@ -20,7 +20,7 @@ fun Modifier.noRippleClickable(onClick: () -> Unit): Modifier = composed {
     }
 }
 
-fun getReviewRatingColor(reviewRating: Int): Color {
+fun getRatingColor(reviewRating: Double): Color {
     return when {
         reviewRating >= 9 -> Green
         reviewRating >= 8 -> LightGreen

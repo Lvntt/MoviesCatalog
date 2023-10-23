@@ -11,9 +11,13 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import ru.lantt.moviescatalog.presentation.ui.theme.MovieCardImageHeight
 import ru.lantt.moviescatalog.presentation.ui.theme.MovieCardImageWidth
+import ru.lantt.moviescatalog.presentation.ui.util.getRatingColor
 
 @Composable
-fun MovieCardImage(imageUrl: String) {
+fun MovieCardImage(
+    rating: Double?,
+    imageUrl: String
+) {
     Box(
         modifier = Modifier
             .width(MovieCardImageWidth)
@@ -27,5 +31,13 @@ fun MovieCardImage(imageUrl: String) {
             contentDescription = null,
             contentScale = ContentScale.Crop
         )
+        if (rating != null) {
+            val ratingColor = getRatingColor(rating)
+
+            MovieCardRating(
+                ratingColor = ratingColor,
+                rating = rating
+            )
+        }
     }
 }

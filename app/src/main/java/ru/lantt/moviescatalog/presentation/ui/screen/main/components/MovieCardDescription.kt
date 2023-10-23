@@ -20,8 +20,7 @@ import ru.lantt.moviescatalog.presentation.ui.theme.PaddingTiny
 @Composable
 fun MovieCardDescription(
     name: String,
-    reviewRatingColor: Color,
-    reviewRating: String,
+    reviewRating: Int?,
     year: String,
     country: String,
     genres: List<Genre>,
@@ -43,7 +42,6 @@ fun MovieCardDescription(
             Spacer(modifier = Modifier.width(MovieCardRegularPadding))
 
             MovieCardReviewRating(
-                reviewRatingColor = reviewRatingColor,
                 reviewRating = reviewRating
             )
         }

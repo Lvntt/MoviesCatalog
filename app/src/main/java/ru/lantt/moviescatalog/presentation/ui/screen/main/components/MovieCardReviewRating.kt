@@ -19,12 +19,15 @@ import ru.lantt.moviescatalog.R
 import ru.lantt.moviescatalog.presentation.ui.theme.Label_M_15
 import ru.lantt.moviescatalog.presentation.ui.theme.PaddingTiny
 import ru.lantt.moviescatalog.presentation.ui.theme.ReviewRatingRoundedCornerRadius
+import ru.lantt.moviescatalog.presentation.ui.util.getRatingColor
 
 @Composable
 fun MovieCardReviewRating(
-    reviewRatingColor: Color,
-    reviewRating: String
+    reviewRating: Int?
 ) {
+    if (reviewRating == null) return
+    val reviewRatingColor = getRatingColor(reviewRating.toDouble())
+
     Box {
         Row(
             modifier = Modifier
@@ -44,7 +47,7 @@ fun MovieCardReviewRating(
             Spacer(modifier = Modifier.width(PaddingTiny))
 
             Text(
-                text = reviewRating,
+                text = reviewRating.toString(),
                 style = Label_M_15,
                 color = Color.White
             )

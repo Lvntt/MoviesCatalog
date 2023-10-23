@@ -12,28 +12,27 @@ import ru.lantt.moviescatalog.data.datasource.MockMovieSource
 import ru.lantt.moviescatalog.domain.entity.Movie
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
 import ru.lantt.moviescatalog.presentation.ui.theme.MovieCardRegularPadding
-import ru.lantt.moviescatalog.presentation.ui.util.getReviewRatingColor
 
 @Composable
 fun MovieCard(
     movie: Movie,
     modifier: Modifier = Modifier
 ) {
-    val reviewRatingColor = getReviewRatingColor(movie.reviewRating)
-
     Row(
         modifier = modifier
             .fillMaxWidth()
             .background(Gray900)
     ) {
-        MovieCardImage(imageUrl = movie.poster)
+        MovieCardImage(
+            rating = movie.rating,
+            imageUrl = movie.poster
+        )
 
         Spacer(modifier = Modifier.width(MovieCardRegularPadding))
 
         MovieCardDescription(
             name = movie.name,
-            reviewRatingColor = reviewRatingColor,
-            reviewRating = movie.reviewRating.toString(),
+            reviewRating = movie.reviewRating,
             year = movie.year.toString(),
             country = movie.country,
             genres = movie.genres
