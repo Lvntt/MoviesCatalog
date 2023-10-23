@@ -2,6 +2,10 @@ package ru.lantt.moviescatalog.di
 
 import org.koin.core.module.Module
 import org.koin.dsl.module
+import ru.lantt.moviescatalog.domain.usecase.GetMovieDetailsUseCase
+import ru.lantt.moviescatalog.domain.usecase.GetMoviesUseCase
+import ru.lantt.moviescatalog.domain.usecase.GetUserIdFromLocalStorageUseCase
+import ru.lantt.moviescatalog.domain.usecase.GetUserProfileUseCase
 import ru.lantt.moviescatalog.domain.usecase.LoginUserUseCase
 import ru.lantt.moviescatalog.domain.usecase.LogoutUserUseCase
 import ru.lantt.moviescatalog.domain.usecase.RegisterUserUseCase
@@ -31,5 +35,13 @@ fun provideDomainModule(): Module = module {
     factory { RegisterUserUseCase(get()) }
 
     factory { LogoutUserUseCase(get()) }
+
+    factory { GetMoviesUseCase(get()) }
+
+    factory { GetUserProfileUseCase(get()) }
+
+    factory { GetMovieDetailsUseCase(get()) }
+
+    factory { GetUserIdFromLocalStorageUseCase(get()) }
 
 }
