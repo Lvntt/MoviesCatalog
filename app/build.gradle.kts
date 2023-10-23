@@ -61,8 +61,11 @@ dependencies {
     val gsonVersion = "2.10.1"
     val gsonConverterVersion = "2.9.0"
     val securityVersion = "1.1.0-alpha06"
-    val loggingInterceptorVersion = "3.9.0"
+    val loggingInterceptorVersion = "4.11.0"
     val coilVersion = "2.4.0"
+    val dataStoreVersion = "1.0.0"
+    val pagingVersion = "3.2.1"
+    val pagingComposeVersion = "3.3.0-alpha02"
 
     val navigationCompose = "androidx.navigation:navigation-compose:$navigationVersion"
     val accompanist = "com.google.accompanist:accompanist-systemuicontroller:$accompanistVersion"
@@ -76,6 +79,9 @@ dependencies {
     val security = "androidx.security:security-crypto:$securityVersion"
     val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$loggingInterceptorVersion"
     val coil = "io.coil-kt:coil-compose:$coilVersion"
+    val dataStore = "androidx.datastore:datastore-preferences:$dataStoreVersion"
+    val paging = "androidx.paging:paging-runtime-ktx:$pagingVersion"
+    val pagingCompose = "androidx.paging:paging-compose:$pagingComposeVersion"
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
@@ -98,6 +104,10 @@ dependencies {
     implementation(security)
     implementation(loggingInterceptor)
     implementation(coil)
+    implementation(dataStore)
+    implementation(paging)
+    implementation(pagingCompose)
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
