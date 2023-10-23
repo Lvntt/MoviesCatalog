@@ -7,6 +7,7 @@ data class Movie(
     val year: Int,
     val country: String,
     val genres: List<Genre>,
-    val reviews: List<Review>,
-    val reviewRating: Int
+    val reviews: List<ReviewShort>,
+    val rating: Double?,
+    var reviewRating: Int? = null
 )
