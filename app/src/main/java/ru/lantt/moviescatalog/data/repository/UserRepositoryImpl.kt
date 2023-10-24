@@ -16,4 +16,8 @@ class UserRepositoryImpl(
         return userProfile
     }
 
+    override fun checkUserExistence(): Boolean {
+        return userDataSource.fetchUserId() != null
+    }
+
 }
