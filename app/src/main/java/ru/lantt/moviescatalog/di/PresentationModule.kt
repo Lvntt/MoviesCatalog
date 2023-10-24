@@ -3,13 +3,16 @@ package ru.lantt.moviescatalog.di
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
-import ru.lantt.moviescatalog.presentation.viewmodel.LoginViewModel
-import ru.lantt.moviescatalog.presentation.viewmodel.RegistrationViewModel
+import ru.lantt.moviescatalog.presentation.viewmodel.auth.LoginViewModel
+import ru.lantt.moviescatalog.presentation.viewmodel.auth.RegistrationViewModel
+import ru.lantt.moviescatalog.presentation.viewmodel.main.MainScreenViewModel
 
 fun providePresentationModule(): Module = module {
 
     viewModel { LoginViewModel(get()) }
 
     viewModel { RegistrationViewModel(get(), get(), get(), get(), get(), get(), get()) }
+
+    viewModel { MainScreenViewModel(get(), get(), get(), get(), get()) }
 
 }

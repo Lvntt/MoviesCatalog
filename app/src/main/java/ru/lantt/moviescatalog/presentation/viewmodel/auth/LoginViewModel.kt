@@ -1,4 +1,4 @@
-package ru.lantt.moviescatalog.presentation.viewmodel
+package ru.lantt.moviescatalog.presentation.viewmodel.auth
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
@@ -21,7 +21,13 @@ class LoginViewModel(
 
     val loginContent: State<LoginContent>
         get() = _loginContent
-    private val _loginContent: MutableState<LoginContent> = mutableStateOf(LoginContent())
+    // TODO remove default values
+    private val _loginContent: MutableState<LoginContent> = mutableStateOf(
+        LoginContent(
+            login = "string",
+            password = "string"
+        )
+    )
 
     val loginUiState: State<LoginUiState>
         get() = _loginUiState

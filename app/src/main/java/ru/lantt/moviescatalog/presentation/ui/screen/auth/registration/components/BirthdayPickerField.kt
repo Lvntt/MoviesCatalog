@@ -18,7 +18,6 @@ import ru.lantt.moviescatalog.common.Constants
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
 import java.util.Calendar
 
-// TODO change colors
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BirthdayPickerField(

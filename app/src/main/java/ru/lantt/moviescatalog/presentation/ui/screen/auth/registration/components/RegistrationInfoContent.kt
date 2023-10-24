@@ -24,7 +24,7 @@ import ru.lantt.moviescatalog.presentation.ui.theme.DefaultPaddingBetweenElement
 import ru.lantt.moviescatalog.presentation.ui.theme.PaddingMedium
 import ru.lantt.moviescatalog.presentation.ui.theme.Padding20
 import ru.lantt.moviescatalog.presentation.ui.theme.Title_2_B_20
-import ru.lantt.moviescatalog.presentation.viewmodel.RegistrationViewModel
+import ru.lantt.moviescatalog.presentation.viewmodel.auth.RegistrationViewModel
 
 @Composable
 fun RegistrationInfoContent(

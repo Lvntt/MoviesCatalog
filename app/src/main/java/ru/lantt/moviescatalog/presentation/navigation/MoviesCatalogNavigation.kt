@@ -107,7 +107,6 @@ fun MoviesCatalogNavigation(
     }
 }
 
-// TODO remove ripple effect
 @Composable
 fun BottomNavigationBar(
     buttons: List<BottomNavItem>,
