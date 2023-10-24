@@ -18,8 +18,8 @@ import ru.lantt.moviescatalog.presentation.navigation.BottomNavItems
 import ru.lantt.moviescatalog.presentation.navigation.BottomNavigationBar
 import ru.lantt.moviescatalog.presentation.navigation.MoviesCatalogDestinations
 import ru.lantt.moviescatalog.presentation.ui.screen.common.ErrorScreen
-import ru.lantt.moviescatalog.presentation.ui.screen.common.LoadingScreen
 import ru.lantt.moviescatalog.presentation.ui.screen.main.components.MovieCatalog
+import ru.lantt.moviescatalog.presentation.ui.screen.main.components.shimmer.ShimmerMovieCatalog
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
 import ru.lantt.moviescatalog.presentation.viewmodel.main.MainScreenViewModel
 
@@ -60,7 +60,7 @@ fun MainScreen(
                     }
                 )
             }
-            is LoadState.Loading -> LoadingScreen()
+            is LoadState.Loading -> ShimmerMovieCatalog()
             is LoadState.NotLoading -> {
                 Column(
                     modifier = modifier
