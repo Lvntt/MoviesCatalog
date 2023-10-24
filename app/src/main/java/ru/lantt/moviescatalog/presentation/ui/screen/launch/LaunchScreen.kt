@@ -45,7 +45,7 @@ fun LaunchScreen(
         contentAlignment = Alignment.Center
     ) {
         Image(
-            imageVector = ImageVector.vectorResource(id = R.drawable.filmus_logo),
+            imageVector = ImageVector.vectorResource(id = R.drawable.filmus_no_text_logo),
             contentDescription = null
         )
     }
