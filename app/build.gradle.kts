@@ -66,6 +66,7 @@ dependencies {
     val dataStoreVersion = "1.0.0"
     val pagingVersion = "3.2.1"
     val pagingComposeVersion = "3.3.0-alpha02"
+    val okHttpVersion = "4.11.0"
 
     val navigationCompose = "androidx.navigation:navigation-compose:$navigationVersion"
     val accompanist = "com.google.accompanist:accompanist-systemuicontroller:$accompanistVersion"
@@ -82,6 +83,7 @@ dependencies {
     val dataStore = "androidx.datastore:datastore-preferences:$dataStoreVersion"
     val paging = "androidx.paging:paging-runtime-ktx:$pagingVersion"
     val pagingCompose = "androidx.paging:paging-compose:$pagingComposeVersion"
+    val okHttp = "com.squareup.okhttp3:okhttp:$okHttpVersion"
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
@@ -107,7 +109,7 @@ dependencies {
     implementation(dataStore)
     implementation(paging)
     implementation(pagingCompose)
-    implementation("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation(okHttp)
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

@@ -13,6 +13,6 @@ fun providePresentationModule(): Module = module {
 
     viewModel { RegistrationViewModel(get(), get(), get(), get(), get(), get(), get()) }
 
-    viewModel { MainScreenViewModel(get(), get(), get(), get()) }
+    viewModel { MainScreenViewModel(get(), get(), get(), get(), get()) }
 
 }

@@ -1,5 +1,6 @@
 package ru.lantt.moviescatalog.presentation.ui.screen.common
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -22,7 +23,10 @@ fun ErrorScreen(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        Column {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
             ErrorItem()
 
             Spacer(modifier = Modifier.height(PaddingMedium))
