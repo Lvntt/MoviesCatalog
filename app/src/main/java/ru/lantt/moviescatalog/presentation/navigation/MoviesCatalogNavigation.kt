@@ -24,6 +24,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import ru.lantt.moviescatalog.presentation.ui.screen.auth.authorization.AuthorizationScreen
 import ru.lantt.moviescatalog.presentation.ui.screen.auth.login.LoginScreen
 import ru.lantt.moviescatalog.presentation.ui.screen.auth.registration.RegistrationScreen
+import ru.lantt.moviescatalog.presentation.ui.screen.launch.LaunchScreen
 import ru.lantt.moviescatalog.presentation.ui.screen.main.MainScreen
 import ru.lantt.moviescatalog.presentation.ui.theme.Accent
 import ru.lantt.moviescatalog.presentation.ui.theme.BottomNavigationBackground
@@ -38,6 +39,7 @@ object MoviesCatalogDestinations {
     const val MAIN = "main"
     const val FAVORITES = "favorites"
     const val PROFILE = "profile"
+    const val LAUNCH = "launch"
 }
 
 
@@ -47,7 +49,7 @@ fun MoviesCatalogNavigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = MoviesCatalogDestinations.AUTHORIZATION
+        startDestination = MoviesCatalogDestinations.LAUNCH
     ) {
         composable(MoviesCatalogDestinations.AUTHORIZATION) {
             AuthorizationScreen(
@@ -101,6 +103,11 @@ fun MoviesCatalogNavigation(
             // ProfileScreen
             TestScreen(
                 color = Color.Green,
+                navController = navController
+            )
+        }
+        composable(MoviesCatalogDestinations.LAUNCH) {
+            LaunchScreen(
                 navController = navController
             )
         }
