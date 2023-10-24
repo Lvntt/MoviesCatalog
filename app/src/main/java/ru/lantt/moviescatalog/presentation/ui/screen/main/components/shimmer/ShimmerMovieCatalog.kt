@@ -7,23 +7,23 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.lantt.moviescatalog.presentation.ui.theme.DefaultPaddingBetweenElements
 import ru.lantt.moviescatalog.presentation.ui.theme.PaddingMedium
 import ru.lantt.moviescatalog.presentation.ui.theme.Title_B_24
 
 @Composable
-fun ShimmerMovieCatalog() {
+fun ShimmerMovieCatalog(shimmerStartOffsetX: Float) {
     LazyColumn {
         item {
-            ShimmerFilmCarousel()
+            ShimmerFilmCarousel(shimmerStartOffsetX = shimmerStartOffsetX)
         }
 
         item {
             ShimmerText(
                 width = 100.dp,
                 height = with(LocalDensity.current) { Title_B_24.fontSize.toDp() },
+                shimmerStartOffsetX = shimmerStartOffsetX,
                 modifier = Modifier.padding(
                     top = PaddingMedium,
                     start = PaddingMedium,
@@ -37,15 +37,12 @@ fun ShimmerMovieCatalog() {
         }
 
         items(count = 5) {
-            ShimmerMovieCard(modifier = Modifier.padding(horizontal = PaddingMedium))
+            ShimmerMovieCard(
+                shimmerStartOffsetX = shimmerStartOffsetX,
+                modifier = Modifier.padding(horizontal = PaddingMedium)
+            )
 
             Spacer(modifier = Modifier.height(PaddingMedium))
         }
     }
-}
-
-@Preview
-@Composable
-fun ShimmerMovieCatalogPreview() {
-    ShimmerMovieCatalog()
 }

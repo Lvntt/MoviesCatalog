@@ -1,5 +1,9 @@
 package ru.lantt.moviescatalog.presentation.ui.screen.main
 
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -7,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.paging.LoadState
@@ -30,6 +35,16 @@ fun MainScreen(
     viewModel: MainScreenViewModel = koinViewModel()
 ) {
     val movies = viewModel.movies.collectAsLazyPagingItems()
+
+    val transition = rememberInfiniteTransition(label = "shimmerTransition")
+    val shimmerStartOffsetX by transition.animateFloat(
+        initialValue = -2f,
+        targetValue = 2f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(1250)
+        ),
+        label = "shimmer"
+    )
 
     Scaffold(
         bottomBar = {
@@ -60,7 +75,7 @@ fun MainScreen(
                     }
                 )
             }
-            is LoadState.Loading -> ShimmerMovieCatalog()
+            is LoadState.Loading -> ShimmerMovieCatalog(shimmerStartOffsetX = shimmerStartOffsetX)
             is LoadState.NotLoading -> {
                 Column(
                     modifier = modifier
@@ -68,7 +83,10 @@ fun MainScreen(
                         .background(Gray900)
                         .padding(paddingValues)
                 ) {
-                    MovieCatalog(movies = movies)
+                    MovieCatalog(
+                        movies = movies,
+                        shimmerStartOffsetX = shimmerStartOffsetX
+                    )
                 }
             }
         }

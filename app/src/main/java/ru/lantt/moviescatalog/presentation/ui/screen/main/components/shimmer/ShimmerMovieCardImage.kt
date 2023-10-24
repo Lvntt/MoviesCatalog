@@ -10,11 +10,11 @@ import ru.lantt.moviescatalog.presentation.ui.theme.MovieCardImageWidth
 import ru.lantt.moviescatalog.presentation.ui.util.shimmerEffect
 
 @Composable
-fun ShimmerMovieCardImage() {
+fun ShimmerMovieCardImage(shimmerStartOffsetX: Float,) {
     Box(
         modifier = Modifier
             .width(MovieCardImageWidth)
             .height(MovieCardImageHeight)
-            .shimmerEffect()
+            .shimmerEffect(shimmerStartOffsetX)
     )
 }

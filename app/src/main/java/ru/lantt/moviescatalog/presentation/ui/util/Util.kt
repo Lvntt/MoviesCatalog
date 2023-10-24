@@ -1,9 +1,5 @@
 package ru.lantt.moviescatalog.presentation.ui.util
 
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -33,21 +29,10 @@ fun Modifier.noRippleClickable(onClick: () -> Unit): Modifier = composed {
     }
 }
 
-fun Modifier.shimmerEffect(): Modifier = composed {
+fun Modifier.shimmerEffect(startOffsetX: Float): Modifier = composed {
     var size by remember {
         mutableStateOf(IntSize.Zero)
     }
-    // TODO вынести transition и startOffsetX наверх, передавать в каждый modifier
-    // TODO startOffsetX в параметры функции
-    val transition = rememberInfiniteTransition(label = "shimmerTransition")
-    val startOffsetX by transition.animateFloat(
-        initialValue = -2f,
-        targetValue = 2f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(1250)
-        ),
-        label = "shimmer"
-    )
 
     background(
         brush = Brush.linearGradient(

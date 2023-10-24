@@ -19,6 +19,7 @@ import ru.lantt.moviescatalog.presentation.ui.theme.PaddingSmall
 
 @Composable
 fun ShimmerMovieCardDescription(
+    shimmerStartOffsetX: Float,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -31,7 +32,8 @@ fun ShimmerMovieCardDescription(
         ) {
             ShimmerText(
                 width = 250.dp,
-                height = with(LocalDensity.current) { Label_B_16.fontSize.toDp() }
+                height = with(LocalDensity.current) { Label_B_16.fontSize.toDp() },
+                shimmerStartOffsetX = shimmerStartOffsetX
             )
         }
 
@@ -39,14 +41,16 @@ fun ShimmerMovieCardDescription(
 
         ShimmerText(
             width = 150.dp,
-            height = with(LocalDensity.current) { Label_R_12.fontSize.toDp() }
+            height = with(LocalDensity.current) { Label_R_12.fontSize.toDp() },
+            shimmerStartOffsetX = shimmerStartOffsetX
         )
 
         Spacer(modifier = modifier.height(MovieCardRegularPadding))
 
         ShimmerText(
             width = 100.dp,
-            height = with(LocalDensity.current) { Label_R_13.fontSize.toDp() }
+            height = with(LocalDensity.current) { Label_R_13.fontSize.toDp() },
+            shimmerStartOffsetX = shimmerStartOffsetX
         )
     }
 }

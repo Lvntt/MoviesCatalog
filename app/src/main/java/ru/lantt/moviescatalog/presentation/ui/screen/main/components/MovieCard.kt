@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import ru.lantt.moviescatalog.data.datasource.MockMovieSource
 import ru.lantt.moviescatalog.domain.entity.Movie
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
 import ru.lantt.moviescatalog.presentation.ui.theme.MovieCardRegularPadding
@@ -16,6 +14,7 @@ import ru.lantt.moviescatalog.presentation.ui.theme.MovieCardRegularPadding
 @Composable
 fun MovieCard(
     movie: Movie,
+    shimmerStartOffsetX: Float,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -25,6 +24,7 @@ fun MovieCard(
     ) {
         MovieCardImage(
             rating = movie.rating,
+            shimmerStartOffsetX = shimmerStartOffsetX,
             imageUrl = movie.poster
         )
 
@@ -38,10 +38,4 @@ fun MovieCard(
             genres = movie.genres
         )
     }
-}
-
-@Preview
-@Composable
-fun MovieCardPreview() {
-    MovieCard(movie = MockMovieSource.movies[0])
 }
