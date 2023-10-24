@@ -12,12 +12,13 @@ import ru.lantt.moviescatalog.presentation.ui.util.shimmerEffect
 fun ShimmerText(
     width: Dp,
     height: Dp,
+    shimmerStartOffsetX: Float,
     modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier
             .width(width)
             .height(height)
-            .shimmerEffect()
+            .shimmerEffect(shimmerStartOffsetX)
     )
 }
