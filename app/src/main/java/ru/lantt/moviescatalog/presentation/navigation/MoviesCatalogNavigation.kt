@@ -1,5 +1,6 @@
 package ru.lantt.moviescatalog.presentation.navigation
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -154,6 +155,7 @@ fun BottomNavigationBar(
 }
 
 // TODO remove
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun TestScreen(
     color: Color,
