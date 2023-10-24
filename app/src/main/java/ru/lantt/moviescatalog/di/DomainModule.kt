@@ -2,6 +2,7 @@ package ru.lantt.moviescatalog.di
 
 import org.koin.core.module.Module
 import org.koin.dsl.module
+import ru.lantt.moviescatalog.domain.usecase.CheckTokenExistenceUseCase
 import ru.lantt.moviescatalog.domain.usecase.CheckUserExistenceUseCase
 import ru.lantt.moviescatalog.domain.usecase.GetMovieDetailsUseCase
 import ru.lantt.moviescatalog.domain.usecase.GetMoviesUseCase
@@ -46,5 +47,7 @@ fun provideDomainModule(): Module = module {
     factory { GetUserIdFromLocalStorageUseCase(get()) }
 
     factory { CheckUserExistenceUseCase(get()) }
+
+    factory { CheckTokenExistenceUseCase(get()) }
 
 }
