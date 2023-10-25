@@ -1,11 +1,11 @@
 package ru.lantt.moviescatalog.domain.usecase
 
-import ru.lantt.moviescatalog.data.datasource.UserDataSource
+import ru.lantt.moviescatalog.domain.repository.UserRepository
 
 class GetUserIdFromLocalStorageUseCase(
-    private val userDataSource: UserDataSource
+    private val userRepository: UserRepository
 ) {
 
-    operator fun invoke() = userDataSource.fetchUserId()
+    operator fun invoke() = userRepository.getUserIdFromLocalStorage()
 
 }
