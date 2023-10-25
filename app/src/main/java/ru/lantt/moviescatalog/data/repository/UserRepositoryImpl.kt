@@ -16,6 +16,10 @@ class UserRepositoryImpl(
         return userProfile
     }
 
+    override fun getUserIdFromLocalStorage(): String? {
+        return userDataSource.fetchUserId()
+    }
+
     override fun checkUserExistence(): Boolean {
         return userDataSource.fetchUserId() != null
     }
