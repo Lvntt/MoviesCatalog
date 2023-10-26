@@ -41,4 +41,16 @@
     <string name="catalog">Каталог</string>
     <string name="an_error_occurred">Произошла ошибка</string>
     <string name="retry">Повторить попытку</string>
+    <string name="add_to_favorites">Добавить в любимое</string>
+    <string name="show_more">Подробнее</string>
+    <string name="show_less">Свернуть</string>
+    <string name="genres">Жанры</string>
+    <string name="year">Год</string>
+    <string name="country">Страна</string>
+    <string name="tagline">Слоган</string>
+    <string name="director">Режиссёр</string>
+    <string name="budget">Бюджет</string>
+    <string name="fees_world">Сборы в мире</string>
+    <string name="age">Возраст</string>
+    <string name="time">Время</string>
 </resources>

@@ -7,6 +7,7 @@ val PaddingSmall = 8.dp
 val PaddingMedium = 16.dp
 val DefaultPaddingBetweenElements = 15.dp
 val MovieCardRegularPadding = 10.dp
+val MovieRegularPadding = 10.dp
 
 val Padding12 = 12.dp
 val Padding20 = 20.dp
@@ -29,6 +30,8 @@ val SegmentedButtonInnerPadding = 2.dp
 val CarouselImageHeight = 570.dp
 val MovieCardImageWidth = 95.dp
 val MovieCardImageHeight = 130.dp
+val SmallTopBarHeight = 44.dp
+val AboutMovieTitleWidth = 100.dp
 
 const val OneFractionWeight = 1f
 const val DisabledButtonOpacity = 0.45f

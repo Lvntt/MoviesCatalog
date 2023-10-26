@@ -14,5 +14,6 @@ data class MovieDetails(
     val director: String?,
     val budget: Int?,
     val fees: Int?,
-    val ageLimit: Int
+    val ageLimit: Int,
+    val rating: Double?
 )
