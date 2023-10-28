@@ -85,6 +85,9 @@ fun MainScreen(
                 ) {
                     MovieCatalog(
                         movies = movies,
+                        goToMovieScreen = {
+                            navController.navigate(MoviesCatalogDestinations.MOVIE)
+                        },
                         shimmerStartOffsetX = shimmerStartOffsetX
                     )
                 }
