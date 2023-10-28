@@ -51,7 +51,7 @@ fun MoviesCatalogNavigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = MoviesCatalogDestinations.MOVIE
+        startDestination = MoviesCatalogDestinations.LAUNCH
     ) {
         composable(MoviesCatalogDestinations.AUTHORIZATION) {
             AuthorizationScreen(

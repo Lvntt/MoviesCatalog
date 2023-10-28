@@ -52,11 +52,11 @@ fun Modifier.shimmerEffect(startOffsetX: Float): Modifier = composed {
 
 fun getRatingColor(reviewRating: Double): Color {
     return when {
-        reviewRating >= 9 -> Green
-        reviewRating >= 8 -> LightGreen
-        reviewRating >= 6 -> Yellow
-        reviewRating >= 4 -> Orange
-        reviewRating >= 3 -> Fire
+        reviewRating > 8 -> Green
+        reviewRating > 6 -> LightGreen
+        reviewRating > 4 -> Yellow
+        reviewRating > 3 -> Orange
+        reviewRating > 2 -> Fire
         else -> Red
     }
 }
