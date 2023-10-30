@@ -53,4 +53,14 @@
     <string name="fees_world">Сборы в мире</string>
     <string name="age">Возраст</string>
     <string name="time">Время</string>
+    <string name="about_movie">О фильме</string>
+    <string name="my_review">мой отзыв</string>
+    <string name="anonymous_user">Анонимный пользователь</string>
+    <string name="reviews">Отзывы</string>
+    <string name="edit">Редактировать</string>
+    <string name="delete">Удалить</string>
+    <string name="leave_a_review">Оставить отзыв</string>
+    <string name="write_a_review">Напишите отзыв</string>
+    <string name="anonymous_review">Анонимный отзыв</string>
+    <string name="save">Сохранить</string>
 </resources>

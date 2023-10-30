@@ -32,6 +32,7 @@ val MovieCardImageWidth = 95.dp
 val MovieCardImageHeight = 130.dp
 val SmallTopBarHeight = 44.dp
 val AboutMovieTitleWidth = 100.dp
+val SmallAvatarSize = 40.dp
 
 const val OneFractionWeight = 1f
 const val DisabledButtonOpacity = 0.45f

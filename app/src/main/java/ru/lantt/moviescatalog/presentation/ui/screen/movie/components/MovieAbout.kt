@@ -11,6 +11,7 @@ import ru.lantt.moviescatalog.R
 import ru.lantt.moviescatalog.domain.entity.MovieDetails
 import ru.lantt.moviescatalog.presentation.ui.theme.Label_B_16
 import ru.lantt.moviescatalog.presentation.ui.theme.MovieRegularPadding
+import ru.lantt.moviescatalog.presentation.ui.util.formatMoneyNumber
 
 @Composable
 fun MovieAbout(
@@ -22,7 +23,7 @@ fun MovieAbout(
         verticalArrangement = Arrangement.spacedBy(MovieRegularPadding)
     ) {
         Text(
-            text = stringResource(id = R.string.genres),
+            text = stringResource(id = R.string.about_movie),
             style = Label_B_16,
             color = Color.White
         )
@@ -45,5 +46,36 @@ fun MovieAbout(
                 text = movie.tagline
             )
         }
+
+        if (movie.director != null) {
+            MovieAboutItem(
+                titleText = stringResource(id = R.string.director),
+                text = movie.director
+            )
+        }
+
+        if (movie.budget != null) {
+            MovieAboutItem(
+                titleText = stringResource(id = R.string.budget),
+                text = formatMoneyNumber(movie.budget)
+            )
+        }
+
+        if (movie.fees != null) {
+            MovieAboutItem(
+                titleText = stringResource(id = R.string.fees_world),
+                text = formatMoneyNumber(movie.fees)
+            )
+        }
+
+        MovieAboutItem(
+            titleText = stringResource(id = R.string.age),
+            text = "${movie.ageLimit}+"
+        )
+
+        MovieAboutItem(
+            titleText = stringResource(id = R.string.time),
+            text = "${movie.time} мин."
+        )
     }
 }

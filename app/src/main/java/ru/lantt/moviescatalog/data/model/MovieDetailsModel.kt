@@ -1,14 +1,16 @@
-package ru.lantt.moviescatalog.domain.entity
+package ru.lantt.moviescatalog.data.model
 
-data class MovieDetails(
+import ru.lantt.moviescatalog.domain.entity.Genre
+import ru.lantt.moviescatalog.domain.entity.Review
+
+data class MovieDetailsModel(
     val id: String,
     val name: String?,
     val poster: String?,
     val year: Int,
     val country: String?,
     val genres: List<Genre>,
-    val myReview: Review?,
-    val usersReviews: List<Review>,
+    val reviews: List<Review>,
     val time: Int,
     val tagline: String?,
     val description: String?,
@@ -16,6 +18,5 @@ data class MovieDetails(
     val budget: Int?,
     val fees: Int?,
     val ageLimit: Int,
-    val rating: Double?,
-    val isInFavorites: Boolean
+    val rating: Double?
 )

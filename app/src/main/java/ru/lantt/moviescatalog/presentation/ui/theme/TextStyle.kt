@@ -81,3 +81,9 @@ val Label_B_13 = TextStyle(
     fontWeight = FontWeight.Bold,
     fontSize = 13.sp
 )
+
+val Label_M_12 = TextStyle(
+    fontFamily = Inter,
+    fontWeight = FontWeight.Medium,
+    fontSize = 12.sp
+)
