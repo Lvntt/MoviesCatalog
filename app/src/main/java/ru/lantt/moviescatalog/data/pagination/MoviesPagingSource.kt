@@ -37,7 +37,7 @@ class MoviesPagingSource(
 
             response.forEach { movie ->
                 val movieDetails = getMovieDetailsUseCase(movie.id)
-                reviewRating = movieDetails.usersReviews.find { it.author?.userId == userId }?.rating
+                reviewRating = movieDetails.reviews.find { it.author?.userId == userId }?.rating
                 movie.reviewRating = reviewRating
             }
 

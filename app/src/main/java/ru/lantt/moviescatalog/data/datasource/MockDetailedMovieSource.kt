@@ -1,13 +1,13 @@
 package ru.lantt.moviescatalog.data.datasource
 
 import ru.lantt.moviescatalog.domain.entity.Genre
-import ru.lantt.moviescatalog.domain.entity.MovieDetails
 import ru.lantt.moviescatalog.domain.entity.Review
 import ru.lantt.moviescatalog.domain.entity.UserShort
+import ru.lantt.moviescatalog.presentation.uistate.movie.MovieDetailsContent
 
 object MockDetailedMovieSource {
 
-    val movie = MovieDetails(
+    val movie = MovieDetailsContent(
         time = 142,
         tagline = "Страх - это кандалы. Надежда - это свобода",
         description = "Несправедливо осужденный банкир готовит побег из тюрьмы. Тим Роббинс в выдающейся экранизации Стивена Кинга Несправедливо осужденный банкир готовит побег из тюрьмы. Тим Роббинс в выдающейся экранизации Стивена Кинга Несправедливо осужденный банкир готовит побег из тюрьмы. Тим Роббинс в выдающейся экранизации Стивена Кинга Несправедливо осужденный банкир готовит побег из тюрьмы. Тим Роббинс в выдающейся экранизации Стивена Кинга Несправедливо осужденный банкир готовит побег из тюрьмы. Тим Роббинс в выдающейся экранизации Стивена Кинга Несправедливо осужденный банкир готовит побег из тюрьмы. Тим Роббинс в выдающейся экранизации Стивена Кинга",
