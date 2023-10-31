@@ -21,8 +21,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import ru.lantt.moviescatalog.domain.entity.Gender
-import ru.lantt.moviescatalog.domain.entity.Profile
 import ru.lantt.moviescatalog.presentation.ui.screen.auth.authorization.AuthorizationScreen
 import ru.lantt.moviescatalog.presentation.ui.screen.auth.login.LoginScreen
 import ru.lantt.moviescatalog.presentation.ui.screen.auth.registration.RegistrationScreen
@@ -105,15 +103,9 @@ fun MoviesCatalogNavigation(
         composable(MoviesCatalogDestinations.PROFILE) {
             ProfileScreen(
                 navController = navController,
-                profile = Profile(
-                    id = "15f69123-e79c-4c9d-e7cd-08d9bb8d6482",
-                    nickName = "string",
-                    email = "user23@exa.c",
-                    avatarLink = "https://media.tenor.com/dyUygrvpkvYAAAAC/ready-to-fight-death-wolf.gif",
-                    name = "123123123asdads",
-                    birthDate = "2023-10-11T00:00:00",
-                    gender = Gender.MALE
-                )
+                goToAuthorizationScreen = {
+                    navController.navigate(MoviesCatalogDestinations.AUTHORIZATION)
+                }
             )
         }
         composable(MoviesCatalogDestinations.LAUNCH) {

@@ -13,6 +13,7 @@ import ru.lantt.moviescatalog.presentation.ui.theme.DefaultPaddingBetweenElement
 
 @Composable
 fun ProfileButtons(
+    isSaveEnabled: Boolean,
     onSaveClick: () -> Unit,
     onCancelClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -22,7 +23,7 @@ fun ProfileButtons(
         verticalArrangement = Arrangement.spacedBy(DefaultPaddingBetweenElements)
     ) {
         AccentButton(
-            enabled = false,
+            enabled = isSaveEnabled,
             onClick = onSaveClick,
             text = stringResource(id = R.string.save),
             modifier = Modifier.fillMaxWidth()

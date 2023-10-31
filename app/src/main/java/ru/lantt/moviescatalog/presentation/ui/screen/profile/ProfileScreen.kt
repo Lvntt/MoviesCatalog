@@ -1,35 +1,45 @@
 package ru.lantt.moviescatalog.presentation.ui.screen.profile
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
-import ru.lantt.moviescatalog.domain.entity.Profile
+import org.koin.androidx.compose.koinViewModel
 import ru.lantt.moviescatalog.presentation.navigation.BottomNavItems
 import ru.lantt.moviescatalog.presentation.navigation.BottomNavigationBar
-import ru.lantt.moviescatalog.presentation.ui.screen.profile.components.ProfileAvatar
-import ru.lantt.moviescatalog.presentation.ui.screen.profile.components.ProfileButtons
-import ru.lantt.moviescatalog.presentation.ui.screen.profile.components.ProfileInfo
-import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
-import ru.lantt.moviescatalog.presentation.ui.theme.PaddingMedium
+import ru.lantt.moviescatalog.presentation.ui.event.ProfileEvent
+import ru.lantt.moviescatalog.presentation.ui.screen.common.ErrorScreen
+import ru.lantt.moviescatalog.presentation.ui.screen.common.LoadingScreen
+import ru.lantt.moviescatalog.presentation.ui.screen.profile.components.ProfileScreenContent
+import ru.lantt.moviescatalog.presentation.uistate.profile.ProfileUiState
+import ru.lantt.moviescatalog.presentation.viewmodel.profile.ProfileViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun ProfileScreen(
     navController: NavController,
-    profile: Profile,
-    modifier: Modifier = Modifier
+    goToAuthorizationScreen: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: ProfileViewModel = koinViewModel(),
 ) {
+    val profileUiState by remember { viewModel.profileUiState }
+    val profileContent by remember { viewModel.profileContent }
+
+    LaunchedEffect(key1 = LocalContext.current) {
+        viewModel.profileEventFlow.collect { event ->
+            when (event) {
+                ProfileEvent.AuthenticationRequired -> goToAuthorizationScreen()
+            }
+        }
+    }
+
+
     Scaffold(
         bottomBar = {
             BottomNavigationBar(
@@ -41,33 +51,15 @@ fun ProfileScreen(
             )
         }
     ) { paddingValues ->
-        Column(
-            modifier = modifier
-                .background(Gray900)
-                .padding(paddingValues)
-                .padding(top = PaddingMedium, end = PaddingMedium, start = PaddingMedium)
-                .verticalScroll(rememberScrollState()),
-            verticalArrangement = Arrangement.spacedBy(20.dp)
-        ) {
-            ProfileAvatar(
-                nickname = profile.nickName,
-                avatarLink = profile.avatarLink
+        when (profileUiState) {
+            ProfileUiState.Initial -> Unit
+            ProfileUiState.Loading -> LoadingScreen()
+            ProfileUiState.Error -> ErrorScreen(onRetry = viewModel::retry)
+            is ProfileUiState.Success -> ProfileScreenContent(
+                viewModel = viewModel,
+                profile = profileContent,
+                modifier = modifier.padding(paddingValues)
             )
-
-            ProfileInfo(
-                email = profile.email,
-                avatarLink = profile.avatarLink ?: "",
-                name = profile.name,
-                gender = profile.gender,
-                birthDate = profile.birthDate
-            )
-
-            ProfileButtons(
-                onSaveClick = {},
-                onCancelClick = {}
-            )
-
-            Spacer(modifier = Modifier.height(20.dp))
         }
     }
 }
