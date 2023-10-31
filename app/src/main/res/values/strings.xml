@@ -41,4 +41,6 @@
     <string name="catalog">Каталог</string>
     <string name="an_error_occurred">Произошла ошибка</string>
     <string name="retry">Повторить попытку</string>
+    <string name="avatar_link">Ссылка на аватар</string>
+    <string name="save">Сохранить</string>
 </resources>
