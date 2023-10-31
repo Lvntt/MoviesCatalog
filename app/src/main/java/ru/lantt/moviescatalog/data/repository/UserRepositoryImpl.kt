@@ -16,6 +16,14 @@ class UserRepositoryImpl(
         return userProfile
     }
 
+    override suspend fun getUserProfile(): Profile {
+        return userApiService.getUserProfile()
+    }
+
+    override suspend fun editUserProfile(profile: Profile) {
+        return userApiService.editUserProfile(profile)
+    }
+
     override fun getUserIdFromLocalStorage(): String? {
         return userDataSource.fetchUserId()
     }
