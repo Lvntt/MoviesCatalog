@@ -15,6 +15,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -27,10 +28,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntSize
 import ru.lantt.moviescatalog.R
-import ru.lantt.moviescatalog.data.datasource.MockDetailedMovieSource.movie
 import ru.lantt.moviescatalog.presentation.ui.theme.Accent
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
 import ru.lantt.moviescatalog.presentation.ui.theme.Label_M_14
@@ -53,7 +52,7 @@ fun MovieExpandableDescription(
 ) {
     var isExpanded by remember { mutableStateOf(false) }
     var clickable by remember { mutableStateOf(false) }
-    var lastCharIndex by remember { mutableStateOf(0) }
+    var lastCharIndex by remember { mutableIntStateOf(0) }
     var containerSize by remember { mutableStateOf(IntSize.Zero) }
 
     Column(
@@ -145,10 +144,4 @@ fun MovieExpandableDescription(
             )
         }
     }
-}
-
-@Preview
-@Composable
-fun ExpandableTextPreview() {
-    MovieExpandableDescription(text = movie.description!!, color = Color.Black)
 }

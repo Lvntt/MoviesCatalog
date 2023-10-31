@@ -8,14 +8,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import ru.lantt.moviescatalog.R
-import ru.lantt.moviescatalog.domain.entity.MovieDetails
 import ru.lantt.moviescatalog.presentation.ui.theme.Label_B_16
 import ru.lantt.moviescatalog.presentation.ui.theme.MovieRegularPadding
 import ru.lantt.moviescatalog.presentation.ui.util.formatMoneyNumber
+import ru.lantt.moviescatalog.presentation.uistate.movie.MovieDetailsContent
 
 @Composable
 fun MovieAbout(
-    movie: MovieDetails,
+    movie: MovieDetailsContent,
     modifier: Modifier = Modifier
 ) {
     Column(

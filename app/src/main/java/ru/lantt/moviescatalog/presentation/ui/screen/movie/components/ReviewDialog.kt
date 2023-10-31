@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
@@ -22,16 +24,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import ru.lantt.moviescatalog.R
 import ru.lantt.moviescatalog.presentation.ui.screen.common.AccentButton
 import ru.lantt.moviescatalog.presentation.ui.screen.common.SecondaryButton
@@ -41,27 +41,33 @@ import ru.lantt.moviescatalog.presentation.ui.theme.DefaultPaddingBetweenElement
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray400
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
 import ru.lantt.moviescatalog.presentation.ui.theme.Label_M_15
+import ru.lantt.moviescatalog.presentation.ui.theme.PaddingMedium
 import ru.lantt.moviescatalog.presentation.ui.theme.PaddingSmall
 import ru.lantt.moviescatalog.presentation.ui.theme.Text_R_14
 import ru.lantt.moviescatalog.presentation.ui.theme.Title_2_B_20
+import ru.lantt.moviescatalog.presentation.viewmodel.movie.MovieViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReviewDialog(
+    viewModel: MovieViewModel,
     onDismissRequest: () -> Unit,
     onRatingChanged: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    // TODO replace with VM field, change to val
-    var reviewText by remember { mutableStateOf("") }
-    // TODO replace with VM field, change to val
-    var checked by remember { mutableStateOf(false) }
+    val reviewContent by remember { viewModel.reviewContent}
 
     Dialog(
-        onDismissRequest = onDismissRequest
+        onDismissRequest = onDismissRequest,
+        properties = DialogProperties(
+            usePlatformDefaultWidth = false
+        )
     ) {
         Card(
-            modifier = modifier,
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(horizontal = PaddingMedium)
+                .verticalScroll(rememberScrollState()),
             colors = CardDefaults.cardColors(
                 containerColor = Gray900
             ),
@@ -81,7 +87,7 @@ fun ReviewDialog(
                 Column {
                     Box {
                         RatingBar(
-                            currentRating = 0,
+                            currentRating = reviewContent.rating,
                             onRatingChanged = onRatingChanged,
                             modifier = Modifier.padding(2.dp)
                         )
@@ -93,11 +99,8 @@ fun ReviewDialog(
                         modifier = Modifier
                             .fillMaxWidth()
                             .heightIn(min = 98.dp),
-                        value = reviewText,
-                        onValueChange = {
-                            // TODO replace with VM method
-                            reviewText = it
-                        },
+                        value = reviewContent.text,
+                        onValueChange = viewModel::setReviewText,
                         placeholder = {
                             Text(
                                 text = stringResource(id = R.string.write_a_review),
@@ -124,11 +127,8 @@ fun ReviewDialog(
                 ) {
                     CompositionLocalProvider(LocalMinimumInteractiveComponentEnforcement provides false) {
                         Checkbox(
-                            checked = checked,
-                            onCheckedChange = {
-                                // TODO replace with VM method
-                                checked = it
-                            },
+                            checked = reviewContent.isAnonymous,
+                            onCheckedChange = viewModel::setAnonymity,
                             colors = CheckboxDefaults.colors(
                                 uncheckedColor = Color.White,
                                 checkedColor = Accent
@@ -149,8 +149,15 @@ fun ReviewDialog(
 
                 AccentButton(
                     modifier = Modifier.fillMaxWidth(),
-                    enabled = reviewText.isNotEmpty(),
-                    onClick = { /*TODO*/ },
+                    enabled = reviewContent.text.isNotEmpty(),
+                    onClick = {
+                        if (reviewContent.id == null) {
+                            viewModel.addReview()
+                        } else {
+                            viewModel.editReview()
+                        }
+                        onDismissRequest()
+                    },
                     text = stringResource(id = R.string.save)
                 )
 
@@ -165,10 +172,4 @@ fun ReviewDialog(
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun ReviewDialogPreview() {
-    ReviewDialog(onDismissRequest = {}, onRatingChanged = {})
 }

@@ -1,6 +1,5 @@
 package ru.lantt.moviescatalog.presentation.ui.screen.movie.components.review
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,12 +10,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ru.lantt.moviescatalog.data.datasource.MockDetailedMovieSource
 import ru.lantt.moviescatalog.domain.entity.Review
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray400
-import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
 import ru.lantt.moviescatalog.presentation.ui.theme.Label_M_12
 import ru.lantt.moviescatalog.presentation.ui.theme.MovieRegularPadding
 import ru.lantt.moviescatalog.presentation.ui.theme.PaddingSmall
@@ -66,13 +62,4 @@ fun MovieReviewItem(
             color = Gray400
         )
     }
-}
-
-@Preview
-@Composable
-fun MovieReviewItemPreview() {
-    MovieReviewItem(
-        review = MockDetailedMovieSource.movie.usersReviews[1],
-        modifier = Modifier.background(Gray900)
-    )
 }

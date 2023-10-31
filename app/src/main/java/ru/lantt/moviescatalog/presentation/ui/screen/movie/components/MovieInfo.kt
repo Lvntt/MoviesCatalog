@@ -18,18 +18,23 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import ru.lantt.moviescatalog.R
+import ru.lantt.moviescatalog.presentation.ui.theme.Accent
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray750
 import ru.lantt.moviescatalog.presentation.ui.theme.PaddingSmall
 import ru.lantt.moviescatalog.presentation.ui.theme.Title_B_24
 import ru.lantt.moviescatalog.presentation.ui.util.getRatingColor
 import ru.lantt.moviescatalog.presentation.ui.util.noRippleClickable
+import ru.lantt.moviescatalog.presentation.viewmodel.movie.MovieViewModel
 
 @Composable
 fun MovieInfo(
+    viewModel: MovieViewModel,
+    isInFavorites: Boolean,
     name: String?,
     rating: Double?,
     modifier: Modifier = Modifier
 ) {
+
     Row(
         modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -59,13 +64,22 @@ fun MovieInfo(
             modifier = Modifier
                 .padding(start = PaddingSmall)
                 .background(color = Gray750, shape = CircleShape)
-                .noRippleClickable { /*TODO*/ }
+                .noRippleClickable {
+                    if (isInFavorites) {
+                        viewModel.deleteFavoriteMovie()
+                    } else {
+                        viewModel.addFavoriteMovie()
+                    }
+                }
         ) {
             Icon(
-                imageVector = ImageVector.vectorResource(id = R.drawable.heart_icon),
+                imageVector = ImageVector.vectorResource(id =
+                    if (isInFavorites) R.drawable.heart_filled_icon
+                    else R.drawable.heart_outlined_icon
+                ),
                 contentDescription = stringResource(id = R.string.add_to_favorites),
                 modifier = Modifier.padding(PaddingSmall),
-                tint = Color.White
+                tint = if (isInFavorites) Accent else Color.White
             )
         }
     }

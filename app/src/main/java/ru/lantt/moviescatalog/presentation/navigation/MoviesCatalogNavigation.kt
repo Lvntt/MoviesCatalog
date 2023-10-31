@@ -18,9 +18,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.navArgument
 import ru.lantt.moviescatalog.presentation.ui.screen.auth.authorization.AuthorizationScreen
 import ru.lantt.moviescatalog.presentation.ui.screen.auth.login.LoginScreen
 import ru.lantt.moviescatalog.presentation.ui.screen.auth.registration.RegistrationScreen
@@ -113,8 +115,22 @@ fun MoviesCatalogNavigation(
                 navController = navController
             )
         }
-        composable(MoviesCatalogDestinations.MOVIE) {
-            MovieScreen()
+        composable(
+            route = "${MoviesCatalogDestinations.MOVIE}/{movieId}",
+            arguments = listOf(
+                navArgument("movieId") { type = NavType.StringType }
+            )
+        ) { backStackEntry ->
+            val movieId = backStackEntry.arguments?.getString("movieId") ?: ""
+            MovieScreen(
+                id = movieId,
+                goToMainScreen = {
+                    navController.navigate(MoviesCatalogDestinations.MAIN)
+                },
+                goToAuthorizationScreen = {
+                    navController.navigate(MoviesCatalogDestinations.AUTHORIZATION)
+                }
+            )
         }
     }
 }

@@ -46,7 +46,8 @@ fun MovieReviewItemAvatar(
                     imageVector = ImageVector.vectorResource(id = R.drawable.profile_icon),
                     modifier = Modifier
                         .padding(PaddingSmall),
-                    contentDescription = null
+                    contentDescription = null,
+                    tint = Color.Black
                 )
             }
         } else {
