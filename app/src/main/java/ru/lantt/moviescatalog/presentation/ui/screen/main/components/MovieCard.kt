@@ -10,17 +10,22 @@ import androidx.compose.ui.Modifier
 import ru.lantt.moviescatalog.domain.entity.Movie
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
 import ru.lantt.moviescatalog.presentation.ui.theme.MovieCardRegularPadding
+import ru.lantt.moviescatalog.presentation.ui.util.noRippleClickable
 
 @Composable
 fun MovieCard(
     movie: Movie,
     shimmerStartOffsetX: Float,
+    goToMovieScreen: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .background(Gray900)
+            .noRippleClickable {
+                goToMovieScreen(movie.id)
+            }
     ) {
         MovieCardImage(
             rating = movie.rating,

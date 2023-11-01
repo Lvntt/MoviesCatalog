@@ -12,7 +12,7 @@ object BottomNavItems {
         ),
         BottomNavItem(
             labelId = R.string.favorite,
-            iconId = R.drawable.heart_icon,
+            iconId = R.drawable.heart_outlined_icon,
             route = MoviesCatalogDestinations.FAVORITES
         ),
         BottomNavItem(

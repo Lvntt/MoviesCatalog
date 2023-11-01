@@ -15,6 +15,7 @@ import ru.lantt.moviescatalog.data.datasource.TokenDataSource
 import ru.lantt.moviescatalog.data.network.api.AuthApiService
 import ru.lantt.moviescatalog.data.network.api.FavoriteMoviesApiService
 import ru.lantt.moviescatalog.data.network.api.MovieApiService
+import ru.lantt.moviescatalog.data.network.api.ReviewApiService
 import ru.lantt.moviescatalog.data.network.api.UserApiService
 import ru.lantt.moviescatalog.data.network.interceptor.AuthInterceptor
 import ru.lantt.moviescatalog.data.network.mapper.MovieNetworkMapper
@@ -89,6 +90,11 @@ private fun provideFavoriteMoviesApiService(
 ): FavoriteMoviesApiService =
     retrofit.create(FavoriteMoviesApiService::class.java)
 
+private fun provideReviewApiService(
+    retrofit: Retrofit
+): ReviewApiService =
+    retrofit.create(ReviewApiService::class.java)
+
 fun provideNetworkModule(): Module = module {
 
     single(named(REGULAR_RETROFIT_LABEL)) { provideRetrofit(get(named(REGULAR_HTTP_CLIENT_LABEL)), BASE_URL) }
@@ -112,5 +118,7 @@ fun provideNetworkModule(): Module = module {
     single { provideMovieNetworkMapper() }
 
     single { provideFavoriteMoviesApiService(get(named(TOKEN_RETROFIT_LABEL))) }
+
+    single { provideReviewApiService(get(named(TOKEN_RETROFIT_LABEL))) }
 
 }

@@ -13,6 +13,7 @@ object ErrorTypeToStringRes {
         ValidationErrorType.PASSWORDS_MISMATCH to R.string.password_mismatch_error,
         ValidationErrorType.INVALID_EMAIL to R.string.invalid_email_error,
         ValidationErrorType.INVALID_DATE_OF_BIRTH to R.string.invalid_date_of_birth_error,
+        ValidationErrorType.INVALID_URL to R.string.invalid_url_error,
     )
 
 }

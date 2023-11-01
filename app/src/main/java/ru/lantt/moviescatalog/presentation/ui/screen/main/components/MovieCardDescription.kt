@@ -36,7 +36,8 @@ fun MovieCardDescription(
             Text(
                 text = name,
                 style = Label_B_16,
-                color = Color.White
+                color = Color.White,
+                modifier = Modifier.weight(1f)
             )
 
             Spacer(modifier = Modifier.width(MovieCardRegularPadding))
