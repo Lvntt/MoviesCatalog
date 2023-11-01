@@ -1,6 +1,7 @@
 package ru.lantt.moviescatalog.data.repository
 
 import ru.lantt.moviescatalog.data.datasource.TokenDataSource
+import ru.lantt.moviescatalog.data.datasource.UserDataSource
 import ru.lantt.moviescatalog.data.network.api.AuthApiService
 import ru.lantt.moviescatalog.domain.entity.LoginCredentials
 import ru.lantt.moviescatalog.domain.entity.UserRegisterModel
@@ -8,7 +9,8 @@ import ru.lantt.moviescatalog.domain.repository.AuthRepository
 
 class AuthRepositoryImpl(
     private val authApiService: AuthApiService,
-    private val tokenDataSource: TokenDataSource
+    private val tokenDataSource: TokenDataSource,
+    private val userDataSource: UserDataSource
 ) : AuthRepository {
 
     override suspend fun login(loginCredentials: LoginCredentials) {
@@ -24,6 +26,7 @@ class AuthRepositoryImpl(
     override suspend fun logout() {
         authApiService.logout()
         tokenDataSource.deleteToken()
+        userDataSource.clearUserData()
     }
 
     override fun hasToken(): Boolean {

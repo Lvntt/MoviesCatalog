@@ -51,7 +51,8 @@ fun ProfileScreenContent(
     ) {
         ProfileAvatar(
             nickname = profile.nickname,
-            avatarLink = avatarLink
+            avatarLink = avatarLink,
+            onLogoutClick = viewModel::logOut
         )
 
         ProfileInfo(

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
@@ -19,18 +20,25 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import ru.lantt.moviescatalog.R
+import ru.lantt.moviescatalog.presentation.ui.theme.Accent
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
+import ru.lantt.moviescatalog.presentation.ui.theme.Label_SB_15
+import ru.lantt.moviescatalog.presentation.ui.theme.Padding12
 import ru.lantt.moviescatalog.presentation.ui.theme.Title_B_24
+import ru.lantt.moviescatalog.presentation.ui.util.noRippleClickable
 
 @Composable
 fun ProfileAvatar(
     nickname: String?,
     avatarLink: String?,
+    onLogoutClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -75,6 +83,24 @@ fun ProfileAvatar(
                 text = nickname,
                 style = Title_B_24,
                 color = Color.White
+            )
+        }
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .noRippleClickable {
+                    onLogoutClick()
+                }
+        ) {
+            Text(
+                text = stringResource(id = R.string.sign_out_of_account),
+                style = Label_SB_15,
+                color = Accent,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = Padding12),
+                textAlign = TextAlign.Center
             )
         }
     }

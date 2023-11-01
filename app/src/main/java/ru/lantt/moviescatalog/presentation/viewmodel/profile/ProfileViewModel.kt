@@ -17,6 +17,7 @@ import ru.lantt.moviescatalog.domain.entity.Profile
 import ru.lantt.moviescatalog.domain.entity.ValidationErrorType
 import ru.lantt.moviescatalog.domain.usecase.EditUserProfileUseCase
 import ru.lantt.moviescatalog.domain.usecase.GetUserProfileUseCase
+import ru.lantt.moviescatalog.domain.usecase.LogoutUserUseCase
 import ru.lantt.moviescatalog.domain.usecase.ValidateDateOfBirthUseCase
 import ru.lantt.moviescatalog.domain.usecase.ValidateEmailUseCase
 import ru.lantt.moviescatalog.domain.usecase.ValidateNameUseCase
@@ -35,7 +36,8 @@ class ProfileViewModel(
     private val validateEmailUseCase: ValidateEmailUseCase,
     private val validateUrlUseCase: ValidateUrlUseCase,
     private val validateNameUseCase: ValidateNameUseCase,
-    private val validateDateOfBirthUseCase: ValidateDateOfBirthUseCase
+    private val validateDateOfBirthUseCase: ValidateDateOfBirthUseCase,
+    private val logoutUserUseCase: LogoutUserUseCase
 ) : ViewModel() {
 
     val profileUiState: State<ProfileUiState>
@@ -153,6 +155,13 @@ class ProfileViewModel(
         val initialProfile = this.initialProfile
         if (initialProfile != null) {
             _profileContent.value = initialProfile
+        }
+    }
+
+    fun logOut() {
+        viewModelScope.launch(Dispatchers.IO + profileExceptionHandler) {
+            logoutUserUseCase()
+            profileEventChannel.send(ProfileEvent.AuthenticationRequired)
         }
     }
 
