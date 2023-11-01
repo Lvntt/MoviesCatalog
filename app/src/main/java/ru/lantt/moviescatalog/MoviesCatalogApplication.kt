@@ -14,6 +14,7 @@ class MoviesCatalogApplication : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@MoviesCatalogApplication)
+
             modules(
                 provideDataModule(),
                 provideNetworkModule(),
