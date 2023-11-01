@@ -6,8 +6,8 @@ import ru.lantt.moviescatalog.common.Constants.GET_MOVIES_URL
 import ru.lantt.moviescatalog.common.Constants.GET_MOVIE_DETAILS_URL
 import ru.lantt.moviescatalog.common.Constants.ID_PATH
 import ru.lantt.moviescatalog.common.Constants.PAGE_PATH
+import ru.lantt.moviescatalog.domain.entity.MovieDetailsModel
 import ru.lantt.moviescatalog.data.model.MoviesPagedListModel
-import ru.lantt.moviescatalog.domain.entity.MovieDetails
 
 interface MovieApiService {
 
@@ -15,6 +15,6 @@ interface MovieApiService {
     suspend fun getMovies(@Path(PAGE_PATH) page: Int): MoviesPagedListModel
 
     @GET(GET_MOVIE_DETAILS_URL)
-    suspend fun getMovieDetails(@Path(ID_PATH) id: String): MovieDetails
+    suspend fun getMovieDetails(@Path(ID_PATH) id: String): MovieDetailsModel
 
 }
