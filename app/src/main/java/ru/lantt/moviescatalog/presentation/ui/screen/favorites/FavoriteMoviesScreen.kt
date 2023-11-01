@@ -1,45 +1,43 @@
 package ru.lantt.moviescatalog.presentation.ui.screen.favorites
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
-import ru.lantt.moviescatalog.R
-import ru.lantt.moviescatalog.data.datasource.MockMovieSource
-import ru.lantt.moviescatalog.domain.entity.Movie
+import org.koin.androidx.compose.koinViewModel
 import ru.lantt.moviescatalog.presentation.navigation.BottomNavItems
 import ru.lantt.moviescatalog.presentation.navigation.BottomNavigationBar
+import ru.lantt.moviescatalog.presentation.ui.event.FavoritesEvent
+import ru.lantt.moviescatalog.presentation.ui.screen.common.ErrorScreen
+import ru.lantt.moviescatalog.presentation.ui.screen.common.LoadingScreen
+import ru.lantt.moviescatalog.presentation.ui.screen.favorites.components.FavoriteMoviesContent
 import ru.lantt.moviescatalog.presentation.ui.screen.favorites.components.FavoritesTopBar
-import ru.lantt.moviescatalog.presentation.ui.screen.favorites.components.RegularMovieCard
-import ru.lantt.moviescatalog.presentation.ui.screen.favorites.components.WideMovieCard
-import ru.lantt.moviescatalog.presentation.ui.theme.DefaultPaddingBetweenElements
-import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
-import ru.lantt.moviescatalog.presentation.ui.theme.Padding20
-import ru.lantt.moviescatalog.presentation.ui.theme.PaddingMedium
-import ru.lantt.moviescatalog.presentation.ui.theme.Text_R_15
-import ru.lantt.moviescatalog.presentation.ui.theme.Title_2_B_20
+import ru.lantt.moviescatalog.presentation.uistate.favorites.FavoritesUiState
+import ru.lantt.moviescatalog.presentation.viewmodel.favorites.FavoritesViewModel
 
 @Composable
 fun FavoriteMoviesScreen(
-    // TODO remove
-    favorites: List<Movie> = MockMovieSource.movies,
     navController: NavController,
-    modifier: Modifier = Modifier
+    goToAuthorizationScreen: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: FavoritesViewModel = koinViewModel()
 ) {
+    val favoritesUiState by remember { viewModel.favoritesUiState }
+
+    LaunchedEffect(key1 = LocalContext.current) {
+        viewModel.favoritesEventFlow.collect { event ->
+            when (event) {
+                FavoritesEvent.AuthenticationRequired -> goToAuthorizationScreen()
+            }
+        }
+    }
+
+
     Scaffold(
         topBar = {
             FavoritesTopBar()
@@ -54,106 +52,15 @@ fun FavoriteMoviesScreen(
             )
         }
     ) { paddingValues ->
-        LazyColumn(
-            modifier = modifier
-                .background(Gray900)
-                .padding(paddingValues)
-        ) {
-            if (favorites.isEmpty()) {
-                item {
-                    Spacer(modifier = Modifier.height(100.dp))
-
-                    Column(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            text = stringResource(id = R.string.you_have_no_favorites_yet),
-                            style = Title_2_B_20,
-                            color = Color.White,
-                        )
-                        Text(
-                            text = stringResource(id = R.string.choose_and_add_favorites),
-                            style = Text_R_15,
-                            color = Color.White,
-                        )
-                    }
-                }
-            }
-
-            val groupSize = 3
-            val groupsCount = favorites.size / groupSize
-
-            items(groupsCount) { groupIndex ->
-                val firstMovie = favorites.getOrNull(groupIndex * 3)
-                val secondMovie = favorites.getOrNull(groupIndex * 3 + 1)
-                val thirdMovie = favorites.getOrNull(groupIndex * 3 + 2)
-
-                if (firstMovie == null) return@items
-                Column(
-                    modifier = Modifier.padding(
-                        start = PaddingMedium,
-                        end = PaddingMedium,
-                        top = Padding20
-                    )
-                ) {
-                    Row {
-                        RegularMovieCard(
-                            movie = firstMovie,
-                            modifier = Modifier.weight(1f)
-                        )
-
-                        if (secondMovie != null) {
-                            Spacer(modifier = Modifier.width(DefaultPaddingBetweenElements))
-
-                            RegularMovieCard(
-                                movie = secondMovie,
-                                modifier = Modifier.weight(1f)
-                            )
-                        }
-                    }
-
-                    Spacer(modifier = Modifier.height(Padding20))
-
-                    if (thirdMovie != null) {
-                        WideMovieCard(movie = thirdMovie)
-                    }
-                }
-            }
-
-            item {
-                val firstMovie = favorites.getOrNull(groupsCount * groupSize)
-                val secondMovie = favorites.getOrNull(groupsCount * groupSize + 1)
-
-                Row(
-                    modifier = Modifier.padding(
-                        start = PaddingMedium,
-                        end = PaddingMedium,
-                        top = Padding20
-                    )
-                ) {
-                    if (firstMovie != null && secondMovie != null) {
-                        RegularMovieCard(
-                            movie = firstMovie,
-                            modifier = Modifier.weight(1f)
-                        )
-
-                        Spacer(modifier = Modifier.width(DefaultPaddingBetweenElements))
-
-                        RegularMovieCard(
-                            movie = secondMovie,
-                            modifier = Modifier.weight(1f)
-                        )
-                    }
-                    if (firstMovie != null) {
-                        WideMovieCard(movie = firstMovie)
-                    }
-                }
-            }
-
-            item {
-                Spacer(modifier = Modifier.height(Padding20))
-            }
+        when (favoritesUiState) {
+            FavoritesUiState.Initial -> Unit
+            FavoritesUiState.Loading -> LoadingScreen()
+            FavoritesUiState.Error -> ErrorScreen(onRetry = viewModel::retry)
+            is FavoritesUiState.Content -> FavoriteMoviesContent(
+                favorites = (favoritesUiState as FavoritesUiState.Content).favorites,
+                navController = navController,
+                modifier = modifier.padding(paddingValues)
+            )
         }
     }
 }

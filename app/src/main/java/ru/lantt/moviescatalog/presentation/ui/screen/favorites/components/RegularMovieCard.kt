@@ -19,14 +19,19 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import ru.lantt.moviescatalog.domain.entity.Movie
 import ru.lantt.moviescatalog.presentation.ui.theme.Label_M_14
+import ru.lantt.moviescatalog.presentation.ui.util.noRippleClickable
 
 @Composable
 fun RegularMovieCard(
     movie: Movie,
+    onMovieClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
+            .noRippleClickable {
+                onMovieClick(movie.id)
+            }
     ) {
         Box(
             modifier = Modifier.fillMaxWidth()

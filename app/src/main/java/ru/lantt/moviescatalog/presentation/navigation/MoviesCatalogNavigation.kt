@@ -95,7 +95,10 @@ fun MoviesCatalogNavigation(
         }
         composable(MoviesCatalogDestinations.FAVORITES) {
             FavoriteMoviesScreen(
-                navController = navController
+                navController = navController,
+                goToAuthorizationScreen = {
+                    navController.navigate(MoviesCatalogDestinations.AUTHORIZATION)
+                }
             )
         }
         composable(MoviesCatalogDestinations.PROFILE) {
