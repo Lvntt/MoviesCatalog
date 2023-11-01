@@ -26,6 +26,7 @@ private const val CAROUSEL_SIZE = 4
 @Composable
 fun MovieCatalog(
     movies: LazyPagingItems<Movie>,
+    goToMovieScreen: (String) -> Unit,
     shimmerStartOffsetX: Float
 ) {
     if (movies.itemCount < CAROUSEL_SIZE) return
@@ -65,6 +66,7 @@ fun MovieCatalog(
                 MovieCard(
                     movie = movie,
                     shimmerStartOffsetX = shimmerStartOffsetX,
+                    goToMovieScreen = goToMovieScreen,
                     modifier = Modifier.padding(horizontal = PaddingMedium),
                 )
             }

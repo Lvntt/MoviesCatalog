@@ -1,5 +1,6 @@
 package ru.lantt.moviescatalog.presentation.navigation
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,13 +18,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.navArgument
 import ru.lantt.moviescatalog.presentation.ui.screen.auth.authorization.AuthorizationScreen
 import ru.lantt.moviescatalog.presentation.ui.screen.auth.login.LoginScreen
 import ru.lantt.moviescatalog.presentation.ui.screen.auth.registration.RegistrationScreen
+import ru.lantt.moviescatalog.presentation.ui.screen.favorites.FavoriteMoviesScreen
+import ru.lantt.moviescatalog.presentation.ui.screen.launch.LaunchScreen
 import ru.lantt.moviescatalog.presentation.ui.screen.main.MainScreen
+import ru.lantt.moviescatalog.presentation.ui.screen.movie.MovieScreen
+import ru.lantt.moviescatalog.presentation.ui.screen.profile.ProfileScreen
 import ru.lantt.moviescatalog.presentation.ui.theme.Accent
 import ru.lantt.moviescatalog.presentation.ui.theme.BottomNavigationBackground
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray400
@@ -37,6 +44,8 @@ object MoviesCatalogDestinations {
     const val MAIN = "main"
     const val FAVORITES = "favorites"
     const val PROFILE = "profile"
+    const val LAUNCH = "launch"
+    const val MOVIE = "movie"
 }
 
 
@@ -46,7 +55,7 @@ fun MoviesCatalogNavigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = MoviesCatalogDestinations.AUTHORIZATION
+        startDestination = MoviesCatalogDestinations.LAUNCH
     ) {
         composable(MoviesCatalogDestinations.AUTHORIZATION) {
             AuthorizationScreen(
@@ -90,17 +99,41 @@ fun MoviesCatalogNavigation(
             )
         }
         composable(MoviesCatalogDestinations.FAVORITES) {
-            // FavoritesScreen
-            TestScreen(
-                color = Color.Yellow,
-                navController = navController
+            FavoriteMoviesScreen(
+                navController = navController,
+                goToAuthorizationScreen = {
+                    navController.navigate(MoviesCatalogDestinations.AUTHORIZATION)
+                }
             )
         }
         composable(MoviesCatalogDestinations.PROFILE) {
-            // ProfileScreen
-            TestScreen(
-                color = Color.Green,
+            ProfileScreen(
+                navController = navController,
+                goToAuthorizationScreen = {
+                    navController.navigate(MoviesCatalogDestinations.AUTHORIZATION)
+                }
+            )
+        }
+        composable(MoviesCatalogDestinations.LAUNCH) {
+            LaunchScreen(
                 navController = navController
+            )
+        }
+        composable(
+            route = "${MoviesCatalogDestinations.MOVIE}/{movieId}",
+            arguments = listOf(
+                navArgument("movieId") { type = NavType.StringType }
+            )
+        ) { backStackEntry ->
+            val movieId = backStackEntry.arguments?.getString("movieId") ?: ""
+            MovieScreen(
+                id = movieId,
+                goToMainScreen = {
+                    navController.navigate(MoviesCatalogDestinations.MAIN)
+                },
+                goToAuthorizationScreen = {
+                    navController.navigate(MoviesCatalogDestinations.AUTHORIZATION)
+                }
             )
         }
     }
@@ -153,6 +186,7 @@ fun BottomNavigationBar(
 }
 
 // TODO remove
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun TestScreen(
     color: Color,

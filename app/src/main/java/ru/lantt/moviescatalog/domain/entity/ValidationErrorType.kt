@@ -8,4 +8,5 @@ enum class ValidationErrorType {
     PASSWORDS_MISMATCH,
     INVALID_EMAIL,
     INVALID_DATE_OF_BIRTH,
+    INVALID_URL
 }
