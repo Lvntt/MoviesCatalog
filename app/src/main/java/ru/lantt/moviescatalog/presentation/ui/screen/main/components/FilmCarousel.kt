@@ -33,11 +33,13 @@ import ru.lantt.moviescatalog.presentation.ui.theme.CarouselImageHeight
 import ru.lantt.moviescatalog.presentation.ui.theme.LargeRoundedCornerRadius
 import ru.lantt.moviescatalog.presentation.ui.theme.PaddingSmall
 import ru.lantt.moviescatalog.presentation.ui.theme.TinyIconSize
+import ru.lantt.moviescatalog.presentation.ui.util.noRippleClickable
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun FilmCarousel(
     movies: List<Movie>,
+    goToMovieScreen: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val posterCount = movies.size
@@ -67,7 +69,11 @@ fun FilmCarousel(
                     .build(),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier
+                    .fillMaxSize()
+                    .noRippleClickable {
+                        goToMovieScreen(currentFilmPoster.id)
+                    }
             )
         }
         Box(
