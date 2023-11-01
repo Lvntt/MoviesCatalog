@@ -6,6 +6,10 @@ interface UserRepository {
 
     suspend fun getAndSaveUserProfile(): Profile
 
+    suspend fun getUserProfile(): Profile
+
+    suspend fun editUserProfile(profile: Profile)
+
     fun getUserIdFromLocalStorage(): String?
 
     fun checkUserExistence(): Boolean

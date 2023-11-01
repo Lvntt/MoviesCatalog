@@ -7,5 +7,5 @@ data class Profile(
     val avatarLink: String?,
     val name: String,
     val birthDate: String,
-    val gender: Gender
+    val gender: Int
 )

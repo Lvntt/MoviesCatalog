@@ -43,7 +43,6 @@ object MoviesCatalogDestinations {
     const val FAVORITES = "favorites"
     const val PROFILE = "profile"
     const val LAUNCH = "launch"
-    const val MOVIE = "movie"
 }
 
 

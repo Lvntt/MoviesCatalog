@@ -68,4 +68,10 @@ fun provideDomainModule(): Module = module {
 
     factory { DeleteReviewUseCase(get()) }
 
+    factory { GetUserProfileUseCase(get()) }
+
+    factory { EditUserProfileUseCase(get()) }
+
+    factory { ValidateUrlUseCase() }
+
 }
