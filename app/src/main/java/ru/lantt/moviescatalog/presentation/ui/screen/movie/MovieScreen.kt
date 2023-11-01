@@ -23,7 +23,7 @@ import ru.lantt.moviescatalog.presentation.viewmodel.movie.MovieViewModel
 fun MovieScreen(
     id: String,
     goToAuthorizationScreen: () -> Unit,
-    goToMainScreen: () -> Unit,
+    onBackButtonClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val viewModel: MovieViewModel = koinViewModel(parameters = { parametersOf(id) })
@@ -39,7 +39,7 @@ fun MovieScreen(
 
     Scaffold(
         topBar = {
-            MovieTopBar(onBackButtonClick = goToMainScreen)
+            MovieTopBar(onBackButtonClick = onBackButtonClick)
         }
     ) {
         when (movieUiState) {
