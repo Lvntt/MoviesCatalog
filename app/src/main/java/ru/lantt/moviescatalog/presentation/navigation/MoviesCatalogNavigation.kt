@@ -26,6 +26,7 @@ import androidx.navigation.navArgument
 import ru.lantt.moviescatalog.presentation.ui.screen.auth.authorization.AuthorizationScreen
 import ru.lantt.moviescatalog.presentation.ui.screen.auth.login.LoginScreen
 import ru.lantt.moviescatalog.presentation.ui.screen.auth.registration.RegistrationScreen
+import ru.lantt.moviescatalog.presentation.ui.screen.favorites.FavoriteMoviesScreen
 import ru.lantt.moviescatalog.presentation.ui.screen.launch.LaunchScreen
 import ru.lantt.moviescatalog.presentation.ui.screen.main.MainScreen
 import ru.lantt.moviescatalog.presentation.ui.screen.movie.MovieScreen
@@ -96,10 +97,11 @@ fun MoviesCatalogNavigation(
             )
         }
         composable(MoviesCatalogDestinations.FAVORITES) {
-            // FavoritesScreen
-            TestScreen(
-                color = Color.Yellow,
-                navController = navController
+            FavoriteMoviesScreen(
+                navController = navController,
+                goToAuthorizationScreen = {
+                    navController.navigate(MoviesCatalogDestinations.AUTHORIZATION)
+                }
             )
         }
         composable(MoviesCatalogDestinations.PROFILE) {

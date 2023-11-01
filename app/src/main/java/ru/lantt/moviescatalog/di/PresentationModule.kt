@@ -28,4 +28,6 @@ fun providePresentationModule(): Module = module {
 
     viewModel { ProfileViewModel(get(), get(), get(), get(), get(), get()) }
 
+    viewModel { FavoritesViewModel(get()) }
+
 }
