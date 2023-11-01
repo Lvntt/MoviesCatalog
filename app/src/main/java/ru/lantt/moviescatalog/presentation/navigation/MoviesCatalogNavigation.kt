@@ -18,14 +18,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.navArgument
 import ru.lantt.moviescatalog.presentation.ui.screen.auth.authorization.AuthorizationScreen
 import ru.lantt.moviescatalog.presentation.ui.screen.auth.login.LoginScreen
 import ru.lantt.moviescatalog.presentation.ui.screen.auth.registration.RegistrationScreen
 import ru.lantt.moviescatalog.presentation.ui.screen.launch.LaunchScreen
 import ru.lantt.moviescatalog.presentation.ui.screen.main.MainScreen
+import ru.lantt.moviescatalog.presentation.ui.screen.movie.MovieScreen
 import ru.lantt.moviescatalog.presentation.ui.theme.Accent
 import ru.lantt.moviescatalog.presentation.ui.theme.BottomNavigationBackground
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray400
@@ -40,6 +43,7 @@ object MoviesCatalogDestinations {
     const val FAVORITES = "favorites"
     const val PROFILE = "profile"
     const val LAUNCH = "launch"
+    const val MOVIE = "movie"
 }
 
 
@@ -109,6 +113,23 @@ fun MoviesCatalogNavigation(
         composable(MoviesCatalogDestinations.LAUNCH) {
             LaunchScreen(
                 navController = navController
+            )
+        }
+        composable(
+            route = "${MoviesCatalogDestinations.MOVIE}/{movieId}",
+            arguments = listOf(
+                navArgument("movieId") { type = NavType.StringType }
+            )
+        ) { backStackEntry ->
+            val movieId = backStackEntry.arguments?.getString("movieId") ?: ""
+            MovieScreen(
+                id = movieId,
+                goToMainScreen = {
+                    navController.navigate(MoviesCatalogDestinations.MAIN)
+                },
+                goToAuthorizationScreen = {
+                    navController.navigate(MoviesCatalogDestinations.AUTHORIZATION)
+                }
             )
         }
     }

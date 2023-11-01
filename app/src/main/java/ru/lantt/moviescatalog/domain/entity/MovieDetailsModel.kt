@@ -1,6 +1,6 @@
 package ru.lantt.moviescatalog.domain.entity
 
-data class MovieDetails(
+data class MovieDetailsModel(
     val id: String,
     val name: String?,
     val poster: String?,

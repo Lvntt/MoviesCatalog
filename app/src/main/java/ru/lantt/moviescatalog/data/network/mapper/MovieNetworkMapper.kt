@@ -36,7 +36,7 @@ class MovieNetworkMapper : EntityMapper<MovieElementModel, Movie> {
         return initial.map { mapFromEntity(it) }
     }
 
-    fun toEntityList(initial: List<Movie> ): List<MovieElementModel> {
+    fun toEntityList(initial: List<Movie>): List<MovieElementModel> {
         return initial.map { mapToEntity(it) }
     }
 
