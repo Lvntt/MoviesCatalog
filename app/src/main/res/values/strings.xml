@@ -41,4 +41,6 @@
     <string name="catalog">Каталог</string>
     <string name="an_error_occurred">Произошла ошибка</string>
     <string name="retry">Повторить попытку</string>
+    <string name="you_have_no_favorites_yet">У вас пока нет любимых фильмов</string>
+    <string name="choose_and_add_favorites">Выберите понравившийся фильм в каталоге и добавьте его в любимые</string>
 </resources>
