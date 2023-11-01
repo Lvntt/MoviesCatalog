@@ -30,6 +30,7 @@ import ru.lantt.moviescatalog.presentation.ui.screen.favorites.FavoriteMoviesScr
 import ru.lantt.moviescatalog.presentation.ui.screen.launch.LaunchScreen
 import ru.lantt.moviescatalog.presentation.ui.screen.main.MainScreen
 import ru.lantt.moviescatalog.presentation.ui.screen.movie.MovieScreen
+import ru.lantt.moviescatalog.presentation.ui.screen.profile.ProfileScreen
 import ru.lantt.moviescatalog.presentation.ui.theme.Accent
 import ru.lantt.moviescatalog.presentation.ui.theme.BottomNavigationBackground
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray400
@@ -44,6 +45,7 @@ object MoviesCatalogDestinations {
     const val FAVORITES = "favorites"
     const val PROFILE = "profile"
     const val LAUNCH = "launch"
+    const val MOVIE = "movie"
 }
 
 
@@ -105,10 +107,11 @@ fun MoviesCatalogNavigation(
             )
         }
         composable(MoviesCatalogDestinations.PROFILE) {
-            // ProfileScreen
-            TestScreen(
-                color = Color.Green,
-                navController = navController
+            ProfileScreen(
+                navController = navController,
+                goToAuthorizationScreen = {
+                    navController.navigate(MoviesCatalogDestinations.AUTHORIZATION)
+                }
             )
         }
         composable(MoviesCatalogDestinations.LAUNCH) {

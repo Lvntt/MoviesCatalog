@@ -48,9 +48,10 @@ private fun provideUserRepository(
     UserRepositoryImpl(userApiService, userDataSource)
 
 private fun provideFavoriteMoviesRepository(
-    favoriteMoviesApiService: FavoriteMoviesApiService
+    favoriteMoviesApiService: FavoriteMoviesApiService,
+    movieNetworkMapper: MovieNetworkMapper
 ): FavoriteMoviesRepository =
-    FavoriteMoviesRepositoryImpl(favoriteMoviesApiService)
+    FavoriteMoviesRepositoryImpl(favoriteMoviesApiService, movieNetworkMapper)
 
 private fun provideReviewRepository(
     reviewApiService: ReviewApiService
@@ -69,7 +70,7 @@ fun provideDataModule(): Module = module {
 
     single { provideUserRepository(get(), get()) }
 
-    single { provideFavoriteMoviesRepository(get()) }
+    single { provideFavoriteMoviesRepository(get(), get()) }
 
     single { provideReviewRepository(get()) }
 

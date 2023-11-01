@@ -1,10 +1,10 @@
 package ru.lantt.moviescatalog.domain.repository
 
-import ru.lantt.moviescatalog.domain.entity.MoviesListModel
+import ru.lantt.moviescatalog.domain.entity.Movie
 
 interface FavoriteMoviesRepository {
 
-    suspend fun getFavoriteMovies(): MoviesListModel
+    suspend fun getFavoriteMovies(): List<Movie>
 
     suspend fun addFavoriteMovie(id: String)
 

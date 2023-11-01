@@ -11,7 +11,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
-import ru.lantt.moviescatalog.domain.entity.MoviesListModel
+import ru.lantt.moviescatalog.domain.entity.Movie
 import ru.lantt.moviescatalog.domain.entity.Review
 import ru.lantt.moviescatalog.domain.entity.ReviewModifyModel
 import ru.lantt.moviescatalog.domain.usecase.AddFavoriteMovieUseCase
@@ -218,8 +218,8 @@ class MovieViewModel(
         return reviews.sumOf { it.rating }.toDouble() / reviews.size
     }
 
-    private fun isInFavorites(favorites: MoviesListModel, movieId: String): Boolean {
-        return favorites.movies?.any { it.id == movieId } ?: false
+    private fun isInFavorites(favorites: List<Movie>, movieId: String): Boolean {
+        return favorites.any { it.id == movieId }
     }
 
 }
