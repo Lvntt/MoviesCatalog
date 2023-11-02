@@ -11,7 +11,7 @@ object Constants {
     const val LOGIN_URL = "account/login"
     const val REGISTER_URL = "account/register"
     const val LOGOUT_URL = "account/logout"
-    const val GET_USER_PROFILE_URL = "account/profile"
+    const val GET_EDIT_USER_PROFILE_URL = "account/profile"
     const val GET_MOVIES_URL = "movies/{page}"
     const val GET_MOVIE_DETAILS_URL = "movies/details/{id}"
     const val GET_FAVORITE_MOVIES_URL = "favorites"
@@ -27,4 +27,5 @@ object Constants {
     const val ID = "id"
     const val AUTHORIZATION_HEADER = "Authorization"
     const val BEARER = "Bearer"
+
 }

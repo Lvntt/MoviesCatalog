@@ -37,7 +37,10 @@ fun MovieCatalog(
 
     LazyColumn {
         item {
-            FilmCarousel(movies = carouselMovies)
+            FilmCarousel(
+                movies = carouselMovies,
+                goToMovieScreen = goToMovieScreen
+            )
         }
 
         item {
