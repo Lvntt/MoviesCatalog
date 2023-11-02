@@ -3,6 +3,8 @@ package ru.lantt.moviescatalog.presentation.ui.screen.auth.registration
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -63,6 +65,7 @@ fun RegistrationScreen(
                                 }
                             )
                         }
+                        .verticalScroll(rememberScrollState())
                 )
                 RegistrationState.RegistrationPassword -> RegistrationPasswordContent(
                     viewModel = viewModel,

@@ -140,14 +140,15 @@ fun FavoriteMoviesContent(
                         },
                         modifier = Modifier.weight(1f)
                     )
-                }
-                if (firstMovie != null) {
-                    WideMovieCard(
-                        movie = firstMovie,
-                        onMovieClick = {
-                            navController.navigate("${MoviesCatalogDestinations.MOVIE}/$it")
-                        },
-                    )
+                } else {
+                    if (firstMovie != null) {
+                        WideMovieCard(
+                            movie = firstMovie,
+                            onMovieClick = {
+                                navController.navigate("${MoviesCatalogDestinations.MOVIE}/$it")
+                            },
+                        )
+                    }
                 }
             }
         }
