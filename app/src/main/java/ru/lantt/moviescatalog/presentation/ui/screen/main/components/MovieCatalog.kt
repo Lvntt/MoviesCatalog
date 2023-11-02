@@ -39,6 +39,7 @@ fun MovieCatalog(
         item {
             FilmCarousel(
                 movies = carouselMovies,
+                shimmerStartOffsetX = shimmerStartOffsetX,
                 goToMovieScreen = goToMovieScreen
             )
         }
