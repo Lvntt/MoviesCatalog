@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ru.lantt.moviescatalog.R
 import ru.lantt.moviescatalog.domain.entity.Movie
+import ru.lantt.moviescatalog.presentation.navigation.MoviesCatalogDestinations
 import ru.lantt.moviescatalog.presentation.ui.theme.DefaultPaddingBetweenElements
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
 import ru.lantt.moviescatalog.presentation.ui.theme.Padding20
@@ -79,9 +80,7 @@ fun FavoriteMoviesContent(
                     RegularMovieCard(
                         movie = firstMovie,
                         onMovieClick = {
-                            /*
-                            TODO navController.navigate("${MoviesCatalogDestinations.MOVIE}/$it")
-                             */
+                            navController.navigate("${MoviesCatalogDestinations.MOVIE}/$it")
                         },
                         modifier = Modifier.weight(1f)
                     )
@@ -92,9 +91,7 @@ fun FavoriteMoviesContent(
                         RegularMovieCard(
                             movie = secondMovie,
                             onMovieClick = {
-                                /*
-                                TODO navController.navigate("${MoviesCatalogDestinations.MOVIE}/$it")
-                                 */
+                                navController.navigate("${MoviesCatalogDestinations.MOVIE}/$it")
                             },
                             modifier = Modifier.weight(1f)
                         )
@@ -107,9 +104,7 @@ fun FavoriteMoviesContent(
                     WideMovieCard(
                         movie = thirdMovie,
                         onMovieClick = {
-                            /*
-                            TODO navController.navigate("${MoviesCatalogDestinations.MOVIE}/$it")
-                             */
+                            navController.navigate("${MoviesCatalogDestinations.MOVIE}/$it")
                         },
                     )
                 }
@@ -131,9 +126,7 @@ fun FavoriteMoviesContent(
                     RegularMovieCard(
                         movie = firstMovie,
                         onMovieClick = {
-                            /*
-                            TODO navController.navigate("${MoviesCatalogDestinations.MOVIE}/$it")
-                             */
+                            navController.navigate("${MoviesCatalogDestinations.MOVIE}/$it")
                         },
                         modifier = Modifier.weight(1f)
                     )
@@ -143,9 +136,7 @@ fun FavoriteMoviesContent(
                     RegularMovieCard(
                         movie = secondMovie,
                         onMovieClick = {
-                            /*
-                            TODO navController.navigate("${MoviesCatalogDestinations.MOVIE}/$it")
-                             */
+                            navController.navigate("${MoviesCatalogDestinations.MOVIE}/$it")
                         },
                         modifier = Modifier.weight(1f)
                     )
@@ -154,9 +145,7 @@ fun FavoriteMoviesContent(
                     WideMovieCard(
                         movie = firstMovie,
                         onMovieClick = {
-                            /*
-                            TODO navController.navigate("${MoviesCatalogDestinations.MOVIE}/$it")
-                             */
+                            navController.navigate("${MoviesCatalogDestinations.MOVIE}/$it")
                         },
                     )
                 }
