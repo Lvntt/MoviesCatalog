@@ -30,7 +30,7 @@ fun ShimmerMovieCardDescription(
                 .fillMaxWidth()
                 .padding(top = PaddingSmall)
         ) {
-            ShimmerText(
+            ShimmerBox(
                 width = 250.dp,
                 height = with(LocalDensity.current) { Label_B_16.fontSize.toDp() },
                 shimmerStartOffsetX = shimmerStartOffsetX
@@ -39,7 +39,7 @@ fun ShimmerMovieCardDescription(
 
         Spacer(modifier = Modifier.height(PaddingMedium))
 
-        ShimmerText(
+        ShimmerBox(
             width = 150.dp,
             height = with(LocalDensity.current) { Label_R_12.fontSize.toDp() },
             shimmerStartOffsetX = shimmerStartOffsetX
@@ -47,7 +47,7 @@ fun ShimmerMovieCardDescription(
 
         Spacer(modifier = modifier.height(MovieCardRegularPadding))
 
-        ShimmerText(
+        ShimmerBox(
             width = 100.dp,
             height = with(LocalDensity.current) { Label_R_13.fontSize.toDp() },
             shimmerStartOffsetX = shimmerStartOffsetX
