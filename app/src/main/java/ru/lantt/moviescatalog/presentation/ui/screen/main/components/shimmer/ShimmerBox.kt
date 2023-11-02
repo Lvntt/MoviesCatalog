@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import ru.lantt.moviescatalog.presentation.ui.util.shimmerEffect
 
 @Composable
-fun ShimmerText(
+fun ShimmerBox(
     width: Dp,
     height: Dp,
     shimmerStartOffsetX: Float,

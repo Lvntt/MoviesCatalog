@@ -20,7 +20,7 @@ fun ShimmerMovieCatalog(shimmerStartOffsetX: Float) {
         }
 
         item {
-            ShimmerText(
+            ShimmerBox(
                 width = 100.dp,
                 height = with(LocalDensity.current) { Title_B_24.fontSize.toDp() },
                 shimmerStartOffsetX = shimmerStartOffsetX,

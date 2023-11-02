@@ -15,10 +15,14 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
-import coil.compose.AsyncImage
+import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImagePainter
+import coil.compose.SubcomposeAsyncImage
+import coil.compose.SubcomposeAsyncImageContent
 import coil.request.ImageRequest
 import ru.lantt.moviescatalog.R
 import ru.lantt.moviescatalog.domain.entity.UserShort
+import ru.lantt.moviescatalog.presentation.ui.screen.main.components.shimmer.ShimmerBox
 import ru.lantt.moviescatalog.presentation.ui.theme.PaddingSmall
 import ru.lantt.moviescatalog.presentation.ui.theme.SmallAvatarSize
 
@@ -26,6 +30,7 @@ import ru.lantt.moviescatalog.presentation.ui.theme.SmallAvatarSize
 fun MovieReviewItemAvatar(
     author: UserShort?,
     isAnonymous: Boolean,
+    shimmerStartOffsetX: Float,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -51,7 +56,7 @@ fun MovieReviewItemAvatar(
                 )
             }
         } else {
-            AsyncImage(
+            SubcomposeAsyncImage(
                 model = ImageRequest.Builder(context = LocalContext.current)
                     .data(author.avatar)
                     .crossfade(true)
@@ -59,7 +64,19 @@ fun MovieReviewItemAvatar(
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxSize()
-            )
+            ) {
+                val state = painter.state
+                if (state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error) {
+                    ShimmerBox(
+                        width = 40.dp,
+                        height = 40.dp,
+                        shimmerStartOffsetX = shimmerStartOffsetX,
+                        modifier = Modifier.clip(CircleShape)
+                    )
+                } else {
+                    SubcomposeAsyncImageContent()
+                }
+            }
         }
     }
 }
