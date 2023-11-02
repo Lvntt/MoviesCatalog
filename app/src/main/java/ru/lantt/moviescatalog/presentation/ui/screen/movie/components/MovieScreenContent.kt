@@ -42,6 +42,7 @@ import ru.lantt.moviescatalog.presentation.viewmodel.movie.MovieViewModel
 fun MovieScreenContent(
     movie: MovieDetailsContent,
     viewModel: MovieViewModel,
+    shimmerStartOffsetX: Float,
     modifier: Modifier = Modifier
 ) {
     var isDialogOpened by remember { mutableStateOf(false) }
@@ -157,7 +158,8 @@ fun MovieScreenContent(
                     onEditClick = {
                         isDialogOpened = !isDialogOpened
                     },
-                    onDeleteClick = viewModel::deleteReview
+                    onDeleteClick = viewModel::deleteReview,
+                    shimmerStartOffsetX = shimmerStartOffsetX
                 )
 
                 Spacer(modifier = Modifier.height(Padding20))
@@ -169,6 +171,7 @@ fun MovieScreenContent(
 
             MovieReviewItem(
                 review = review,
+                shimmerStartOffsetX = shimmerStartOffsetX,
                 modifier = modifier.padding(horizontal = PaddingMedium)
             )
 

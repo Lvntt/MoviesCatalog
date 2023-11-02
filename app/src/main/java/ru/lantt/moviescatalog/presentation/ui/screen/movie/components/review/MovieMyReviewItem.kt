@@ -24,6 +24,7 @@ fun MovieMyReviewItem(
     review: Review,
     onEditClick: () -> Unit,
     onDeleteClick: () -> Unit,
+    shimmerStartOffsetX: Float,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -34,7 +35,8 @@ fun MovieMyReviewItem(
         ) {
             MovieReviewItemAvatar(
                 author = review.author,
-                isAnonymous = review.isAnonymous
+                isAnonymous = review.isAnonymous,
+                shimmerStartOffsetX = shimmerStartOffsetX
             )
 
             Spacer(modifier = Modifier.width(MovieRegularPadding))
