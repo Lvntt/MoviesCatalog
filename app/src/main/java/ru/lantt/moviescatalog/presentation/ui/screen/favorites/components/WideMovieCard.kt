@@ -7,23 +7,29 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
+import coil.compose.AsyncImagePainter
+import coil.compose.SubcomposeAsyncImage
+import coil.compose.SubcomposeAsyncImageContent
 import coil.request.ImageRequest
 import ru.lantt.moviescatalog.domain.entity.Movie
 import ru.lantt.moviescatalog.presentation.ui.theme.Label_M_14
 import ru.lantt.moviescatalog.presentation.ui.util.noRippleClickable
+import ru.lantt.moviescatalog.presentation.ui.util.shimmerEffect
 
 @Composable
 fun WideMovieCard(
     movie: Movie,
+    shimmerStartOffsetX: Float,
     onMovieClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -39,7 +45,7 @@ fun WideMovieCard(
                 .fillMaxWidth()
                 .height(205.dp)
         ) {
-            AsyncImage(
+            SubcomposeAsyncImage(
                 model = ImageRequest.Builder(context = LocalContext.current)
                     .data(movie.poster)
                     .crossfade(true)
@@ -47,7 +53,20 @@ fun WideMovieCard(
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxSize()
-            )
+            ) {
+                val state = painter.state
+                if (state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error) {
+                    Box(
+                        modifier = modifier
+                            .fillMaxWidth()
+                            .height(320.dp)
+                            .clip(RoundedCornerShape(5.dp))
+                            .shimmerEffect(shimmerStartOffsetX)
+                    )
+                } else {
+                    SubcomposeAsyncImageContent()
+                }
+            }
             if (movie.reviewRating != null) {
                 Box(
                     modifier = Modifier.matchParentSize(),

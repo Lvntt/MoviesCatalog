@@ -41,6 +41,10 @@
     <string name="catalog">Каталог</string>
     <string name="an_error_occurred">Произошла ошибка</string>
     <string name="retry">Повторить попытку</string>
+    <string name="avatar_link">Ссылка на аватар</string>
+    <string name="save">Сохранить</string>
+    <string name="invalid_url_error">Введена некорректная ссылка</string>
+    <string name="sign_out_of_account">Выйти из аккаунта</string>
     <string name="add_to_favorites">Добавить в любимое</string>
     <string name="show_more">Подробнее</string>
     <string name="show_less">Свернуть</string>
@@ -62,9 +66,6 @@
     <string name="leave_a_review">Оставить отзыв</string>
     <string name="write_a_review">Напишите отзыв</string>
     <string name="anonymous_review">Анонимный отзыв</string>
-    <string name="save">Сохранить</string>
-    <string name="avatar_link">Ссылка на аватар</string>
-    <string name="invalid_url_error">Введена некорректная ссылка</string>
     <string name="you_have_no_favorites_yet">У вас пока нет любимых фильмов</string>
     <string name="choose_and_add_favorites">Выберите понравившийся фильм в каталоге и добавьте его в любимые</string>
 </resources>

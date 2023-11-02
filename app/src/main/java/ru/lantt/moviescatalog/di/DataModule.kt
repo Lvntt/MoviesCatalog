@@ -31,9 +31,10 @@ private fun provideUserDataSource(context: Context): UserDataSource =
 
 private fun provideAuthRepository(
     authApiService: AuthApiService,
-    tokenDataSource: TokenDataSource
+    tokenDataSource: TokenDataSource,
+    userDataSource: UserDataSource
 ): AuthRepository =
-    AuthRepositoryImpl(authApiService, tokenDataSource)
+    AuthRepositoryImpl(authApiService, tokenDataSource, userDataSource)
 
 private fun provideMovieRepository(
     movieApiService: MovieApiService,
@@ -64,7 +65,7 @@ fun provideDataModule(): Module = module {
 
     single { provideUserDataSource(androidContext().applicationContext) }
 
-    single { provideAuthRepository(get(), get()) }
+    single { provideAuthRepository(get(), get(), get()) }
 
     single { provideMovieRepository(get(), get()) }
 

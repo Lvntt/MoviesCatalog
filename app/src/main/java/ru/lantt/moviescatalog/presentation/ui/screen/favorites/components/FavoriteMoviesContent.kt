@@ -30,6 +30,7 @@ import ru.lantt.moviescatalog.presentation.ui.theme.Title_2_B_20
 @Composable
 fun FavoriteMoviesContent(
     favorites: List<Movie>,
+    shimmerStartOffsetX: Float,
     navController: NavController,
     modifier: Modifier = Modifier,
 ) {
@@ -82,6 +83,7 @@ fun FavoriteMoviesContent(
                         onMovieClick = {
                             navController.navigate("${MoviesCatalogDestinations.MOVIE}/$it")
                         },
+                        shimmerStartOffsetX = shimmerStartOffsetX,
                         modifier = Modifier.weight(1f)
                     )
 
@@ -93,6 +95,7 @@ fun FavoriteMoviesContent(
                             onMovieClick = {
                                 navController.navigate("${MoviesCatalogDestinations.MOVIE}/$it")
                             },
+                            shimmerStartOffsetX = shimmerStartOffsetX,
                             modifier = Modifier.weight(1f)
                         )
                     }
@@ -106,6 +109,7 @@ fun FavoriteMoviesContent(
                         onMovieClick = {
                             navController.navigate("${MoviesCatalogDestinations.MOVIE}/$it")
                         },
+                        shimmerStartOffsetX = shimmerStartOffsetX
                     )
                 }
             }
@@ -128,6 +132,7 @@ fun FavoriteMoviesContent(
                         onMovieClick = {
                             navController.navigate("${MoviesCatalogDestinations.MOVIE}/$it")
                         },
+                        shimmerStartOffsetX = shimmerStartOffsetX,
                         modifier = Modifier.weight(1f)
                     )
 
@@ -138,16 +143,19 @@ fun FavoriteMoviesContent(
                         onMovieClick = {
                             navController.navigate("${MoviesCatalogDestinations.MOVIE}/$it")
                         },
+                        shimmerStartOffsetX = shimmerStartOffsetX,
                         modifier = Modifier.weight(1f)
                     )
-                }
-                if (firstMovie != null) {
-                    WideMovieCard(
-                        movie = firstMovie,
-                        onMovieClick = {
-                            navController.navigate("${MoviesCatalogDestinations.MOVIE}/$it")
-                        },
-                    )
+                } else {
+                    if (firstMovie != null) {
+                        WideMovieCard(
+                            movie = firstMovie,
+                            onMovieClick = {
+                                navController.navigate("${MoviesCatalogDestinations.MOVIE}/$it")
+                            },
+                            shimmerStartOffsetX = shimmerStartOffsetX
+                        )
+                    }
                 }
             }
         }

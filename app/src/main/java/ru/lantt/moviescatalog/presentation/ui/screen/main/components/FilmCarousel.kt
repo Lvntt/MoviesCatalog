@@ -25,10 +25,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
+import coil.compose.AsyncImagePainter
+import coil.compose.SubcomposeAsyncImage
+import coil.compose.SubcomposeAsyncImageContent
 import coil.request.ImageRequest
 import ru.lantt.moviescatalog.R
 import ru.lantt.moviescatalog.domain.entity.Movie
+import ru.lantt.moviescatalog.presentation.ui.screen.main.components.shimmer.ShimmerFilmCarousel
 import ru.lantt.moviescatalog.presentation.ui.theme.CarouselImageHeight
 import ru.lantt.moviescatalog.presentation.ui.theme.LargeRoundedCornerRadius
 import ru.lantt.moviescatalog.presentation.ui.theme.PaddingSmall
@@ -40,6 +43,7 @@ import ru.lantt.moviescatalog.presentation.ui.util.noRippleClickable
 fun FilmCarousel(
     movies: List<Movie>,
     goToMovieScreen: (String) -> Unit,
+    shimmerStartOffsetX: Float,
     modifier: Modifier = Modifier
 ) {
     val posterCount = movies.size
@@ -62,7 +66,8 @@ fun FilmCarousel(
         ) { page ->
             val currentFilmPoster = movies[page % posterCount]
 
-            AsyncImage(
+
+            SubcomposeAsyncImage(
                 model = ImageRequest.Builder(context = LocalContext.current)
                     .data(currentFilmPoster.poster)
                     .crossfade(true)
@@ -74,7 +79,14 @@ fun FilmCarousel(
                     .noRippleClickable {
                         goToMovieScreen(currentFilmPoster.id)
                     }
-            )
+            ) {
+                val state = painter.state
+                if (state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error) {
+                    ShimmerFilmCarousel(shimmerStartOffsetX)
+                } else {
+                    SubcomposeAsyncImageContent()
+                }
+            }
         }
         Box(
             modifier = modifier.fillMaxSize(),
