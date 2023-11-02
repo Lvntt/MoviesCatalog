@@ -24,9 +24,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
+import coil.compose.AsyncImagePainter
+import coil.compose.SubcomposeAsyncImage
+import coil.compose.SubcomposeAsyncImageContent
 import coil.request.ImageRequest
 import ru.lantt.moviescatalog.R
+import ru.lantt.moviescatalog.presentation.ui.screen.profile.components.shimmer.ShimmerProfileAvatar
 import ru.lantt.moviescatalog.presentation.ui.theme.Accent
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
 import ru.lantt.moviescatalog.presentation.ui.theme.Label_SB_15
@@ -39,6 +42,7 @@ fun ProfileAvatar(
     nickname: String?,
     avatarLink: String?,
     onLogoutClick: () -> Unit,
+    shimmerStartOffsetX: Float,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -57,7 +61,7 @@ fun ProfileAvatar(
             contentAlignment = Alignment.Center
         ) {
             if (avatarLink != null) {
-                AsyncImage(
+                SubcomposeAsyncImage(
                     model = ImageRequest.Builder(context = LocalContext.current)
                         .data(avatarLink)
                         .crossfade(true)
@@ -65,7 +69,14 @@ fun ProfileAvatar(
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.size(88.dp)
-                )
+                ) {
+                    val state = painter.state
+                    if (state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error) {
+                        ShimmerProfileAvatar(shimmerStartOffsetX = shimmerStartOffsetX)
+                    } else {
+                        SubcomposeAsyncImageContent()
+                    }
+                }
             } else {
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.profile_icon),
