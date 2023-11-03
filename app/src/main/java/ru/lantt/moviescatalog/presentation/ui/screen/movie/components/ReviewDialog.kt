@@ -1,5 +1,6 @@
 package ru.lantt.moviescatalog.presentation.ui.screen.movie.components
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,6 +29,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -56,6 +58,7 @@ fun ReviewDialog(
     modifier: Modifier = Modifier
 ) {
     val reviewContent by remember { viewModel.reviewContent}
+    val context = LocalContext.current
 
     Dialog(
         onDismissRequest = onDismissRequest,
@@ -153,8 +156,18 @@ fun ReviewDialog(
                     onClick = {
                         if (reviewContent.id == null) {
                             viewModel.addReview()
+                            Toast.makeText(
+                                context,
+                                context.getString(R.string.review_added),
+                                Toast.LENGTH_SHORT
+                            ).show()
                         } else {
                             viewModel.editReview()
+                            Toast.makeText(
+                                context,
+                                context.getString(R.string.review_edited),
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                         onDismissRequest()
                     },
