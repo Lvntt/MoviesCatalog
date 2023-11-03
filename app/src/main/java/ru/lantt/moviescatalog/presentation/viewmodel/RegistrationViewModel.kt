@@ -194,6 +194,7 @@ class RegistrationViewModel(
                 && registrationContent.repeatedPassword.isNotEmpty()
                 && registrationContent.passwordErrorId == null
                 && registrationContent.repeatedPasswordErrorId == null
+                && _registrationUiState.value !is RegistrationUiState.Loading
     }
 
     fun onRegister() {
