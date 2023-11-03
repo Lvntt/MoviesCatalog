@@ -10,8 +10,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -33,8 +31,7 @@ fun ShimmerProfileScreenContent(
                 top = PaddingMedium,
                 end = PaddingMedium,
                 start = PaddingMedium
-            )
-            .verticalScroll(rememberScrollState()),
+            ),
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
         ShimmerProfileAvatar(shimmerStartOffsetX = shimmerStartOffsetX)
