@@ -4,7 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ru.lantt.moviescatalog.R
@@ -36,6 +37,7 @@ fun FavoriteMoviesContent(
 ) {
     LazyColumn(
         modifier = Modifier
+            .fillMaxSize()
             .background(Gray900)
             .then(modifier)
     ) {
@@ -44,18 +46,20 @@ fun FavoriteMoviesContent(
                 Spacer(modifier = Modifier.height(100.dp))
 
                 Column(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxSize(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
                         text = stringResource(id = R.string.you_have_no_favorites_yet),
                         style = Title_2_B_20,
                         color = Color.White,
+                        textAlign = TextAlign.Center
                     )
                     Text(
                         text = stringResource(id = R.string.choose_and_add_favorites),
                         style = Text_R_15,
                         color = Color.White,
+                        textAlign = TextAlign.Center
                     )
                 }
             }
