@@ -68,4 +68,9 @@
     <string name="anonymous_review">Анонимный отзыв</string>
     <string name="you_have_no_favorites_yet">У вас пока нет любимых фильмов</string>
     <string name="choose_and_add_favorites">Выберите понравившийся фильм в каталоге и добавьте его в любимые</string>
+    <string name="review_added">Отзыв добавлен</string>
+    <string name="review_edited">Отзыв изменен</string>
+    <string name="review_deleted">Отзыв удален</string>
+    <string name="added_to_favorites">Добавлено в любимое</string>
+    <string name="removed_from_favorites">Удалено из любимого</string>
 </resources>

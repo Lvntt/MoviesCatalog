@@ -55,7 +55,9 @@ class MovieViewModel(
         when (exception) {
             is HttpException -> when (exception.code()) {
                 ErrorCodes.UNAUTHORIZED -> {
-                    movieEventChannel.trySend(MovieEvent.AuthenticationRequired)
+                    viewModelScope.launch {
+                        movieEventChannel.send(MovieEvent.AuthenticationRequired)
+                    }
                     _movieUiState.value = MovieUiState.Initial
                 }
 
@@ -70,8 +72,11 @@ class MovieViewModel(
         loadMovieDetails()
     }
 
-    private fun loadMovieDetails() {
-        _movieUiState.value = MovieUiState.Loading
+    private fun loadMovieDetails(withLoading: Boolean = true) {
+        if (withLoading) {
+            _movieUiState.value = MovieUiState.Loading
+        }
+
         viewModelScope.launch(Dispatchers.IO + movieExceptionHandler) {
             val movie = getMovieDetailsUseCase(movieId)
             val userId = getUserIdFromLocalStorageUseCase()
@@ -150,7 +155,7 @@ class MovieViewModel(
                     )
                 }
             )
-            retry()
+            retry(withLoading = false)
         }
     }
 
@@ -168,7 +173,7 @@ class MovieViewModel(
                     )
                 }
             )
-            retry()
+            retry(withLoading = false)
         }
     }
 
@@ -179,7 +184,7 @@ class MovieViewModel(
                 reviewId = _reviewContent.value.id ?: ""
             )
             _reviewContent.value = ReviewContent()
-            retry()
+            retry(withLoading = false)
         }
     }
 
@@ -195,8 +200,8 @@ class MovieViewModel(
         _reviewContent.value = _reviewContent.value.copy(isAnonymous = isAnonymous)
     }
 
-    fun retry() {
-        loadMovieDetails()
+    fun retry(withLoading: Boolean = true) {
+        loadMovieDetails(withLoading = withLoading)
     }
 
     private fun getMyReview(reviews: List<Review>, userId: String?): Review? {
