@@ -82,7 +82,6 @@ fun LoginScreen(
                         }
                     )
                 }
-                .verticalScroll(rememberScrollState())
         ) {
             when (loginUiState) {
                 LoginUiState.Initial -> Unit
@@ -122,7 +121,7 @@ fun LoginScreen(
                 isVisible = loginContent.passwordIsVisible,
                 onVisibilityClick = viewModel::changePasswordVisibility
             )
-            
+
             if (loginContent.isError) {
                 Spacer(modifier = Modifier.height(PaddingSmall))
 
@@ -132,23 +131,20 @@ fun LoginScreen(
                     color = LightAccent
                 )
             }
-            
+
             Spacer(modifier = Modifier.height(Padding20))
 
-            AccentButton(
-                modifier = Modifier.fillMaxWidth(),
-                enabled = viewModel.canLogIn(),
-                onClick = viewModel::logIn,
-                text = stringResource(id = R.string.login_2)
-            )
-        }
-
-        if (loginUiState is LoginUiState.Loading) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator()
+            if (loginUiState is LoginUiState.Loading) {
+                LoadingAccentButton(
+                    modifier = Modifier.fillMaxWidth()
+                )
+            } else {
+                AccentButton(
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = viewModel.canLogIn(),
+                    onClick = viewModel::logIn,
+                    text = stringResource(id = R.string.login_2)
+                )
             }
         }
     }

@@ -96,12 +96,18 @@ fun RegistrationPasswordContent(
 
         Spacer(modifier = Modifier.height(Padding20))
 
-        AccentButton(
-            modifier = Modifier.fillMaxWidth(),
-            enabled = viewModel.registrationIsAllowed(),
-            onClick = viewModel::onRegister,
-            text = stringResource(id = R.string.register_1)
-        )
+        if (registrationUiState is RegistrationUiState.Loading) {
+            LoadingAccentButton(
+                modifier = Modifier.fillMaxWidth()
+            )
+        } else {
+            AccentButton(
+                modifier = Modifier.fillMaxWidth(),
+                enabled = viewModel.registrationIsAllowed(),
+                onClick = viewModel::onRegister,
+                text = stringResource(id = R.string.register_1)
+            )
+        }
 
         if (registrationContent.isRegistrationError) {
             Spacer(modifier = Modifier.height(PaddingSmall))
@@ -111,10 +117,6 @@ fun RegistrationPasswordContent(
                 style = Text_R_14,
                 color = LightAccent
             )
-        }
-
-        if (registrationUiState is RegistrationUiState.Loading) {
-            LoadingScreen()
         }
     }
 }

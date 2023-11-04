@@ -60,7 +60,9 @@ class LoginViewModel(
     }
 
     fun canLogIn(): Boolean {
-        return _loginContent.value.login.isNotEmpty() && _loginContent.value.password.isNotEmpty()
+        return _loginContent.value.login.isNotEmpty()
+                && _loginContent.value.password.isNotEmpty()
+                && _loginUiState.value !is LoginUiState.Loading
     }
 
     fun logIn() {
