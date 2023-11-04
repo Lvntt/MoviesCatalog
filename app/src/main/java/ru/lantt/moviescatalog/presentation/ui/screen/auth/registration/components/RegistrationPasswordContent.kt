@@ -13,14 +13,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import ru.lantt.moviescatalog.R
 import ru.lantt.moviescatalog.presentation.ui.screen.common.AccentButton
 import ru.lantt.moviescatalog.presentation.ui.screen.common.AuthPasswordTextField
-import ru.lantt.moviescatalog.presentation.ui.screen.common.LoadingScreen
+import ru.lantt.moviescatalog.presentation.ui.screen.common.LoadingAccentButton
 import ru.lantt.moviescatalog.presentation.ui.theme.DefaultPaddingBetweenElements
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
 import ru.lantt.moviescatalog.presentation.ui.theme.LightAccent
@@ -47,9 +46,7 @@ fun RegistrationPasswordContent(
             .fillMaxSize()
             .background(Gray900)
             .padding(PaddingMedium)
-            .composed {
-                modifier
-            }
+            .then(modifier)
     ) {
         when (registrationUiState) {
             RegistrationUiState.Initial -> Unit
