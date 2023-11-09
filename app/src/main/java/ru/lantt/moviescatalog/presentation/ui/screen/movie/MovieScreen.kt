@@ -56,6 +56,46 @@ fun MovieScreen(
                     ).show()
                     goToAuthorizationScreen()
                 }
+
+                MovieEvent.ReviewAdded -> {
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.review_added),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                MovieEvent.ReviewEdited -> {
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.review_edited),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                MovieEvent.ReviewDeleted -> {
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.review_deleted),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                MovieEvent.FavoriteMovieAdded -> {
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.added_to_favorites),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                MovieEvent.FavoriteMovieDeleted -> {
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.removed_from_favorites),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
     }
@@ -68,7 +108,7 @@ fun MovieScreen(
         when (movieUiState) {
             MovieUiState.Initial -> Unit
             MovieUiState.Loading -> ShimmerMovieScreenContent(shimmerStartOffsetXProvider = { shimmerStartOffsetX })
-            MovieUiState.Error -> ErrorScreen(onRetry = viewModel::retry)
+            MovieUiState.Error -> ErrorScreen(onRetry = viewModel::refresh)
             is MovieUiState.Content -> MovieScreenContent(
                 viewModel = viewModel,
                 movie = (movieUiState as MovieUiState.Content).movieDetailsContent,

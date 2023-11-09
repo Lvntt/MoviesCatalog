@@ -1,5 +1,6 @@
 package ru.lantt.moviescatalog.presentation.ui.screen.movie.components
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,10 +14,9 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Color
@@ -36,6 +36,7 @@ import ru.lantt.moviescatalog.presentation.ui.theme.PaddingMedium
 import ru.lantt.moviescatalog.presentation.ui.theme.PaddingTiny
 import ru.lantt.moviescatalog.presentation.ui.util.noRippleClickable
 import ru.lantt.moviescatalog.presentation.uistate.movie.MovieDetailsContent
+import ru.lantt.moviescatalog.presentation.uistate.movie.ReviewState
 import ru.lantt.moviescatalog.presentation.viewmodel.movie.MovieViewModel
 
 @Composable
@@ -45,15 +46,21 @@ fun MovieScreenContent(
     shimmerStartOffsetXProvider: () -> Float,
     modifier: Modifier = Modifier
 ) {
-    var isDialogOpened by remember { mutableStateOf(false) }
+    val reviewState by remember { viewModel.reviewState }
+    when (reviewState) {
+        ReviewState.DialogClosed -> Log.d("MovieScreenContent", "ClosedState")
+        ReviewState.DialogOpened -> Log.d("MovieScreenContent", "OpenedState")
+        ReviewState.Loading -> Log.d("MovieScreenContent", "LoadingState")
+    }
+    val isRequestLoading by remember { derivedStateOf { reviewState is ReviewState.Loading } }
+    Log.d("Movie screen content", isRequestLoading.toString())
 
-    if (isDialogOpened) {
+    if (reviewState !is ReviewState.DialogClosed) {
         ReviewDialog(
             viewModel = viewModel,
-            onDismissRequest = {
-                isDialogOpened = false
-            },
-            onRatingChanged = viewModel::setRating
+            onDismissRequest = viewModel::onCloseDialog,
+            onRatingChanged = viewModel::setRating,
+            isRequestLoading = isRequestLoading
         )
     }
 
@@ -61,7 +68,7 @@ fun MovieScreenContent(
         modifier = Modifier
             .background(Gray900)
             .then(
-                if (isDialogOpened) {
+                if (reviewState !is ReviewState.DialogClosed) {
                     modifier.blur(15.dp)
                 } else {
                     modifier
@@ -134,7 +141,9 @@ fun MovieScreenContent(
                                 shape = CircleShape
                             )
                             .noRippleClickable {
-                                isDialogOpened = !isDialogOpened
+                                if (reviewState is ReviewState.DialogClosed) {
+                                    viewModel.onOpenDialog()
+                                }
                             }
                     ) {
                         Icon(
@@ -156,7 +165,9 @@ fun MovieScreenContent(
                     review = movie.myReview,
                     modifier = modifier.padding(horizontal = PaddingMedium),
                     onEditClick = {
-                        isDialogOpened = !isDialogOpened
+                        if (reviewState is ReviewState.DialogClosed) {
+                            viewModel.onOpenDialog()
+                        }
                     },
                     onDeleteClick = viewModel::deleteReview,
                     shimmerStartOffsetXProvider = shimmerStartOffsetXProvider

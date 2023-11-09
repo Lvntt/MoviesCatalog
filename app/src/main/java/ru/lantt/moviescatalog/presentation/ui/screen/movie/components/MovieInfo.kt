@@ -1,6 +1,5 @@
 package ru.lantt.moviescatalog.presentation.ui.screen.movie.components
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,7 +14,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
@@ -36,8 +34,6 @@ fun MovieInfo(
     rating: Double?,
     modifier: Modifier = Modifier
 ) {
-    val context = LocalContext.current
-
     Row(
         modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -70,18 +66,8 @@ fun MovieInfo(
                 .noRippleClickable {
                     if (isInFavorites) {
                         viewModel.deleteFavoriteMovie()
-                        Toast.makeText(
-                            context,
-                            context.getString(R.string.removed_from_favorites),
-                            Toast.LENGTH_SHORT
-                        ).show()
                     } else {
                         viewModel.addFavoriteMovie()
-                        Toast.makeText(
-                            context,
-                            context.getString(R.string.added_to_favorites),
-                            Toast.LENGTH_SHORT
-                        ).show()
                     }
                 }
         ) {

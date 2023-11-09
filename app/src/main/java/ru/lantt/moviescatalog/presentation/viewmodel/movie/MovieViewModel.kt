@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
@@ -27,6 +28,7 @@ import ru.lantt.moviescatalog.presentation.ui.event.MovieEvent
 import ru.lantt.moviescatalog.presentation.uistate.movie.MovieDetailsContent
 import ru.lantt.moviescatalog.presentation.uistate.movie.MovieUiState
 import ru.lantt.moviescatalog.presentation.uistate.movie.ReviewContent
+import ru.lantt.moviescatalog.presentation.uistate.movie.ReviewState
 
 class MovieViewModel(
     private val movieId: String,
@@ -43,6 +45,10 @@ class MovieViewModel(
     val movieUiState: State<MovieUiState>
         get() = _movieUiState
     private val _movieUiState: MutableState<MovieUiState> = mutableStateOf(MovieUiState.Initial)
+
+    val reviewState: State<ReviewState>
+        get() = _reviewState
+    private val _reviewState: MutableState<ReviewState> = mutableStateOf(ReviewState.DialogClosed)
 
     private val movieEventChannel = Channel<MovieEvent>()
     val movieEventFlow = movieEventChannel.receiveAsFlow()
@@ -74,12 +80,12 @@ class MovieViewModel(
         loadMovieDetails()
     }
 
-    private fun loadMovieDetails(withLoading: Boolean = true) {
+    private fun loadMovieDetails(withLoading: Boolean = true): Job {
         if (withLoading) {
             _movieUiState.value = MovieUiState.Loading
         }
 
-        viewModelScope.launch(Dispatchers.IO + movieExceptionHandler) {
+        return viewModelScope.launch(Dispatchers.IO + movieExceptionHandler) {
             val movie = getMovieDetailsUseCase(movieId)
             val userId = getUserIdFromLocalStorageUseCase()
             val favorites = getFavoriteMoviesUseCase()
@@ -127,6 +133,7 @@ class MovieViewModel(
     fun addFavoriteMovie() {
         viewModelScope.launch(Dispatchers.IO + movieExceptionHandler) {
             addFavoriteMovieUseCase(movieId)
+            movieEventChannel.send(MovieEvent.FavoriteMovieAdded)
         }
         _movieUiState.value = MovieUiState.Content(
             (_movieUiState.value as MovieUiState.Content).movieDetailsContent.copy(
@@ -138,6 +145,7 @@ class MovieViewModel(
     fun deleteFavoriteMovie() {
         viewModelScope.launch(Dispatchers.IO + movieExceptionHandler) {
             deleteFavoriteMovieUseCase(movieId)
+            movieEventChannel.send(MovieEvent.FavoriteMovieDeleted)
         }
         _movieUiState.value = MovieUiState.Content(
             (_movieUiState.value as MovieUiState.Content).movieDetailsContent.copy(
@@ -147,36 +155,50 @@ class MovieViewModel(
     }
 
     fun addReview() {
+        _reviewState.value = ReviewState.Loading
         viewModelScope.launch(Dispatchers.IO + movieExceptionHandler) {
-            addReviewUseCase(
-                movieId = movieId,
-                reviewModifyModel = with(_reviewContent.value) {
-                    ReviewModifyModel(
-                        reviewText = text,
-                        rating = rating,
-                        isAnonymous = isAnonymous
-                    )
-                }
-            )
-            retry(withLoading = false)
+            val addReviewAndUpdateData = launch {
+                addReviewUseCase(
+                    movieId = movieId,
+                    reviewModifyModel = with(_reviewContent.value) {
+                        ReviewModifyModel(
+                            reviewText = text,
+                            rating = rating,
+                            isAnonymous = isAnonymous
+                        )
+                    }
+                )
+                val updateDataJob = refresh(withLoading = false)
+                updateDataJob.join()
+            }
+            addReviewAndUpdateData.join()
+            movieEventChannel.send(MovieEvent.ReviewAdded)
+            onCloseDialog()
         }
     }
 
     fun editReview() {
+        _reviewState.value = ReviewState.Loading
         viewModelScope.launch(Dispatchers.IO + movieExceptionHandler) {
-            editReviewUseCase(
-                movieId = movieId,
-                reviewId = _reviewContent.value.id ?: "",
-                reviewModifyModel =
-                with(_reviewContent.value) {
-                    ReviewModifyModel(
-                        reviewText = text,
-                        rating = rating,
-                        isAnonymous = isAnonymous
-                    )
-                }
-            )
-            retry(withLoading = false)
+            val editReviewAndUpdateDataJob = launch {
+                editReviewUseCase(
+                    movieId = movieId,
+                    reviewId = _reviewContent.value.id ?: "",
+                    reviewModifyModel =
+                    with(_reviewContent.value) {
+                        ReviewModifyModel(
+                            reviewText = text,
+                            rating = rating,
+                            isAnonymous = isAnonymous
+                        )
+                    }
+                )
+                val updateDataJob = refresh(withLoading = false)
+                updateDataJob.join()
+            }
+            editReviewAndUpdateDataJob.join()
+            movieEventChannel.send(MovieEvent.ReviewEdited)
+            onCloseDialog()
         }
     }
 
@@ -187,7 +209,8 @@ class MovieViewModel(
                 reviewId = _reviewContent.value.id ?: ""
             )
             _reviewContent.value = ReviewContent()
-            retry(withLoading = false)
+            refresh(withLoading = false)
+            movieEventChannel.send(MovieEvent.ReviewDeleted)
         }
     }
 
@@ -203,12 +226,21 @@ class MovieViewModel(
         _reviewContent.value = _reviewContent.value.copy(isAnonymous = isAnonymous)
     }
 
-    fun retry(withLoading: Boolean = true) {
-        loadMovieDetails(withLoading = withLoading)
+    fun refresh(withLoading: Boolean = true): Job {
+        return loadMovieDetails(withLoading = withLoading)
     }
 
     fun canSetAnonymity(): Boolean {
         return _reviewContentRemote.value.id == null || _reviewContentRemote.value.isAnonymous
+    }
+
+    fun onCloseDialog() {
+        _reviewState.value = ReviewState.DialogClosed
+        _reviewContent.value = _reviewContentRemote.value
+    }
+
+    fun onOpenDialog() {
+        _reviewState.value = ReviewState.DialogOpened
     }
 
     private fun getMyReview(reviews: List<Review>, userId: String?): Review? {
