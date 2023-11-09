@@ -35,7 +35,7 @@ import ru.lantt.moviescatalog.presentation.viewmodel.auth.RegistrationViewModel
 fun RegistrationPasswordContent(
     viewModel: RegistrationViewModel,
     goToAuthorizationScreen: () -> Unit,
-    goToMainScreen: () -> Unit,
+    goToHomeScreen: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val registrationContent by remember { viewModel.registrationContent }
@@ -55,7 +55,7 @@ fun RegistrationPasswordContent(
                 goToAuthorizationScreen()
             }
             RegistrationUiState.Success -> LaunchedEffect(Unit) {
-                goToMainScreen()
+                goToHomeScreen()
             }
         }
 

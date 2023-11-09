@@ -43,7 +43,7 @@ import ru.lantt.moviescatalog.presentation.viewmodel.auth.LoginViewModel
 fun LoginScreen(
     onFunctionalTextClick: () -> Unit,
     goToAuthorizationScreen: () -> Unit,
-    goToMainScreen: () -> Unit,
+    goToHomeScreen: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: LoginViewModel = koinViewModel()
 ) {
@@ -86,7 +86,7 @@ fun LoginScreen(
                     goToAuthorizationScreen()
                 }
                 LoginUiState.Success -> LaunchedEffect(Unit) {
-                    goToMainScreen()
+                    goToHomeScreen()
                 }
             }
 

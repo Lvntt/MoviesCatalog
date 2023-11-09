@@ -16,8 +16,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
 import ru.lantt.moviescatalog.R
-import ru.lantt.moviescatalog.presentation.navigation.BottomNavItems
-import ru.lantt.moviescatalog.presentation.navigation.BottomNavigationBar
 import ru.lantt.moviescatalog.presentation.ui.event.FavoritesEvent
 import ru.lantt.moviescatalog.presentation.ui.screen.common.ErrorScreen
 import ru.lantt.moviescatalog.presentation.ui.screen.favorites.components.FavoriteMoviesContent
@@ -66,15 +64,6 @@ fun FavoriteMoviesScreen(
     Scaffold(
         topBar = {
             FavoritesTopBar()
-        },
-        bottomBar = {
-            BottomNavigationBar(
-                buttons = BottomNavItems.items,
-                navController = navController,
-                onItemClick = {
-                    navController.navigate(it.route)
-                }
-            )
         }
     ) { paddingValues ->
         when (favoritesUiState) {
