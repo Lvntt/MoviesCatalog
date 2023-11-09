@@ -30,7 +30,7 @@ import ru.lantt.moviescatalog.presentation.ui.theme.SmallAvatarSize
 fun MovieReviewItemAvatar(
     author: UserShort?,
     isAnonymous: Boolean,
-    shimmerStartOffsetX: Float,
+    shimmerStartOffsetXProvider: () -> Float,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -70,7 +70,7 @@ fun MovieReviewItemAvatar(
                     ShimmerBox(
                         width = 40.dp,
                         height = 40.dp,
-                        shimmerStartOffsetX = shimmerStartOffsetX,
+                        shimmerStartOffsetXProvider = shimmerStartOffsetXProvider,
                         modifier = Modifier.clip(CircleShape)
                     )
                 } else {

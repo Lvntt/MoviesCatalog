@@ -41,7 +41,7 @@ fun MainScreen(
         initialValue = -2f,
         targetValue = 2f,
         animationSpec = infiniteRepeatable(
-            animation = tween(1250)
+            animation = tween(1100)
         ),
         label = "shimmer"
     )
@@ -59,7 +59,7 @@ fun MainScreen(
     ) { paddingValues ->
         when (movies.loadState.refresh) {
             is LoadState.Error -> {
-                val exception = (movies.loadState.refresh as LoadState.Error).error.cause
+                val exception = (movies.loadState.refresh as LoadState.Error).error
                 if (exception is HttpException) {
                     when (exception.code()) {
                         BAD_REQUEST -> {
@@ -75,7 +75,7 @@ fun MainScreen(
                     }
                 )
             }
-            is LoadState.Loading -> ShimmerMovieCatalog(shimmerStartOffsetX = shimmerStartOffsetX)
+            is LoadState.Loading -> ShimmerMovieCatalog(shimmerStartOffsetXProvider = { shimmerStartOffsetX })
             is LoadState.NotLoading -> {
                 Column(
                     modifier = modifier
@@ -88,7 +88,7 @@ fun MainScreen(
                         goToMovieScreen = {
                             navController.navigate("${MoviesCatalogDestinations.MOVIE}/${it}")
                         },
-                        shimmerStartOffsetX = shimmerStartOffsetX
+                        shimmerStartOffsetXProvider = { shimmerStartOffsetX }
                     )
                 }
             }

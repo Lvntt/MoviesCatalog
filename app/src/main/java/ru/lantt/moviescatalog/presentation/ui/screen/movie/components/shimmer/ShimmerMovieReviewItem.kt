@@ -15,7 +15,7 @@ import ru.lantt.moviescatalog.presentation.ui.theme.PaddingSmall
 
 @Composable
 fun ShimmerMovieReviewItem(
-    shimmerStartOffsetX: Float,
+    shimmerStartOffsetXProvider: () -> Float,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -27,7 +27,7 @@ fun ShimmerMovieReviewItem(
             ShimmerBox(
                 width = 40.dp,
                 height = 40.dp,
-                shimmerStartOffsetX = shimmerStartOffsetX
+                shimmerStartOffsetXProvider = shimmerStartOffsetXProvider
             )
 
             Spacer(modifier = Modifier.width(MovieRegularPadding))
@@ -35,7 +35,7 @@ fun ShimmerMovieReviewItem(
             ShimmerBox(
                 width = 170.dp,
                 height = 17.dp,
-                shimmerStartOffsetX = shimmerStartOffsetX
+                shimmerStartOffsetXProvider = shimmerStartOffsetXProvider
             )
         }
 
@@ -44,7 +44,7 @@ fun ShimmerMovieReviewItem(
         ShimmerBox(
             width = 328.dp,
             height = 71.dp,
-            shimmerStartOffsetX = shimmerStartOffsetX
+            shimmerStartOffsetXProvider = shimmerStartOffsetXProvider
         )
     }
 }

@@ -10,7 +10,7 @@ import ru.lantt.moviescatalog.presentation.ui.theme.MovieRegularPadding
 
 @Composable
 fun ShimmerMovieAbout(
-    shimmerStartOffsetX: Float,
+    shimmerStartOffsetXProvider: () -> Float,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -20,11 +20,11 @@ fun ShimmerMovieAbout(
         ShimmerBox(
             width = 60.dp,
             height = 19.dp,
-            shimmerStartOffsetX = shimmerStartOffsetX
+            shimmerStartOffsetXProvider = shimmerStartOffsetXProvider
         )
 
         repeat(3) {
-            ShimmerMovieAboutItem(shimmerStartOffsetX = shimmerStartOffsetX)
+            ShimmerMovieAboutItem(shimmerStartOffsetXProvider = shimmerStartOffsetXProvider)
         }
 
     }

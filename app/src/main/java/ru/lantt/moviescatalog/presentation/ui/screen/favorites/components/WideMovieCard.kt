@@ -29,7 +29,7 @@ import ru.lantt.moviescatalog.presentation.ui.util.shimmerEffect
 @Composable
 fun WideMovieCard(
     movie: Movie,
-    shimmerStartOffsetX: Float,
+    shimmerStartOffsetXProvider: () -> Float,
     onMovieClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -61,7 +61,7 @@ fun WideMovieCard(
                             .fillMaxWidth()
                             .height(320.dp)
                             .clip(RoundedCornerShape(5.dp))
-                            .shimmerEffect(shimmerStartOffsetX)
+                            .shimmerEffect(shimmerStartOffsetXProvider)
                     )
                 } else {
                     SubcomposeAsyncImageContent()

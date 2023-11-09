@@ -42,7 +42,7 @@ fun ProfileAvatar(
     nickname: String?,
     avatarLink: String?,
     onLogoutClick: () -> Unit,
-    shimmerStartOffsetX: Float,
+    shimmerStartOffsetXProvider: () -> Float,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -72,7 +72,7 @@ fun ProfileAvatar(
                 ) {
                     val state = painter.state
                     if (state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error) {
-                        ShimmerProfileAvatar(shimmerStartOffsetX = shimmerStartOffsetX)
+                        ShimmerProfileAvatar(shimmerStartOffsetXProvider = shimmerStartOffsetXProvider)
                     } else {
                         SubcomposeAsyncImageContent()
                     }

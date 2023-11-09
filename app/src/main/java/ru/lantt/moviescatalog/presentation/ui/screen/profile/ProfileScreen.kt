@@ -1,6 +1,7 @@
 package ru.lantt.moviescatalog.presentation.ui.screen.profile
 
 import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
@@ -15,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
+import ru.lantt.moviescatalog.R
 import ru.lantt.moviescatalog.presentation.navigation.BottomNavItems
 import ru.lantt.moviescatalog.presentation.navigation.BottomNavigationBar
 import ru.lantt.moviescatalog.presentation.ui.event.ProfileEvent
@@ -32,6 +34,7 @@ fun ProfileScreen(
     modifier: Modifier = Modifier,
     viewModel: ProfileViewModel = koinViewModel(),
 ) {
+    val context = LocalContext.current
     val profileUiState by remember { viewModel.profileUiState }
     val profileContent by remember { viewModel.profileContent }
 
@@ -48,7 +51,17 @@ fun ProfileScreen(
     LaunchedEffect(key1 = LocalContext.current) {
         viewModel.profileEventFlow.collect { event ->
             when (event) {
-                ProfileEvent.AuthenticationRequired -> goToAuthorizationScreen()
+                ProfileEvent.AuthenticationRequired -> {
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.authentication_required),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    goToAuthorizationScreen()
+                }
+                ProfileEvent.LogOut -> {
+                    goToAuthorizationScreen()
+                }
             }
         }
     }
@@ -67,12 +80,12 @@ fun ProfileScreen(
     ) { paddingValues ->
         when (profileUiState) {
             ProfileUiState.Initial -> Unit
-            ProfileUiState.Loading -> ShimmerProfileScreenContent(shimmerStartOffsetX = shimmerStartOffsetX)
+            ProfileUiState.Loading -> ShimmerProfileScreenContent(shimmerStartOffsetXProvider = { shimmerStartOffsetX })
             ProfileUiState.Error -> ErrorScreen(onRetry = viewModel::retry)
             is ProfileUiState.Success -> ProfileScreenContent(
                 viewModel = viewModel,
                 profile = profileContent,
-                shimmerStartOffsetX = shimmerStartOffsetX,
+                shimmerStartOffsetXProvider = { shimmerStartOffsetX },
                 modifier = modifier.padding(paddingValues)
             )
         }

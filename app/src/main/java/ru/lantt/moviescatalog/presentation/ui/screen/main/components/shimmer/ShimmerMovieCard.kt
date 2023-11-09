@@ -10,16 +10,16 @@ import ru.lantt.moviescatalog.presentation.ui.theme.MovieCardRegularPadding
 
 @Composable
 fun ShimmerMovieCard(
-    shimmerStartOffsetX: Float,
+    shimmerStartOffsetXProvider: () -> Float,
     modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier.fillMaxWidth()
     ) {
-        ShimmerMovieCardImage(shimmerStartOffsetX = shimmerStartOffsetX)
+        ShimmerMovieCardImage(shimmerStartOffsetXProvider = shimmerStartOffsetXProvider)
 
         Spacer(modifier = Modifier.width(MovieCardRegularPadding))
 
-        ShimmerMovieCardDescription(shimmerStartOffsetX = shimmerStartOffsetX)
+        ShimmerMovieCardDescription(shimmerStartOffsetXProvider = shimmerStartOffsetXProvider)
     }
 }

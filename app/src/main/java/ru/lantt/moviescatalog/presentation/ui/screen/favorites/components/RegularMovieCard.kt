@@ -27,7 +27,7 @@ import ru.lantt.moviescatalog.presentation.ui.util.noRippleClickable
 @Composable
 fun RegularMovieCard(
     movie: Movie,
-    shimmerStartOffsetX: Float,
+    shimmerStartOffsetXProvider: () -> Float,
     onMovieClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -54,7 +54,7 @@ fun RegularMovieCard(
                     ShimmerBox(
                         width = 170.dp,
                         height = 320.dp,
-                        shimmerStartOffsetX = shimmerStartOffsetX,
+                        shimmerStartOffsetXProvider = shimmerStartOffsetXProvider,
                     )
                 } else {
                     SubcomposeAsyncImageContent()

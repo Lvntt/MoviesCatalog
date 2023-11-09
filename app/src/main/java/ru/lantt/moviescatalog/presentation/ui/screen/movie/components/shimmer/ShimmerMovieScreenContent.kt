@@ -19,40 +19,40 @@ import ru.lantt.moviescatalog.presentation.ui.theme.PaddingMedium
 
 @Composable
 fun ShimmerMovieScreenContent(
-    shimmerStartOffsetX: Float,
+    shimmerStartOffsetXProvider: () -> Float,
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = Modifier.background(Gray900)
     ) {
         Column {
-            ShimmerMovieImage(shimmerStartOffsetX = shimmerStartOffsetX)
+            ShimmerMovieImage(shimmerStartOffsetXProvider = shimmerStartOffsetXProvider)
 
             Spacer(modifier = Modifier.height(Padding20))
 
             ShimmerMovieInfo(
-                shimmerStartOffsetX = shimmerStartOffsetX,
+                shimmerStartOffsetXProvider = shimmerStartOffsetXProvider,
                 modifier.padding(horizontal = PaddingMedium)
             )
 
             Spacer(modifier = Modifier.height(Padding20))
 
             ShimmerMovieDescription(
-                shimmerStartOffsetX = shimmerStartOffsetX,
+                shimmerStartOffsetXProvider = shimmerStartOffsetXProvider,
                 modifier.padding(horizontal = PaddingMedium)
             )
 
             Spacer(modifier = Modifier.height(Padding20))
 
             ShimmerMovieGenres(
-                shimmerStartOffsetX = shimmerStartOffsetX,
+                shimmerStartOffsetXProvider = shimmerStartOffsetXProvider,
                 modifier.padding(horizontal = PaddingMedium)
             )
 
             Spacer(modifier = Modifier.height(Padding20))
 
             ShimmerMovieAbout(
-                shimmerStartOffsetX = shimmerStartOffsetX,
+                shimmerStartOffsetXProvider = shimmerStartOffsetXProvider,
                 modifier.padding(horizontal = PaddingMedium)
             )
 
@@ -60,7 +60,7 @@ fun ShimmerMovieScreenContent(
 
             repeat(2) {
                 ShimmerMovieReviewItem(
-                    shimmerStartOffsetX = shimmerStartOffsetX,
+                    shimmerStartOffsetXProvider = shimmerStartOffsetXProvider,
                     modifier.padding(horizontal = PaddingMedium)
                 )
 
@@ -83,6 +83,6 @@ fun ShimmerMovieScreenContentPreview() {
         label = "shimmer"
     )
 
-    ShimmerMovieScreenContent(shimmerStartOffsetX)
+    ShimmerMovieScreenContent({ shimmerStartOffsetX })
 
 }

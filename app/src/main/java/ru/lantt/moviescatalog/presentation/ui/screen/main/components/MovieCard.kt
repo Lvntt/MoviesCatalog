@@ -15,7 +15,7 @@ import ru.lantt.moviescatalog.presentation.ui.util.noRippleClickable
 @Composable
 fun MovieCard(
     movie: Movie,
-    shimmerStartOffsetX: Float,
+    shimmerStartOffsetXProvider: () -> Float,
     goToMovieScreen: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -29,7 +29,7 @@ fun MovieCard(
     ) {
         MovieCardImage(
             rating = movie.rating,
-            shimmerStartOffsetX = shimmerStartOffsetX,
+            shimmerStartOffsetXProvider = shimmerStartOffsetXProvider,
             imageUrl = movie.poster
         )
 

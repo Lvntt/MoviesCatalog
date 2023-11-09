@@ -11,7 +11,7 @@ import ru.lantt.moviescatalog.presentation.ui.theme.MovieRegularPadding
 
 @Composable
 fun ShimmerMovieGenres(
-    shimmerStartOffsetX: Float,
+    shimmerStartOffsetXProvider: () -> Float,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -20,7 +20,7 @@ fun ShimmerMovieGenres(
         ShimmerBox(
             width = 60.dp,
             height = 19.dp,
-            shimmerStartOffsetX = shimmerStartOffsetX
+            shimmerStartOffsetXProvider = shimmerStartOffsetXProvider
         )
 
         Spacer(modifier = Modifier.height(MovieRegularPadding))
@@ -28,7 +28,7 @@ fun ShimmerMovieGenres(
         ShimmerBox(
             width = 328.dp,
             height = 64.dp,
-            shimmerStartOffsetX = shimmerStartOffsetX
+            shimmerStartOffsetXProvider = shimmerStartOffsetXProvider
         )
     }
 }

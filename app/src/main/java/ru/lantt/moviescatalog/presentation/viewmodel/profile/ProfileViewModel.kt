@@ -161,7 +161,7 @@ class ProfileViewModel(
     fun logOut() {
         viewModelScope.launch(Dispatchers.IO + profileExceptionHandler) {
             logoutUserUseCase()
-            profileEventChannel.send(ProfileEvent.AuthenticationRequired)
+            profileEventChannel.send(ProfileEvent.LogOut)
         }
     }
 

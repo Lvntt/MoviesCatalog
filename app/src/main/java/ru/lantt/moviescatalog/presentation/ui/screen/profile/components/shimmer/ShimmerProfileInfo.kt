@@ -13,7 +13,7 @@ import ru.lantt.moviescatalog.presentation.ui.theme.PaddingSmall
 
 @Composable
 fun ShimmerProfileInfo(
-    shimmerStartOffsetX: Float,
+    shimmerStartOffsetXProvider: () -> Float,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -24,7 +24,7 @@ fun ShimmerProfileInfo(
                 ShimmerBox(
                     width = 144.dp,
                     height = 18.dp,
-                    shimmerStartOffsetX = shimmerStartOffsetX
+                    shimmerStartOffsetXProvider = shimmerStartOffsetXProvider
                 )
 
                 Spacer(modifier = Modifier.height(PaddingSmall))
@@ -32,7 +32,7 @@ fun ShimmerProfileInfo(
                 ShimmerBox(
                     width = 144.dp,
                     height = 42.dp,
-                    shimmerStartOffsetX = shimmerStartOffsetX,
+                    shimmerStartOffsetXProvider = shimmerStartOffsetXProvider,
                     modifier = Modifier.fillMaxWidth()
                 )
             }

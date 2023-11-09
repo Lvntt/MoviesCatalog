@@ -10,13 +10,13 @@ import ru.lantt.moviescatalog.presentation.ui.util.shimmerEffect
 
 @Composable
 fun ShimmerMovieImage(
-    shimmerStartOffsetX: Float,
+    shimmerStartOffsetXProvider: () -> Float,
     modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier
             .fillMaxWidth()
             .height(CarouselImageHeight)
-            .shimmerEffect(shimmerStartOffsetX)
+            .shimmerEffect(shimmerStartOffsetXProvider)
     )
 }

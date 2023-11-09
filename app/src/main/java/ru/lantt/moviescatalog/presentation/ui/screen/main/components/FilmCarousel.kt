@@ -43,7 +43,7 @@ import ru.lantt.moviescatalog.presentation.ui.util.noRippleClickable
 fun FilmCarousel(
     movies: List<Movie>,
     goToMovieScreen: (String) -> Unit,
-    shimmerStartOffsetX: Float,
+    shimmerStartOffsetXProvider: () -> Float,
     modifier: Modifier = Modifier
 ) {
     val posterCount = movies.size
@@ -82,7 +82,7 @@ fun FilmCarousel(
             ) {
                 val state = painter.state
                 if (state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error) {
-                    ShimmerFilmCarousel(shimmerStartOffsetX)
+                    ShimmerFilmCarousel(shimmerStartOffsetXProvider)
                 } else {
                     SubcomposeAsyncImageContent()
                 }

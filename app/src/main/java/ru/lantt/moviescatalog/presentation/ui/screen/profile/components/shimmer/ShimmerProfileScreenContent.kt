@@ -20,7 +20,7 @@ import ru.lantt.moviescatalog.presentation.ui.theme.PaddingMedium
 
 @Composable
 fun ShimmerProfileScreenContent(
-    shimmerStartOffsetX: Float,
+    shimmerStartOffsetXProvider: () -> Float,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -34,11 +34,11 @@ fun ShimmerProfileScreenContent(
             ),
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
-        ShimmerProfileAvatar(shimmerStartOffsetX = shimmerStartOffsetX)
+        ShimmerProfileAvatar(shimmerStartOffsetXProvider = shimmerStartOffsetXProvider)
 
         Spacer(modifier = Modifier.height(5.dp))
 
-        ShimmerProfileInfo(shimmerStartOffsetX = shimmerStartOffsetX)
+        ShimmerProfileInfo(shimmerStartOffsetXProvider = shimmerStartOffsetXProvider)
 
         Spacer(modifier = Modifier.height(20.dp))
     }
@@ -57,5 +57,5 @@ fun ShimmerProfileScreenContentPreview() {
         label = "shimmer"
     )
 
-    ShimmerProfileScreenContent(shimmerStartOffsetX)
+    ShimmerProfileScreenContent({ shimmerStartOffsetX })
 }

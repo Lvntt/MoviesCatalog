@@ -42,7 +42,7 @@ import ru.lantt.moviescatalog.presentation.viewmodel.movie.MovieViewModel
 fun MovieScreenContent(
     movie: MovieDetailsContent,
     viewModel: MovieViewModel,
-    shimmerStartOffsetX: Float,
+    shimmerStartOffsetXProvider: () -> Float,
     modifier: Modifier = Modifier
 ) {
     var isDialogOpened by remember { mutableStateOf(false) }
@@ -159,19 +159,22 @@ fun MovieScreenContent(
                         isDialogOpened = !isDialogOpened
                     },
                     onDeleteClick = viewModel::deleteReview,
-                    shimmerStartOffsetX = shimmerStartOffsetX
+                    shimmerStartOffsetXProvider = shimmerStartOffsetXProvider
                 )
 
                 Spacer(modifier = Modifier.height(Padding20))
             }
         }
 
-        items(count = movie.usersReviews.size) { reviewIndex ->
+        items(
+            count = movie.usersReviews.size,
+            key = { movie.usersReviews[it].id }
+        ) { reviewIndex ->
             val review = movie.usersReviews[reviewIndex]
 
             MovieReviewItem(
                 review = review,
-                shimmerStartOffsetX = shimmerStartOffsetX,
+                shimmerStartOffsetXProvider = shimmerStartOffsetXProvider,
                 modifier = modifier.padding(horizontal = PaddingMedium)
             )
 

@@ -19,7 +19,7 @@ import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
 
 @Composable
 fun ShimmerProfileAvatar(
-    shimmerStartOffsetX: Float,
+    shimmerStartOffsetXProvider: () -> Float,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -32,7 +32,7 @@ fun ShimmerProfileAvatar(
         ShimmerBox(
             width = 88.dp,
             height = 88.dp,
-            shimmerStartOffsetX = shimmerStartOffsetX,
+            shimmerStartOffsetXProvider = shimmerStartOffsetXProvider,
             modifier = Modifier.clip(CircleShape)
         )
 
@@ -41,14 +41,14 @@ fun ShimmerProfileAvatar(
         ShimmerBox(
             width = 160.dp,
             height = 29.dp,
-            shimmerStartOffsetX = shimmerStartOffsetX
+            shimmerStartOffsetXProvider = shimmerStartOffsetXProvider
         )
 
         Box {
             ShimmerBox(
                 width = 140.dp,
                 height = 18.dp,
-                shimmerStartOffsetX = shimmerStartOffsetX,
+                shimmerStartOffsetXProvider = shimmerStartOffsetXProvider,
                 modifier = Modifier.padding(vertical = 12.dp)
             )
         }

@@ -11,7 +11,7 @@ import ru.lantt.moviescatalog.presentation.ui.screen.main.components.shimmer.Shi
 
 @Composable
 fun ShimmerMovieInfo(
-    shimmerStartOffsetX: Float,
+    shimmerStartOffsetXProvider: () -> Float,
     modifier: Modifier = Modifier
 ) {
 
@@ -20,18 +20,18 @@ fun ShimmerMovieInfo(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        ShimmerMovieRating(shimmerStartOffsetX)
+        ShimmerMovieRating(shimmerStartOffsetXProvider)
 
         ShimmerBox(
             width = 212.dp,
             height = 26.dp,
-            shimmerStartOffsetX = shimmerStartOffsetX
+            shimmerStartOffsetXProvider = shimmerStartOffsetXProvider
         )
 
         ShimmerBox(
             width = 40.dp,
             height = 40.dp,
-            shimmerStartOffsetX = shimmerStartOffsetX
+            shimmerStartOffsetXProvider = shimmerStartOffsetXProvider
         )
     }
 }

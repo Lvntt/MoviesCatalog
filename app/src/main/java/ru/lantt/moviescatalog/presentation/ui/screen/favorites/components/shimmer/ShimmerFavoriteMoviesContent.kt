@@ -29,7 +29,7 @@ import ru.lantt.moviescatalog.presentation.ui.util.shimmerEffect
 
 @Composable
 fun ShimmerFavoriteMoviesContent(
-    shimmerStartOffsetX: Float,
+    shimmerStartOffsetXProvider: () -> Float,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -56,14 +56,14 @@ fun ShimmerFavoriteMoviesContent(
                         ShimmerBox(
                             width = 170.dp,
                             height = 320.dp,
-                            shimmerStartOffsetX = shimmerStartOffsetX,
+                            shimmerStartOffsetXProvider = shimmerStartOffsetXProvider,
                         )
                         Spacer(modifier = Modifier.height(5.dp))
 
                         ShimmerBox(
                             width = 170.dp,
                             height = 17.dp,
-                            shimmerStartOffsetX = shimmerStartOffsetX,
+                            shimmerStartOffsetXProvider = shimmerStartOffsetXProvider,
                         )
                     }
 
@@ -77,14 +77,14 @@ fun ShimmerFavoriteMoviesContent(
                         ShimmerBox(
                             width = 170.dp,
                             height = 320.dp,
-                            shimmerStartOffsetX = shimmerStartOffsetX,
+                            shimmerStartOffsetXProvider = shimmerStartOffsetXProvider,
                         )
                         Spacer(modifier = Modifier.height(5.dp))
 
                         ShimmerBox(
                             width = 170.dp,
                             height = 17.dp,
-                            shimmerStartOffsetX = shimmerStartOffsetX,
+                            shimmerStartOffsetXProvider = shimmerStartOffsetXProvider,
                         )
                     }
                 }
@@ -96,7 +96,7 @@ fun ShimmerFavoriteMoviesContent(
                         .fillMaxWidth()
                         .height(320.dp)
                         .clip(RoundedCornerShape(5.dp))
-                        .shimmerEffect(shimmerStartOffsetX)
+                        .shimmerEffect(shimmerStartOffsetXProvider)
                 )
 
                 Spacer(modifier = Modifier.height(5.dp))
@@ -106,7 +106,7 @@ fun ShimmerFavoriteMoviesContent(
                         .fillMaxWidth()
                         .height(17.dp)
                         .clip(RoundedCornerShape(5.dp))
-                        .shimmerEffect(shimmerStartOffsetX)
+                        .shimmerEffect(shimmerStartOffsetXProvider)
                 )
 
                 Spacer(modifier = Modifier.height(20.dp))
@@ -128,5 +128,5 @@ fun ShimmerFavoriteMoviesContentPreview() {
         label = "shimmer"
     )
 
-    ShimmerFavoriteMoviesContent(shimmerStartOffsetX)
+    ShimmerFavoriteMoviesContent({ shimmerStartOffsetX })
 }

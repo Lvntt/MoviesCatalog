@@ -11,14 +11,14 @@ import ru.lantt.moviescatalog.presentation.ui.theme.PaddingMedium
 
 @Composable
 fun ShimmerMovieAboutItem(
-    shimmerStartOffsetX: Float,
+    shimmerStartOffsetXProvider: () -> Float,
     modifier: Modifier = Modifier
 ) {
     Row(modifier = modifier) {
         ShimmerBox(
             width = 80.dp,
             height = 17.dp,
-            shimmerStartOffsetX = shimmerStartOffsetX
+            shimmerStartOffsetXProvider = shimmerStartOffsetXProvider
         )
 
         Spacer(modifier = Modifier.width(PaddingMedium))
@@ -26,7 +26,7 @@ fun ShimmerMovieAboutItem(
         ShimmerBox(
             width = 230.dp,
             height = 17.dp,
-            shimmerStartOffsetX = shimmerStartOffsetX
+            shimmerStartOffsetXProvider = shimmerStartOffsetXProvider
         )
     }
 }

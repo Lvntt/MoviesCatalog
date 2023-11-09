@@ -7,13 +7,13 @@ import ru.lantt.moviescatalog.presentation.ui.screen.main.components.shimmer.Shi
 
 @Composable
 fun ShimmerMovieDescription(
-    shimmerStartOffsetX: Float,
+    shimmerStartOffsetXProvider: () -> Float,
     modifier: Modifier = Modifier
 ) {
     ShimmerBox(
         modifier = modifier,
         width = 330.dp,
         height = 106.dp,
-        shimmerStartOffsetX = shimmerStartOffsetX
+        shimmerStartOffsetXProvider = shimmerStartOffsetXProvider
     )
 }

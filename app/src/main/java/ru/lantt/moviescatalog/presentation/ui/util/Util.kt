@@ -1,7 +1,6 @@
 package ru.lantt.moviescatalog.presentation.ui.util
 
 import android.util.Log
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.runtime.getValue
@@ -10,6 +9,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -37,22 +37,27 @@ fun Modifier.noRippleClickable(onClick: () -> Unit): Modifier = composed {
     }
 }
 
-fun Modifier.shimmerEffect(startOffsetX: Float): Modifier = composed {
+fun Modifier.shimmerEffect(startOffsetXProvider: () -> Float): Modifier = composed {
     var size by remember {
         mutableStateOf(IntSize.Zero)
     }
 
-    background(
-        brush = Brush.linearGradient(
-            colors = listOf(
-                Color(0xFF161616),
-                Accent,
-                Color(0xFF161616)
-            ),
-            start = Offset(startOffsetX * size.width.toFloat(), 0f),
-            end = Offset(startOffsetX * size.width.toFloat() + size.width.toFloat(), size.height.toFloat())
+    drawBehind {
+        drawRect(
+            brush = Brush.linearGradient(
+                colors = listOf(
+                    Color(0xFF161616),
+                    Accent,
+                    Color(0xFF161616)
+                ),
+                start = Offset(startOffsetXProvider() * size.width.toFloat(), 0f),
+                end = Offset(
+                    startOffsetXProvider() * size.width.toFloat() + size.width.toFloat(),
+                    size.height.toFloat()
+                )
+            )
         )
-    )
+    }
         .onGloballyPositioned {
             size = it.size
         }
