@@ -47,6 +47,8 @@ class MovieViewModel(
     private val movieEventChannel = Channel<MovieEvent>()
     val movieEventFlow = movieEventChannel.receiveAsFlow()
 
+    private val _reviewContentRemote: MutableState<ReviewContent> = mutableStateOf(ReviewContent())
+
     val reviewContent: State<ReviewContent>
         get() = _reviewContent
     private val _reviewContent: MutableState<ReviewContent> = mutableStateOf(ReviewContent())
@@ -111,12 +113,13 @@ class MovieViewModel(
             )
 
             if (myReview != null) {
-                _reviewContent.value = _reviewContent.value.copy(
+                _reviewContentRemote.value = _reviewContentRemote.value.copy(
                     id = myReview.id,
                     rating = myReview.rating,
                     text = myReview.reviewText ?: "",
                     isAnonymous = myReview.isAnonymous
                 )
+                _reviewContent.value = _reviewContentRemote.value
             }
         }
     }
@@ -202,6 +205,10 @@ class MovieViewModel(
 
     fun retry(withLoading: Boolean = true) {
         loadMovieDetails(withLoading = withLoading)
+    }
+
+    fun canSetAnonymity(): Boolean {
+        return _reviewContentRemote.value.id == null || _reviewContentRemote.value.isAnonymous
     }
 
     private fun getMyReview(reviews: List<Review>, userId: String?): Review? {

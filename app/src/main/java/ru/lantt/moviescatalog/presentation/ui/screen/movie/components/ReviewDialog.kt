@@ -131,6 +131,7 @@ fun ReviewDialog(
                     CompositionLocalProvider(LocalMinimumInteractiveComponentEnforcement provides false) {
                         Checkbox(
                             checked = reviewContent.isAnonymous,
+                            enabled = viewModel.canSetAnonymity(),
                             onCheckedChange = viewModel::setAnonymity,
                             colors = CheckboxDefaults.colors(
                                 uncheckedColor = Color.White,
