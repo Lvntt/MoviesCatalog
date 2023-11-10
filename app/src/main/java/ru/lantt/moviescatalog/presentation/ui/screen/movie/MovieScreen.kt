@@ -6,6 +6,7 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -32,6 +33,7 @@ fun MovieScreen(
     onBackButtonClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val lazyListState = rememberLazyListState()
     val context = LocalContext.current
     val viewModel: MovieViewModel = koinViewModel(parameters = { parametersOf(id) })
     val movieUiState by remember { viewModel.movieUiState }
@@ -102,7 +104,11 @@ fun MovieScreen(
 
     Scaffold(
         topBar = {
-            MovieTopBar(onBackButtonClick = onBackButtonClick)
+            MovieTopBar(
+                viewModel = viewModel,
+                onBackButtonClick = onBackButtonClick,
+                lazyListStateProvider = { lazyListState }
+            )
         }
     ) {
         when (movieUiState) {
@@ -113,6 +119,7 @@ fun MovieScreen(
                 viewModel = viewModel,
                 movie = (movieUiState as MovieUiState.Content).movieDetailsContent,
                 shimmerStartOffsetXProvider = { shimmerStartOffsetX },
+                lazyListStateProvider = { lazyListState },
                 modifier = modifier
             )
         }

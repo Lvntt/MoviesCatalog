@@ -1,6 +1,5 @@
 package ru.lantt.moviescatalog.presentation.ui.screen.movie.components
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -10,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -44,16 +44,11 @@ fun MovieScreenContent(
     movie: MovieDetailsContent,
     viewModel: MovieViewModel,
     shimmerStartOffsetXProvider: () -> Float,
+    lazyListStateProvider: () -> LazyListState,
     modifier: Modifier = Modifier
 ) {
     val reviewState by remember { viewModel.reviewState }
-    when (reviewState) {
-        ReviewState.DialogClosed -> Log.d("MovieScreenContent", "ClosedState")
-        ReviewState.DialogOpened -> Log.d("MovieScreenContent", "OpenedState")
-        ReviewState.Loading -> Log.d("MovieScreenContent", "LoadingState")
-    }
     val isRequestLoading by remember { derivedStateOf { reviewState is ReviewState.Loading } }
-    Log.d("Movie screen content", isRequestLoading.toString())
 
     if (reviewState !is ReviewState.DialogClosed) {
         ReviewDialog(
@@ -65,6 +60,7 @@ fun MovieScreenContent(
     }
 
     LazyColumn(
+        state = lazyListStateProvider(),
         modifier = Modifier
             .background(Gray900)
             .then(
@@ -76,7 +72,10 @@ fun MovieScreenContent(
             )
     ) {
         item {
-            MovieImage(posterLink = movie.poster)
+            MovieImage(
+                posterLink = movie.poster,
+                firstVisibleItemScrollOffsetProvider = { lazyListStateProvider().firstVisibleItemScrollOffset }
+            )
 
             Spacer(modifier = Modifier.height(Padding20))
         }
