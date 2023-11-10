@@ -1,6 +1,8 @@
 package ru.lantt.moviescatalog.presentation.ui.screen.movie.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
@@ -25,7 +27,10 @@ fun RatingBar(
     onRatingChanged: (Int) -> Unit,
     starsColor: Color = Color(0xFFFFD54F)
 ) {
-    Row(modifier = modifier) {
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
         for (i in 1..maxRating) {
             Icon(
                 imageVector = if (i <= currentRating) {
