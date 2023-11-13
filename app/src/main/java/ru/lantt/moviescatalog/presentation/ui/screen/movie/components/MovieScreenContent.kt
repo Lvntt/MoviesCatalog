@@ -77,7 +77,12 @@ fun MovieScreenContent(
                 firstVisibleItemScrollOffsetProvider = { lazyListStateProvider().firstVisibleItemScrollOffset }
             )
 
-            Spacer(modifier = Modifier.height(Padding20))
+            Spacer(
+                modifier = Modifier
+                    .background(Gray900)
+                    .fillMaxWidth()
+                    .height(Padding20)
+            )
         }
 
         item {
@@ -86,43 +91,70 @@ fun MovieScreenContent(
                 name = movie.name,
                 rating = movie.rating,
                 isInFavorites = movie.isInFavorites,
-                modifier = modifier.padding(horizontal = PaddingMedium)
+                modifier = modifier
+                    .background(Gray900)
+                    .padding(horizontal = PaddingMedium)
             )
 
-            Spacer(modifier = Modifier.height(Padding20))
+            Spacer(modifier = Modifier
+                .background(Gray900)
+                .fillMaxWidth()
+                .height(Padding20))
         }
 
         item {
             MovieDescription(
                 description = movie.description,
-                modifier = modifier.padding(horizontal = PaddingMedium)
+                modifier = modifier
+                    .background(Gray900)
+                    .padding(horizontal = PaddingMedium)
             )
 
-            Spacer(modifier = Modifier.height(Padding20))
+            Spacer(
+                modifier = Modifier
+                    .background(Gray900)
+                    .fillMaxWidth()
+                    .height(Padding20)
+            )
         }
 
         item {
             MovieGenres(
                 genres = movie.genres,
-                modifier = modifier.padding(horizontal = PaddingMedium)
+                modifier = modifier
+                    .background(Gray900)
+                    .padding(horizontal = PaddingMedium)
             )
 
-            Spacer(modifier = Modifier.height(Padding20))
+            Spacer(
+                modifier = Modifier
+                    .background(Gray900)
+                    .fillMaxWidth()
+                    .height(Padding20)
+            )
         }
 
         item {
             MovieAbout(
                 movie = movie,
-                modifier = modifier.padding(horizontal = PaddingMedium)
+                modifier = modifier
+                    .background(Gray900)
+                    .padding(horizontal = PaddingMedium)
             )
 
-            Spacer(modifier = Modifier.height(Padding20))
+            Spacer(
+                modifier = Modifier
+                    .background(Gray900)
+                    .fillMaxWidth()
+                    .height(Padding20)
+            )
         }
 
         item {
             Row(
                 modifier = modifier
                     .fillMaxWidth()
+                    .background(Gray900)
                     .padding(horizontal = PaddingMedium),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {

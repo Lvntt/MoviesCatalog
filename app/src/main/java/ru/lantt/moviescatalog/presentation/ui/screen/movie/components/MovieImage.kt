@@ -46,21 +46,21 @@ fun MovieImage(
                 }
         ) {
             SubcomposeAsyncImageContent()
-
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(
-                        brush = Brush.verticalGradient(
-                            colors = listOf(
-                                Color.Transparent,
-                                Gray900,
-                            ),
-                            startY = 0f,
-                            endY = 1800f
-                        )
-                    )
-            )
         }
+
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            Color.Transparent,
+                            Gray900,
+                        ),
+                        startY = 0f,
+                        endY = 1800f
+                    )
+                )
+        )
     }
 }
