@@ -1,21 +1,17 @@
 package ru.lantt.moviescatalog.presentation.ui.screen.movie.components.shimmer
 
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
 import ru.lantt.moviescatalog.presentation.ui.theme.Padding20
 import ru.lantt.moviescatalog.presentation.ui.theme.PaddingMedium
+import ru.lantt.moviescatalog.presentation.ui.util.shimmerStartOffsetX
 
 @Composable
 fun ShimmerMovieScreenContent(
@@ -73,15 +69,7 @@ fun ShimmerMovieScreenContent(
 @Preview
 @Composable
 fun ShimmerMovieScreenContentPreview() {
-    val transition = rememberInfiniteTransition(label = "shimmerTransition")
-    val shimmerStartOffsetX by transition.animateFloat(
-        initialValue = -2f,
-        targetValue = 2f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(1250)
-        ),
-        label = "shimmer"
-    )
+    val shimmerStartOffsetX = shimmerStartOffsetX()
 
     ShimmerMovieScreenContent({ shimmerStartOffsetX })
 

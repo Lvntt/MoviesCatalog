@@ -60,16 +60,15 @@ fun RegularMovieCard(
                     SubcomposeAsyncImageContent()
                 }
             }
-            if (movie.reviewRating != null) {
-                Box(
-                    modifier = Modifier.matchParentSize(),
-                    contentAlignment = Alignment.TopEnd
-                ) {
-                    MovieCardRating(
-                        reviewRating = movie.reviewRating,
-                        modifier = Modifier.padding(top = 2.dp, end = 1.5.dp)
-                    )
-                }
+
+            Box(
+                modifier = Modifier.matchParentSize(),
+                contentAlignment = Alignment.TopEnd
+            ) {
+                MovieCardRating(
+                    reviewRating = movie.reviewRating,
+                    modifier = Modifier.padding(top = 2.dp, end = 1.5.dp)
+                )
             }
         }
 

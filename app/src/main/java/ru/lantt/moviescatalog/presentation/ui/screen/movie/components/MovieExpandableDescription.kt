@@ -72,9 +72,9 @@ fun MovieExpandableDescription(
                         if (isExpanded) {
                             append(text)
                         } else {
-                            val adjustText = text.substring(startIndex = 0, endIndex = lastCharIndex)
-                                .dropLastWhile { Character.isWhitespace(it) || it == '.' }
-                            append(adjustText)
+                            val adjustedText = text.substring(startIndex = 0, endIndex = lastCharIndex)
+                                .dropLastWhile { Character.isWhitespace(it) }
+                            append(adjustedText)
                         }
                     } else {
                         append(text)

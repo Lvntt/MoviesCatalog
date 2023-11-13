@@ -56,29 +56,6 @@ class RegistrationViewModel(
         RegistrationUiState.Initial
     )
 
-    private fun getErrorDescription(validationErrorType: ValidationErrorType?): Int? {
-        if (validationErrorType == null) {
-            return null
-        }
-        return ErrorTypeToStringRes.errors[validationErrorType]
-    }
-
-    private fun getFormattedDate(dateOfBirthMillis: Long?): String {
-        if (dateOfBirthMillis == null) {
-            return Constants.EMPTY_STRING
-        }
-        val simpleDateFormat = SimpleDateFormat(DATE_PATTERN, Locale.getDefault())
-        return simpleDateFormat.format(dateOfBirthMillis)
-    }
-
-    private fun formatDateOfBirthForRegistration(): String {
-        val dateOfBirthMillis = _registrationContent.value.dateOfBirthMillis
-        val dateFormat = SimpleDateFormat(REQUEST_DATE_PATTERN, Locale.getDefault())
-        dateFormat.timeZone = TimeZone.getTimeZone(UTC)
-
-        return dateFormat.format(Date(dateOfBirthMillis ?: DATE_ERROR_VALUE))
-    }
-
     private val registrationExceptionHandler = CoroutineExceptionHandler { _, exception ->
         when (exception) {
             is HttpException -> when (exception.code()) {
@@ -216,6 +193,29 @@ class RegistrationViewModel(
             )
             _registrationUiState.value = RegistrationUiState.Success
         }
+    }
+
+    private fun getErrorDescription(validationErrorType: ValidationErrorType?): Int? {
+        if (validationErrorType == null) {
+            return null
+        }
+        return ErrorTypeToStringRes.errors[validationErrorType]
+    }
+
+    private fun getFormattedDate(dateOfBirthMillis: Long?): String {
+        if (dateOfBirthMillis == null) {
+            return Constants.EMPTY_STRING
+        }
+        val simpleDateFormat = SimpleDateFormat(DATE_PATTERN, Locale.getDefault())
+        return simpleDateFormat.format(dateOfBirthMillis)
+    }
+
+    private fun formatDateOfBirthForRegistration(): String {
+        val dateOfBirthMillis = _registrationContent.value.dateOfBirthMillis
+        val dateFormat = SimpleDateFormat(REQUEST_DATE_PATTERN, Locale.getDefault())
+        dateFormat.timeZone = TimeZone.getTimeZone(UTC)
+
+        return dateFormat.format(Date(dateOfBirthMillis ?: DATE_ERROR_VALUE))
     }
 
     private companion object {

@@ -44,7 +44,7 @@ import ru.lantt.moviescatalog.presentation.viewmodel.movie.MovieViewModel
 fun MovieTopBar(
     viewModel: MovieViewModel,
     lazyListStateProvider: () -> LazyListState,
-    onBackButtonClick: () -> Unit
+    onBack: () -> Unit,
 ) {
     val movieUiState by remember { viewModel.movieUiState }
     val isTopBarContentShown by remember {
@@ -78,7 +78,9 @@ fun MovieTopBar(
         },
         navigationIcon = {
             IconButton(
-                onClick = onBackButtonClick
+                onClick = {
+                    onBack()
+                }
             ) {
                 Icon(
                     imageVector = Icons.Filled.KeyboardArrowLeft,

@@ -67,16 +67,14 @@ fun WideMovieCard(
                     SubcomposeAsyncImageContent()
                 }
             }
-            if (movie.reviewRating != null) {
-                Box(
-                    modifier = Modifier.matchParentSize(),
-                    contentAlignment = Alignment.TopEnd
-                ) {
-                    MovieCardRating(
-                        reviewRating = movie.reviewRating,
-                        modifier = Modifier.padding(top = 2.dp, end = 2.dp)
-                    )
-                }
+            Box(
+                modifier = Modifier.matchParentSize(),
+                contentAlignment = Alignment.TopEnd
+            ) {
+                MovieCardRating(
+                    reviewRating = movie.reviewRating,
+                    modifier = Modifier.padding(top = 2.dp, end = 2.dp)
+                )
             }
         }
         Text(

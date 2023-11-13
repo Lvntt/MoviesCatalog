@@ -8,36 +8,36 @@ import ru.lantt.moviescatalog.domain.util.EntityMapper
 class MovieNetworkMapper : EntityMapper<MovieElementModel, Movie> {
 
     override fun mapFromEntity(entity: MovieElementModel): Movie {
-        return Movie(
-            id = entity.id,
-            name = entity.name,
-            poster = entity.poster,
-            year = entity.year,
-            country = entity.country,
-            genres = entity.genres,
-            reviews = entity.reviews,
-            rating = getMovieRating(entity.reviews)
-        )
+        with (entity) {
+            return Movie(
+                id = id,
+                name = name,
+                poster = poster,
+                year = year,
+                country = country,
+                genres = genres,
+                reviews = reviews,
+                rating = getMovieRating(reviews)
+            )
+        }
     }
 
     override fun mapToEntity(domainModel: Movie): MovieElementModel {
-        return MovieElementModel(
-            id = domainModel.id,
-            name = domainModel.name,
-            poster = domainModel.poster,
-            year = domainModel.year,
-            country = domainModel.country,
-            genres = domainModel.genres,
-            reviews = domainModel.reviews
-        )
+        with (domainModel) {
+            return MovieElementModel(
+                id = id,
+                name = name,
+                poster = poster,
+                year = year,
+                country = country,
+                genres = genres,
+                reviews = reviews
+            )
+        }
     }
 
     fun fromEntityList(initial: List<MovieElementModel>): List<Movie> {
         return initial.map { mapFromEntity(it) }
-    }
-
-    fun toEntityList(initial: List<Movie>): List<MovieElementModel> {
-        return initial.map { mapToEntity(it) }
     }
 
     private fun getMovieRating(reviews: List<ReviewShort>): Double? {

@@ -12,17 +12,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import ru.lantt.moviescatalog.R
 import ru.lantt.moviescatalog.presentation.ui.screen.common.AccentButton
 import ru.lantt.moviescatalog.presentation.ui.screen.common.AuthRegularTextField
-import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
 import ru.lantt.moviescatalog.presentation.ui.theme.DefaultPaddingBetweenElements
-import ru.lantt.moviescatalog.presentation.ui.theme.PaddingMedium
+import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
 import ru.lantt.moviescatalog.presentation.ui.theme.Padding20
+import ru.lantt.moviescatalog.presentation.ui.theme.PaddingMedium
 import ru.lantt.moviescatalog.presentation.ui.theme.Title_2_B_20
 import ru.lantt.moviescatalog.presentation.viewmodel.auth.RegistrationViewModel
 
@@ -38,9 +37,7 @@ fun RegistrationInfoContent(
             .fillMaxSize()
             .background(Gray900)
             .padding(PaddingMedium)
-            .composed {
-                modifier
-            }
+            .then(modifier)
     ) {
         Text(
             text = stringResource(id = R.string.registration),

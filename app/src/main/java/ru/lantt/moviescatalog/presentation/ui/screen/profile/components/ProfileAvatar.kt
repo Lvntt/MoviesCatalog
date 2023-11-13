@@ -10,18 +10,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImagePainter
@@ -29,6 +26,7 @@ import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import coil.request.ImageRequest
 import ru.lantt.moviescatalog.R
+import ru.lantt.moviescatalog.presentation.ui.screen.movie.components.PlaceholderAvatar
 import ru.lantt.moviescatalog.presentation.ui.screen.profile.components.shimmer.ShimmerProfileAvatar
 import ru.lantt.moviescatalog.presentation.ui.theme.Accent
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
@@ -60,30 +58,28 @@ fun ProfileAvatar(
                 ),
             contentAlignment = Alignment.Center
         ) {
-            if (avatarLink != null) {
-                SubcomposeAsyncImage(
-                    model = ImageRequest.Builder(context = LocalContext.current)
-                        .data(avatarLink)
-                        .crossfade(true)
-                        .build(),
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier.size(88.dp)
-                ) {
-                    val state = painter.state
-                    if (state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error) {
+            SubcomposeAsyncImage(
+                model = ImageRequest.Builder(context = LocalContext.current)
+                    .data(avatarLink)
+                    .crossfade(true)
+                    .build(),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.size(88.dp)
+            ) {
+                when (painter.state) {
+                    is AsyncImagePainter.State.Loading -> {
                         ShimmerProfileAvatar(shimmerStartOffsetXProvider = shimmerStartOffsetXProvider)
-                    } else {
+                    }
+
+                    is AsyncImagePainter.State.Error -> {
+                        PlaceholderAvatar(size = 48.dp)
+                    }
+
+                    else -> {
                         SubcomposeAsyncImageContent()
                     }
                 }
-            } else {
-                Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.profile_icon),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(48.dp)
-                )
             }
         }
 

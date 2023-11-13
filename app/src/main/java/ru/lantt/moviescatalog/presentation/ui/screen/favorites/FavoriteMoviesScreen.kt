@@ -1,10 +1,6 @@
 package ru.lantt.moviescatalog.presentation.ui.screen.favorites
 
 import android.widget.Toast
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -21,6 +17,7 @@ import ru.lantt.moviescatalog.presentation.ui.screen.common.ErrorScreen
 import ru.lantt.moviescatalog.presentation.ui.screen.favorites.components.FavoriteMoviesContent
 import ru.lantt.moviescatalog.presentation.ui.screen.favorites.components.FavoritesTopBar
 import ru.lantt.moviescatalog.presentation.ui.screen.favorites.components.shimmer.ShimmerFavoriteMoviesContent
+import ru.lantt.moviescatalog.presentation.ui.util.shimmerStartOffsetX
 import ru.lantt.moviescatalog.presentation.uistate.favorites.FavoritesUiState
 import ru.lantt.moviescatalog.presentation.viewmodel.favorites.FavoritesViewModel
 
@@ -33,17 +30,7 @@ fun FavoriteMoviesScreen(
 ) {
     val context = LocalContext.current
     val favoritesUiState by remember { viewModel.favoritesUiState }
-
-    val transition = rememberInfiniteTransition(label = "shimmerTransition")
-    val shimmerStartOffsetX by transition.animateFloat(
-        initialValue = -2f,
-        targetValue = 2f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(1250)
-        ),
-        label = "shimmer"
-    )
-
+    val shimmerStartOffsetX = shimmerStartOffsetX()
 
     LaunchedEffect(key1 = LocalContext.current) {
         viewModel.favoritesEventFlow.collect { event ->

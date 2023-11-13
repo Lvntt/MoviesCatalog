@@ -64,6 +64,7 @@ class ProfileViewModel(
             is HttpException -> when (exception.code()) {
                 ErrorCodes.UNAUTHORIZED -> {
                     viewModelScope.launch {
+                        logoutUserUseCase()
                         profileEventChannel.send(ProfileEvent.AuthenticationRequired)
                     }
                     _profileUiState.value = ProfileUiState.Initial

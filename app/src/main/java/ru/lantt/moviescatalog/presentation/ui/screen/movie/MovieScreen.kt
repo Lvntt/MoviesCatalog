@@ -2,10 +2,6 @@ package ru.lantt.moviescatalog.presentation.ui.screen.movie
 
 import android.annotation.SuppressLint
 import android.widget.Toast
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -22,6 +18,7 @@ import ru.lantt.moviescatalog.presentation.ui.screen.common.ErrorScreen
 import ru.lantt.moviescatalog.presentation.ui.screen.movie.components.MovieScreenContent
 import ru.lantt.moviescatalog.presentation.ui.screen.movie.components.MovieTopBar
 import ru.lantt.moviescatalog.presentation.ui.screen.movie.components.shimmer.ShimmerMovieScreenContent
+import ru.lantt.moviescatalog.presentation.ui.util.shimmerStartOffsetX
 import ru.lantt.moviescatalog.presentation.uistate.movie.MovieUiState
 import ru.lantt.moviescatalog.presentation.viewmodel.movie.MovieViewModel
 
@@ -30,22 +27,14 @@ import ru.lantt.moviescatalog.presentation.viewmodel.movie.MovieViewModel
 fun MovieScreen(
     id: String,
     goToAuthorizationScreen: () -> Unit,
-    onBackButtonClick: () -> Unit,
+    onBack: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val lazyListState = rememberLazyListState()
     val context = LocalContext.current
     val viewModel: MovieViewModel = koinViewModel(parameters = { parametersOf(id) })
     val movieUiState by remember { viewModel.movieUiState }
-    val transition = rememberInfiniteTransition(label = "shimmerTransition")
-    val shimmerStartOffsetX by transition.animateFloat(
-        initialValue = -2f,
-        targetValue = 2f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(1250)
-        ),
-        label = "shimmer"
-    )
+    val shimmerStartOffsetX = shimmerStartOffsetX()
 
     LaunchedEffect(key1 = LocalContext.current) {
         viewModel.movieEventFlow.collect { event ->
@@ -106,7 +95,7 @@ fun MovieScreen(
         topBar = {
             MovieTopBar(
                 viewModel = viewModel,
-                onBackButtonClick = onBackButtonClick,
+                onBack = onBack,
                 lazyListStateProvider = { lazyListState }
             )
         }

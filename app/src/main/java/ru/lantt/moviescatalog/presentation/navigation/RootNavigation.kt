@@ -110,7 +110,7 @@ fun RootNavigation(
             val movieId = backStackEntry.arguments?.getString("movieId") ?: ""
             MovieScreen(
                 id = movieId,
-                onBackButtonClick = {
+                onBack = {
                     navController.popBackStack()
                 },
                 goToAuthorizationScreen = {

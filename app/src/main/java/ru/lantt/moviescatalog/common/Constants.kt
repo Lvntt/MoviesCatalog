@@ -1,12 +1,15 @@
 package ru.lantt.moviescatalog.common
 
 object Constants {
+
     const val EMPTY_STRING = ""
     const val TOKEN_PREFERENCES_KEY = "token_preferences_key"
     const val USER_TOKEN_KEY = "user_token_key"
+
     const val CONNECT_TIMEOUT_SEC = 60L
     const val WRITE_TIMEOUT_SEC = 60L
     const val READ_TIMEOUT_SEC = 60L
+
     const val BASE_URL = "https://react-midterm.kreosoft.space/api/"
     const val LOGIN_URL = "account/login"
     const val REGISTER_URL = "account/register"
@@ -20,12 +23,15 @@ object Constants {
     const val ADD_REVIEW_URL = "movie/{movieId}/review/add"
     const val EDIT_REVIEW_URL = "movie/{movieId}/review/{id}/edit"
     const val DELETE_REVIEW_URL = "movie/{movieId}/review/{id}/delete"
+
     const val PAGE_PATH = "page"
     const val ID_PATH = "id"
     const val MOVIE_ID_PATH = "movieId"
-    const val USER_DATASTORE = "user_datastore"
-    const val ID = "id"
+
     const val AUTHORIZATION_HEADER = "Authorization"
     const val BEARER = "Bearer"
+
+    const val USER_DATASTORE = "user_datastore"
+    const val ID = "id"
 
 }

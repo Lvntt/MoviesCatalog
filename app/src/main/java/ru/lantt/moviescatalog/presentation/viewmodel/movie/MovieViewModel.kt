@@ -22,6 +22,7 @@ import ru.lantt.moviescatalog.domain.usecase.EditReviewUseCase
 import ru.lantt.moviescatalog.domain.usecase.GetFavoriteMoviesUseCase
 import ru.lantt.moviescatalog.domain.usecase.GetMovieDetailsUseCase
 import ru.lantt.moviescatalog.domain.usecase.GetUserIdFromLocalStorageUseCase
+import ru.lantt.moviescatalog.domain.usecase.LogoutUserUseCase
 import ru.lantt.moviescatalog.presentation.common.ErrorCodes
 import ru.lantt.moviescatalog.presentation.ui.event.MovieEvent
 import ru.lantt.moviescatalog.presentation.uistate.movie.MovieDetailsContent
@@ -38,7 +39,8 @@ class MovieViewModel(
     private val deleteFavoriteMovieUseCase: DeleteFavoriteMovieUseCase,
     private val addReviewUseCase: AddReviewUseCase,
     private val editReviewUseCase: EditReviewUseCase,
-    private val deleteReviewUseCase: DeleteReviewUseCase
+    private val deleteReviewUseCase: DeleteReviewUseCase,
+    private val logoutUserUseCase: LogoutUserUseCase
 ) : ViewModel() {
 
     val movieUiState: State<MovieUiState>
@@ -63,6 +65,7 @@ class MovieViewModel(
             is HttpException -> when (exception.code()) {
                 ErrorCodes.UNAUTHORIZED -> {
                     viewModelScope.launch {
+                        logoutUserUseCase()
                         movieEventChannel.send(MovieEvent.AuthenticationRequired)
                     }
                     _movieUiState.value = MovieUiState.Initial
@@ -79,50 +82,6 @@ class MovieViewModel(
         _movieUiState.value = MovieUiState.Loading
         viewModelScope.launch(Dispatchers.IO + movieExceptionHandler) {
             loadMovieDetails()
-        }
-    }
-
-    private suspend fun loadMovieDetails() {
-        val movie = getMovieDetailsUseCase(movieId)
-        val userId = getUserIdFromLocalStorageUseCase()
-        val favorites = getFavoriteMoviesUseCase()
-        val myReview = getMyReview(movie.reviews, userId)
-        val usersReviews = getUsersReviews(movie.reviews, userId)
-        val movieRating = getMovieRating(movie.reviews)
-        val isInFavorites = isInFavorites(favorites, movieId)
-
-        _movieUiState.value = MovieUiState.Content(
-            with(movie) {
-                MovieDetailsContent(
-                    id = id,
-                    name = name,
-                    poster = poster,
-                    year = year,
-                    country = country,
-                    genres = genres,
-                    myReview = myReview,
-                    usersReviews = usersReviews,
-                    time = time,
-                    tagline = tagline,
-                    description = description,
-                    director = director,
-                    budget = budget,
-                    fees = fees,
-                    ageLimit = ageLimit,
-                    rating = movieRating,
-                    isInFavorites = isInFavorites
-                )
-            }
-        )
-
-        if (myReview != null) {
-            _reviewContentRemote.value = _reviewContentRemote.value.copy(
-                id = myReview.id,
-                rating = myReview.rating,
-                text = myReview.reviewText ?: "",
-                isAnonymous = myReview.isAnonymous
-            )
-            _reviewContent.value = _reviewContentRemote.value
         }
     }
 
@@ -232,6 +191,55 @@ class MovieViewModel(
 
     fun onOpenDialog() {
         _reviewState.value = ReviewState.DialogOpened
+    }
+
+    fun canEditReview(): Boolean {
+        return _reviewContentRemote.value != _reviewContent.value
+                && _reviewContent.value.text.isNotBlank()
+    }
+
+    private suspend fun loadMovieDetails() {
+        val movie = getMovieDetailsUseCase(movieId)
+        val userId = getUserIdFromLocalStorageUseCase()
+        val favorites = getFavoriteMoviesUseCase()
+        val myReview = getMyReview(movie.reviews, userId)
+        val usersReviews = getUsersReviews(movie.reviews, userId)
+        val movieRating = getMovieRating(movie.reviews)
+        val isInFavorites = isInFavorites(favorites, movieId)
+
+        _movieUiState.value = MovieUiState.Content(
+            with(movie) {
+                MovieDetailsContent(
+                    id = id,
+                    name = name,
+                    poster = poster,
+                    year = year,
+                    country = country,
+                    genres = genres,
+                    myReview = myReview,
+                    usersReviews = usersReviews,
+                    time = time,
+                    tagline = tagline,
+                    description = description,
+                    director = director,
+                    budget = budget,
+                    fees = fees,
+                    ageLimit = ageLimit,
+                    rating = movieRating,
+                    isInFavorites = isInFavorites
+                )
+            }
+        )
+
+        if (myReview != null) {
+            _reviewContentRemote.value = _reviewContentRemote.value.copy(
+                id = myReview.id,
+                rating = myReview.rating,
+                text = myReview.reviewText ?: "",
+                isAnonymous = myReview.isAnonymous
+            )
+            _reviewContent.value = _reviewContentRemote.value
+        }
     }
 
     private fun getMyReview(reviews: List<Review>, userId: String?): Review? {

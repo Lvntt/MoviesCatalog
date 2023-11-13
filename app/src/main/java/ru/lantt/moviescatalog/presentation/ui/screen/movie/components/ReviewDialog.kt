@@ -157,7 +157,7 @@ fun ReviewDialog(
                 } else {
                     AccentButton(
                         modifier = Modifier.fillMaxWidth(),
-                        enabled = reviewContent.text.isNotEmpty(),
+                        enabled = viewModel.canEditReview(),
                         onClick = {
                             if (reviewContent.id == null) {
                                 viewModel.addReview()

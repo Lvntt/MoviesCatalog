@@ -1,8 +1,13 @@
 package ru.lantt.moviescatalog.presentation.ui.util
 
 import android.util.Log
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -61,6 +66,20 @@ fun Modifier.shimmerEffect(startOffsetXProvider: () -> Float): Modifier = compos
         .onGloballyPositioned {
             size = it.size
         }
+}
+
+@Composable
+fun shimmerStartOffsetX(): Float {
+    val transition = rememberInfiniteTransition(label = "shimmerTransition")
+    val shimmerStartOffsetX by transition.animateFloat(
+        initialValue = -2f,
+        targetValue = 2f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(1100)
+        ),
+        label = "shimmer"
+    )
+    return shimmerStartOffsetX
 }
 
 fun getRatingColor(reviewRating: Double): Color {

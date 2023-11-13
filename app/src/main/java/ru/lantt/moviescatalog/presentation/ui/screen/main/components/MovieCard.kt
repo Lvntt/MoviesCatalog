@@ -11,10 +11,12 @@ import ru.lantt.moviescatalog.domain.entity.Movie
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
 import ru.lantt.moviescatalog.presentation.ui.theme.MovieCardRegularPadding
 import ru.lantt.moviescatalog.presentation.ui.util.noRippleClickable
+import ru.lantt.moviescatalog.presentation.uistate.movie.MovieUpdateModel
 
 @Composable
 fun MovieCard(
     movie: Movie,
+    movieUpdateModel: MovieUpdateModel?,
     shimmerStartOffsetXProvider: () -> Float,
     goToMovieScreen: (String) -> Unit,
     modifier: Modifier = Modifier
@@ -28,7 +30,7 @@ fun MovieCard(
             }
     ) {
         MovieCardImage(
-            rating = movie.rating,
+            rating = if (movieUpdateModel != null) movieUpdateModel.movieRating else movie.rating,
             shimmerStartOffsetXProvider = shimmerStartOffsetXProvider,
             imageUrl = movie.poster
         )
@@ -37,7 +39,7 @@ fun MovieCard(
 
         MovieCardDescription(
             name = movie.name,
-            reviewRating = movie.reviewRating,
+            reviewRating = if (movieUpdateModel != null) movieUpdateModel.userRating else movie.reviewRating,
             year = movie.year.toString(),
             country = movie.country,
             genres = movie.genres
