@@ -1,4 +1,4 @@
-package ru.lantt.moviescatalog.presentation.ui.screen.main.components.shimmer
+package ru.lantt.moviescatalog.presentation.ui.screen.home.components.shimmer
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row

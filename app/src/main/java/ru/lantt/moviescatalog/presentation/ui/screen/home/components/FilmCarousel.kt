@@ -1,4 +1,4 @@
-package ru.lantt.moviescatalog.presentation.ui.screen.main.components
+package ru.lantt.moviescatalog.presentation.ui.screen.home.components
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
@@ -31,7 +31,7 @@ import coil.compose.SubcomposeAsyncImageContent
 import coil.request.ImageRequest
 import ru.lantt.moviescatalog.R
 import ru.lantt.moviescatalog.domain.entity.Movie
-import ru.lantt.moviescatalog.presentation.ui.screen.main.components.shimmer.ShimmerFilmCarousel
+import ru.lantt.moviescatalog.presentation.ui.screen.home.components.shimmer.ShimmerFilmCarousel
 import ru.lantt.moviescatalog.presentation.ui.theme.CarouselImageHeight
 import ru.lantt.moviescatalog.presentation.ui.theme.LargeRoundedCornerRadius
 import ru.lantt.moviescatalog.presentation.ui.theme.PaddingSmall

@@ -20,7 +20,7 @@ import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import coil.request.ImageRequest
 import ru.lantt.moviescatalog.domain.entity.Movie
-import ru.lantt.moviescatalog.presentation.ui.screen.main.components.shimmer.ShimmerBox
+import ru.lantt.moviescatalog.presentation.ui.screen.home.components.shimmer.ShimmerBox
 import ru.lantt.moviescatalog.presentation.ui.theme.Label_M_14
 import ru.lantt.moviescatalog.presentation.ui.util.noRippleClickable
 

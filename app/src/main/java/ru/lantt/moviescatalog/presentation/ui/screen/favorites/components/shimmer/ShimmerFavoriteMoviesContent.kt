@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ru.lantt.moviescatalog.presentation.ui.screen.main.components.shimmer.ShimmerBox
+import ru.lantt.moviescatalog.presentation.ui.screen.home.components.shimmer.ShimmerBox
 import ru.lantt.moviescatalog.presentation.ui.theme.DefaultPaddingBetweenElements
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
 import ru.lantt.moviescatalog.presentation.ui.theme.Padding20

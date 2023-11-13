@@ -1,4 +1,4 @@
-package ru.lantt.moviescatalog.presentation.ui.screen.main.components
+package ru.lantt.moviescatalog.presentation.ui.screen.home.components
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height

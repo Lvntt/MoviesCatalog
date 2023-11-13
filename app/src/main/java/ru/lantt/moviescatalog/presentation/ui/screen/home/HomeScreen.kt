@@ -1,4 +1,4 @@
-package ru.lantt.moviescatalog.presentation.ui.screen.main
+package ru.lantt.moviescatalog.presentation.ui.screen.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -15,11 +15,11 @@ import retrofit2.HttpException
 import ru.lantt.moviescatalog.presentation.common.ErrorCodes.BAD_REQUEST
 import ru.lantt.moviescatalog.presentation.navigation.MoviesCatalogDestinations
 import ru.lantt.moviescatalog.presentation.ui.screen.common.ErrorScreen
-import ru.lantt.moviescatalog.presentation.ui.screen.main.components.MovieCatalog
-import ru.lantt.moviescatalog.presentation.ui.screen.main.components.shimmer.ShimmerMovieCatalog
+import ru.lantt.moviescatalog.presentation.ui.screen.home.components.MovieCatalog
+import ru.lantt.moviescatalog.presentation.ui.screen.home.components.shimmer.ShimmerMovieCatalog
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
 import ru.lantt.moviescatalog.presentation.ui.util.shimmerStartOffsetX
-import ru.lantt.moviescatalog.presentation.viewmodel.main.HomeViewModel
+import ru.lantt.moviescatalog.presentation.viewmodel.home.HomeViewModel
 
 @Composable
 fun HomeScreen(

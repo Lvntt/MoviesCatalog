@@ -15,7 +15,7 @@ import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import coil.request.ImageRequest
 import ru.lantt.moviescatalog.domain.entity.UserShort
-import ru.lantt.moviescatalog.presentation.ui.screen.main.components.shimmer.ShimmerBox
+import ru.lantt.moviescatalog.presentation.ui.screen.home.components.shimmer.ShimmerBox
 import ru.lantt.moviescatalog.presentation.ui.screen.movie.components.PlaceholderAvatar
 import ru.lantt.moviescatalog.presentation.ui.theme.SmallAvatarSize
 

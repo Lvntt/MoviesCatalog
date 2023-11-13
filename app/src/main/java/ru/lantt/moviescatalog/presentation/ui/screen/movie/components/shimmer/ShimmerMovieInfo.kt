@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ru.lantt.moviescatalog.presentation.ui.screen.main.components.shimmer.ShimmerBox
+import ru.lantt.moviescatalog.presentation.ui.screen.home.components.shimmer.ShimmerBox
 
 @Composable
 fun ShimmerMovieInfo(

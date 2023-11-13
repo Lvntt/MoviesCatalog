@@ -1,4 +1,4 @@
-package ru.lantt.moviescatalog.presentation.viewmodel.main
+package ru.lantt.moviescatalog.presentation.viewmodel.home
 
 import android.nfc.tech.MifareUltralight.PAGE_SIZE
 import androidx.compose.runtime.mutableStateMapOf

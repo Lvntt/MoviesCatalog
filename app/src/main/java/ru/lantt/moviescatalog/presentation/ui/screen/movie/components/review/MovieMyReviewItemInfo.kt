@@ -27,7 +27,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import ru.lantt.moviescatalog.R
-import ru.lantt.moviescatalog.presentation.ui.screen.main.components.MovieCardReviewRating
+import ru.lantt.moviescatalog.presentation.ui.screen.home.components.MovieCardReviewRating
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray400
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray750
 import ru.lantt.moviescatalog.presentation.ui.theme.Label_M_14

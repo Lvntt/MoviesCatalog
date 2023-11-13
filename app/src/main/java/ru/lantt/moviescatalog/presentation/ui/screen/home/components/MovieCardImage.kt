@@ -1,4 +1,4 @@
-package ru.lantt.moviescatalog.presentation.ui.screen.main.components
+package ru.lantt.moviescatalog.presentation.ui.screen.home.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.height
@@ -15,7 +15,7 @@ import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import coil.request.ImageRequest
-import ru.lantt.moviescatalog.presentation.ui.screen.main.components.shimmer.ShimmerMovieCardImage
+import ru.lantt.moviescatalog.presentation.ui.screen.home.components.shimmer.ShimmerMovieCardImage
 import ru.lantt.moviescatalog.presentation.ui.theme.MovieCardImageHeight
 import ru.lantt.moviescatalog.presentation.ui.theme.MovieCardImageWidth
 import ru.lantt.moviescatalog.presentation.ui.util.getRatingColor

@@ -5,7 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import ru.lantt.moviescatalog.presentation.ui.screen.favorites.FavoriteMoviesScreen
-import ru.lantt.moviescatalog.presentation.ui.screen.main.HomeScreen
+import ru.lantt.moviescatalog.presentation.ui.screen.home.HomeScreen
 import ru.lantt.moviescatalog.presentation.ui.screen.profile.ProfileScreen
 
 @Composable

@@ -7,7 +7,7 @@ import ru.lantt.moviescatalog.presentation.viewmodel.auth.LoginViewModel
 import ru.lantt.moviescatalog.presentation.viewmodel.auth.RegistrationViewModel
 import ru.lantt.moviescatalog.presentation.viewmodel.favorites.FavoritesViewModel
 import ru.lantt.moviescatalog.presentation.viewmodel.launch.LaunchViewModel
-import ru.lantt.moviescatalog.presentation.viewmodel.main.HomeViewModel
+import ru.lantt.moviescatalog.presentation.viewmodel.home.HomeViewModel
 import ru.lantt.moviescatalog.presentation.viewmodel.movie.MovieViewModel
 import ru.lantt.moviescatalog.presentation.viewmodel.profile.ProfileViewModel
 
