@@ -22,7 +22,7 @@ import ru.lantt.moviescatalog.presentation.ui.util.getFormattedDateTime
 @Composable
 fun MovieReviewItem(
     review: Review,
-    shimmerStartOffsetX: Float,
+    shimmerStartOffsetXProvider: () -> Float,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -34,7 +34,7 @@ fun MovieReviewItem(
             MovieReviewItemAvatar(
                 author = review.author,
                 isAnonymous = review.isAnonymous,
-                shimmerStartOffsetX = shimmerStartOffsetX
+                shimmerStartOffsetXProvider = shimmerStartOffsetXProvider
             )
 
             Spacer(modifier = Modifier.width(MovieRegularPadding))

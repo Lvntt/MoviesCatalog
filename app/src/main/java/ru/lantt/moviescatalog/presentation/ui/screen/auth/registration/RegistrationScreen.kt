@@ -26,7 +26,7 @@ import ru.lantt.moviescatalog.presentation.viewmodel.auth.RegistrationViewModel
 fun RegistrationScreen(
     onFunctionalTextClick: () -> Unit,
     goToAuthorizationScreen: () -> Unit,
-    goToMainScreen: () -> Unit,
+    goToHomeScreen: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: RegistrationViewModel = koinViewModel()
 ) {
@@ -70,7 +70,7 @@ fun RegistrationScreen(
                 RegistrationState.RegistrationPassword -> RegistrationPasswordContent(
                     viewModel = viewModel,
                     goToAuthorizationScreen = goToAuthorizationScreen,
-                    goToMainScreen = goToMainScreen,
+                    goToHomeScreen = goToHomeScreen,
                     modifier = modifier
                         .padding(paddingValues)
                         .pointerInput(Unit) {

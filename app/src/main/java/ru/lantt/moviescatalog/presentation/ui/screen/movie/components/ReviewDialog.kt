@@ -1,6 +1,5 @@
 package ru.lantt.moviescatalog.presentation.ui.screen.movie.components
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,13 +28,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import ru.lantt.moviescatalog.R
 import ru.lantt.moviescatalog.presentation.ui.screen.common.AccentButton
+import ru.lantt.moviescatalog.presentation.ui.screen.common.LoadingAccentButton
 import ru.lantt.moviescatalog.presentation.ui.screen.common.SecondaryButton
 import ru.lantt.moviescatalog.presentation.ui.theme.Accent
 import ru.lantt.moviescatalog.presentation.ui.theme.BorderDefault
@@ -55,10 +54,10 @@ fun ReviewDialog(
     viewModel: MovieViewModel,
     onDismissRequest: () -> Unit,
     onRatingChanged: (Int) -> Unit,
+    isRequestLoading: Boolean,
     modifier: Modifier = Modifier
 ) {
-    val reviewContent by remember { viewModel.reviewContent}
-    val context = LocalContext.current
+    val reviewContent by remember { viewModel.reviewContent }
 
     Dialog(
         onDismissRequest = onDismissRequest,
@@ -131,6 +130,7 @@ fun ReviewDialog(
                     CompositionLocalProvider(LocalMinimumInteractiveComponentEnforcement provides false) {
                         Checkbox(
                             checked = reviewContent.isAnonymous,
+                            enabled = viewModel.canSetAnonymity(),
                             onCheckedChange = viewModel::setAnonymity,
                             colors = CheckboxDefaults.colors(
                                 uncheckedColor = Color.White,
@@ -150,29 +150,24 @@ fun ReviewDialog(
 
                 Spacer(modifier = Modifier.height(25.dp))
 
-                AccentButton(
-                    modifier = Modifier.fillMaxWidth(),
-                    enabled = reviewContent.text.isNotEmpty(),
-                    onClick = {
-                        if (reviewContent.id == null) {
-                            viewModel.addReview()
-                            Toast.makeText(
-                                context,
-                                context.getString(R.string.review_added),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        } else {
-                            viewModel.editReview()
-                            Toast.makeText(
-                                context,
-                                context.getString(R.string.review_edited),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                        onDismissRequest()
-                    },
-                    text = stringResource(id = R.string.save)
-                )
+                if (isRequestLoading) {
+                    LoadingAccentButton(
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                } else {
+                    AccentButton(
+                        modifier = Modifier.fillMaxWidth(),
+                        enabled = viewModel.canEditReview(),
+                        onClick = {
+                            if (reviewContent.id == null) {
+                                viewModel.addReview()
+                            } else {
+                                viewModel.editReview()
+                            }
+                        },
+                        text = stringResource(id = R.string.save)
+                    )
+                }
 
                 Spacer(modifier = Modifier.height(PaddingSmall))
 

@@ -7,7 +7,7 @@ import ru.lantt.moviescatalog.presentation.viewmodel.auth.LoginViewModel
 import ru.lantt.moviescatalog.presentation.viewmodel.auth.RegistrationViewModel
 import ru.lantt.moviescatalog.presentation.viewmodel.favorites.FavoritesViewModel
 import ru.lantt.moviescatalog.presentation.viewmodel.launch.LaunchViewModel
-import ru.lantt.moviescatalog.presentation.viewmodel.main.MainScreenViewModel
+import ru.lantt.moviescatalog.presentation.viewmodel.home.HomeViewModel
 import ru.lantt.moviescatalog.presentation.viewmodel.movie.MovieViewModel
 import ru.lantt.moviescatalog.presentation.viewmodel.profile.ProfileViewModel
 
@@ -17,19 +17,19 @@ fun providePresentationModule(): Module = module {
 
     viewModel { RegistrationViewModel(get(), get(), get(), get(), get(), get(), get()) }
 
-    viewModel { MainScreenViewModel(get(), get(), get(), get(), get()) }
+    viewModel { HomeViewModel(get(), get(), get(), get(), get(), get()) }
 
     viewModel { LaunchViewModel(get()) }
 
     viewModel { parameters ->
         MovieViewModel(
             movieId = parameters.get(),
-            get(), get(), get(), get(), get(), get(), get(), get()
+            get(), get(), get(), get(), get(), get(), get(), get(), get()
         )
     }
 
     viewModel { ProfileViewModel(get(), get(), get(), get(), get(), get(), get()) }
 
-    viewModel { FavoritesViewModel(get()) }
+    viewModel { FavoritesViewModel(get(), get(), get(), get(), get(), get()) }
 
 }

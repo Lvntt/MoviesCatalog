@@ -4,4 +4,6 @@ sealed interface ProfileEvent {
 
     object AuthenticationRequired : ProfileEvent
 
+    object LogOut : ProfileEvent
+
 }

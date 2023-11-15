@@ -13,7 +13,7 @@ import ru.lantt.moviescatalog.presentation.ui.util.shimmerEffect
 
 @Composable
 fun ShimmerMovieRating(
-    shimmerStartOffsetX: Float,
+    shimmerStartOffsetXProvider: () -> Float,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -21,6 +21,6 @@ fun ShimmerMovieRating(
             .width(51.dp)
             .height(26.dp)
             .clip(RoundedCornerShape(RatingRoundedCornerRadius))
-            .shimmerEffect(shimmerStartOffsetX)
+            .shimmerEffect(shimmerStartOffsetXProvider)
     )
 }

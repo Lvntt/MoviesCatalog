@@ -4,6 +4,6 @@ sealed interface LaunchEvent {
 
     object AuthenticationRequired : LaunchEvent
 
-    object RedirectionToMainRequired : LaunchEvent
+    object RedirectionToHomeRequired : LaunchEvent
 
 }

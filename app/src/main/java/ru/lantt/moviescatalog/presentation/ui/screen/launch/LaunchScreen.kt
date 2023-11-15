@@ -29,7 +29,7 @@ fun LaunchScreen(
         viewModel.launchFlow.collect { event ->
             when (event) {
                 LaunchEvent.AuthenticationRequired -> navController.navigate(MoviesCatalogDestinations.AUTHORIZATION)
-                LaunchEvent.RedirectionToMainRequired -> navController.navigate(MoviesCatalogDestinations.MAIN)
+                LaunchEvent.RedirectionToHomeRequired -> navController.navigate(MoviesCatalogDestinations.HOME)
             }
         }
     }

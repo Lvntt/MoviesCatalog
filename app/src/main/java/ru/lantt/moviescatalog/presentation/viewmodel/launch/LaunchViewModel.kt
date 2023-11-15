@@ -18,7 +18,7 @@ class LaunchViewModel(
     init {
         viewModelScope.launch {
             if (checkTokenExistenceUseCase()) {
-                launchEventChannel.send(LaunchEvent.RedirectionToMainRequired)
+                launchEventChannel.send(LaunchEvent.RedirectionToHomeRequired)
             } else {
                 launchEventChannel.send(LaunchEvent.AuthenticationRequired)
             }

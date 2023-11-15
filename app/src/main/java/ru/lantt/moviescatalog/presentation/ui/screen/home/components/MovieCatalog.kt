@@ -1,4 +1,4 @@
-package ru.lantt.moviescatalog.presentation.ui.screen.main.components
+package ru.lantt.moviescatalog.presentation.ui.screen.home.components
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -20,14 +21,16 @@ import ru.lantt.moviescatalog.presentation.ui.screen.common.LoadingItem
 import ru.lantt.moviescatalog.presentation.ui.theme.DefaultPaddingBetweenElements
 import ru.lantt.moviescatalog.presentation.ui.theme.PaddingMedium
 import ru.lantt.moviescatalog.presentation.ui.theme.Title_B_24
+import ru.lantt.moviescatalog.presentation.uistate.movie.MovieUpdateModel
 
 private const val CAROUSEL_SIZE = 4
 
 @Composable
 fun MovieCatalog(
     movies: LazyPagingItems<Movie>,
+    updatedMovies: SnapshotStateMap<String, MovieUpdateModel>,
     goToMovieScreen: (String) -> Unit,
-    shimmerStartOffsetX: Float
+    shimmerStartOffsetXProvider: () -> Float
 ) {
     if (movies.itemCount < CAROUSEL_SIZE) return
     val carouselMovies = mutableListOf<Movie>()
@@ -39,7 +42,7 @@ fun MovieCatalog(
         item {
             FilmCarousel(
                 movies = carouselMovies,
-                shimmerStartOffsetX = shimmerStartOffsetX,
+                shimmerStartOffsetXProvider = shimmerStartOffsetXProvider,
                 goToMovieScreen = goToMovieScreen
             )
         }
@@ -69,7 +72,8 @@ fun MovieCatalog(
             movies[it + CAROUSEL_SIZE]?.let { movie ->
                 MovieCard(
                     movie = movie,
-                    shimmerStartOffsetX = shimmerStartOffsetX,
+                    movieUpdateModel = updatedMovies[movie.id],
+                    shimmerStartOffsetXProvider = shimmerStartOffsetXProvider,
                     goToMovieScreen = goToMovieScreen,
                     modifier = Modifier.padding(horizontal = PaddingMedium),
                 )

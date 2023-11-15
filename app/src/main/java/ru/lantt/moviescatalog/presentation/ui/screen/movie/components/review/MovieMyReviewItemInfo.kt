@@ -1,6 +1,5 @@
 package ru.lantt.moviescatalog.presentation.ui.screen.movie.components.review
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,12 +23,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import ru.lantt.moviescatalog.R
-import ru.lantt.moviescatalog.presentation.ui.screen.main.components.MovieCardReviewRating
+import ru.lantt.moviescatalog.presentation.ui.screen.home.components.MovieCardReviewRating
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray400
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray750
 import ru.lantt.moviescatalog.presentation.ui.theme.Label_M_14
@@ -48,7 +46,6 @@ fun MovieMyReviewItemInfo(
     onDeleteClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val context = LocalContext.current
     var isMenuExpanded by remember { mutableStateOf(false) }
 
     Row(
@@ -153,11 +150,6 @@ fun MovieMyReviewItemInfo(
                         onClick = {
                             isMenuExpanded = false
                             onDeleteClick()
-                            Toast.makeText(
-                                context,
-                                context.getString(R.string.review_deleted),
-                                Toast.LENGTH_SHORT
-                            ).show()
                         }
                     )
                 }

@@ -29,8 +29,8 @@ class AuthRepositoryImpl(
         userDataSource.clearUserData()
     }
 
-    override fun hasToken(): Boolean {
-        return tokenDataSource.fetchToken() != null
-    }
+    override fun hasToken(): Boolean =
+        tokenDataSource.fetchToken() != null
+
 
 }

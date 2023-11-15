@@ -8,7 +8,7 @@ object BottomNavItems {
         BottomNavItem(
             labelId = R.string.main,
             iconId = R.drawable.home_icon,
-            route = MoviesCatalogDestinations.MAIN
+            route = MoviesCatalogDestinations.HOME
         ),
         BottomNavItem(
             labelId = R.string.favorite,

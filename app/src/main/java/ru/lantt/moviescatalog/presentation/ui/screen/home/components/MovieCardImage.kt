@@ -1,4 +1,4 @@
-package ru.lantt.moviescatalog.presentation.ui.screen.main.components
+package ru.lantt.moviescatalog.presentation.ui.screen.home.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.height
@@ -15,7 +15,7 @@ import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import coil.request.ImageRequest
-import ru.lantt.moviescatalog.presentation.ui.screen.main.components.shimmer.ShimmerMovieCardImage
+import ru.lantt.moviescatalog.presentation.ui.screen.home.components.shimmer.ShimmerMovieCardImage
 import ru.lantt.moviescatalog.presentation.ui.theme.MovieCardImageHeight
 import ru.lantt.moviescatalog.presentation.ui.theme.MovieCardImageWidth
 import ru.lantt.moviescatalog.presentation.ui.util.getRatingColor
@@ -24,7 +24,7 @@ import ru.lantt.moviescatalog.presentation.ui.util.getRatingColor
 fun MovieCardImage(
     rating: Double?,
     imageUrl: String,
-    shimmerStartOffsetX: Float
+    shimmerStartOffsetXProvider: () -> Float
 ) {
     var isPosterLoaded by remember { mutableStateOf(false) }
 
@@ -43,7 +43,7 @@ fun MovieCardImage(
         ) {
             val state = painter.state
             if (state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error) {
-                ShimmerMovieCardImage(shimmerStartOffsetX)
+                ShimmerMovieCardImage(shimmerStartOffsetXProvider)
             } else {
                 isPosterLoaded = true
                 SubcomposeAsyncImageContent()

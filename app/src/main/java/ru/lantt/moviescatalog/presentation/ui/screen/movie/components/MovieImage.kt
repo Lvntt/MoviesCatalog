@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import coil.compose.SubcomposeAsyncImage
@@ -20,6 +21,7 @@ import ru.lantt.moviescatalog.presentation.ui.theme.Gray900
 @Composable
 fun MovieImage(
     posterLink: String?,
+    firstVisibleItemScrollOffsetProvider: () -> Int,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -34,24 +36,31 @@ fun MovieImage(
                 .build(),
             contentDescription = null,
             contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
+                .graphicsLayer {
+                    alpha = 1f - firstVisibleItemScrollOffsetProvider() * 0.0007f
+                    translationY = firstVisibleItemScrollOffsetProvider() * 0.6f
+                    scaleX = 1 + firstVisibleItemScrollOffsetProvider() * 0.0005f
+                    scaleY = 1 + firstVisibleItemScrollOffsetProvider() * 0.0005f
+                }
         ) {
             SubcomposeAsyncImageContent()
-
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(
-                        brush = Brush.verticalGradient(
-                            colors = listOf(
-                                Color.Transparent,
-                                Gray900,
-                            ),
-                            startY = 0f,
-                            endY = 1400f
-                        )
-                    )
-            )
         }
+
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            Color.Transparent,
+                            Gray900,
+                        ),
+                        startY = 0f,
+                        endY = 1800f
+                    )
+                )
+        )
     }
 }

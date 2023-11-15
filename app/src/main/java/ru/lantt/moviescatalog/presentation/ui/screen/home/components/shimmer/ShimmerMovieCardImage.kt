@@ -1,4 +1,4 @@
-package ru.lantt.moviescatalog.presentation.ui.screen.main.components.shimmer
+package ru.lantt.moviescatalog.presentation.ui.screen.home.components.shimmer
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.height
@@ -13,12 +13,12 @@ import ru.lantt.moviescatalog.presentation.ui.theme.MovieCardImageWidth
 import ru.lantt.moviescatalog.presentation.ui.util.shimmerEffect
 
 @Composable
-fun ShimmerMovieCardImage(shimmerStartOffsetX: Float) {
+fun ShimmerMovieCardImage(shimmerStartOffsetXProvider: () -> Float) {
     Box(
         modifier = Modifier
             .width(MovieCardImageWidth)
             .height(MovieCardImageHeight)
             .clip(RoundedCornerShape(5.dp))
-            .shimmerEffect(shimmerStartOffsetX)
+            .shimmerEffect(shimmerStartOffsetXProvider)
     )
 }

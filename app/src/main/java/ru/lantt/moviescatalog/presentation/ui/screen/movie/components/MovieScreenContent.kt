@@ -9,14 +9,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Color
@@ -36,32 +36,35 @@ import ru.lantt.moviescatalog.presentation.ui.theme.PaddingMedium
 import ru.lantt.moviescatalog.presentation.ui.theme.PaddingTiny
 import ru.lantt.moviescatalog.presentation.ui.util.noRippleClickable
 import ru.lantt.moviescatalog.presentation.uistate.movie.MovieDetailsContent
+import ru.lantt.moviescatalog.presentation.uistate.movie.ReviewState
 import ru.lantt.moviescatalog.presentation.viewmodel.movie.MovieViewModel
 
 @Composable
 fun MovieScreenContent(
     movie: MovieDetailsContent,
     viewModel: MovieViewModel,
-    shimmerStartOffsetX: Float,
+    shimmerStartOffsetXProvider: () -> Float,
+    lazyListStateProvider: () -> LazyListState,
     modifier: Modifier = Modifier
 ) {
-    var isDialogOpened by remember { mutableStateOf(false) }
+    val reviewState by remember { viewModel.reviewState }
+    val isRequestLoading by remember { derivedStateOf { reviewState is ReviewState.Loading } }
 
-    if (isDialogOpened) {
+    if (reviewState !is ReviewState.DialogClosed) {
         ReviewDialog(
             viewModel = viewModel,
-            onDismissRequest = {
-                isDialogOpened = false
-            },
-            onRatingChanged = viewModel::setRating
+            onDismissRequest = viewModel::onCloseDialog,
+            onRatingChanged = viewModel::setRating,
+            isRequestLoading = isRequestLoading
         )
     }
 
     LazyColumn(
+        state = lazyListStateProvider(),
         modifier = Modifier
             .background(Gray900)
             .then(
-                if (isDialogOpened) {
+                if (reviewState !is ReviewState.DialogClosed) {
                     modifier.blur(15.dp)
                 } else {
                     modifier
@@ -69,9 +72,17 @@ fun MovieScreenContent(
             )
     ) {
         item {
-            MovieImage(posterLink = movie.poster)
+            MovieImage(
+                posterLink = movie.poster,
+                firstVisibleItemScrollOffsetProvider = { lazyListStateProvider().firstVisibleItemScrollOffset }
+            )
 
-            Spacer(modifier = Modifier.height(Padding20))
+            Spacer(
+                modifier = Modifier
+                    .background(Gray900)
+                    .fillMaxWidth()
+                    .height(Padding20)
+            )
         }
 
         item {
@@ -80,43 +91,70 @@ fun MovieScreenContent(
                 name = movie.name,
                 rating = movie.rating,
                 isInFavorites = movie.isInFavorites,
-                modifier = modifier.padding(horizontal = PaddingMedium)
+                modifier = modifier
+                    .background(Gray900)
+                    .padding(horizontal = PaddingMedium)
             )
 
-            Spacer(modifier = Modifier.height(Padding20))
+            Spacer(modifier = Modifier
+                .background(Gray900)
+                .fillMaxWidth()
+                .height(Padding20))
         }
 
         item {
             MovieDescription(
                 description = movie.description,
-                modifier = modifier.padding(horizontal = PaddingMedium)
+                modifier = modifier
+                    .background(Gray900)
+                    .padding(horizontal = PaddingMedium)
             )
 
-            Spacer(modifier = Modifier.height(Padding20))
+            Spacer(
+                modifier = Modifier
+                    .background(Gray900)
+                    .fillMaxWidth()
+                    .height(Padding20)
+            )
         }
 
         item {
             MovieGenres(
                 genres = movie.genres,
-                modifier = modifier.padding(horizontal = PaddingMedium)
+                modifier = modifier
+                    .background(Gray900)
+                    .padding(horizontal = PaddingMedium)
             )
 
-            Spacer(modifier = Modifier.height(Padding20))
+            Spacer(
+                modifier = Modifier
+                    .background(Gray900)
+                    .fillMaxWidth()
+                    .height(Padding20)
+            )
         }
 
         item {
             MovieAbout(
                 movie = movie,
-                modifier = modifier.padding(horizontal = PaddingMedium)
+                modifier = modifier
+                    .background(Gray900)
+                    .padding(horizontal = PaddingMedium)
             )
 
-            Spacer(modifier = Modifier.height(Padding20))
+            Spacer(
+                modifier = Modifier
+                    .background(Gray900)
+                    .fillMaxWidth()
+                    .height(Padding20)
+            )
         }
 
         item {
             Row(
                 modifier = modifier
                     .fillMaxWidth()
+                    .background(Gray900)
                     .padding(horizontal = PaddingMedium),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
@@ -134,7 +172,9 @@ fun MovieScreenContent(
                                 shape = CircleShape
                             )
                             .noRippleClickable {
-                                isDialogOpened = !isDialogOpened
+                                if (reviewState is ReviewState.DialogClosed) {
+                                    viewModel.onOpenDialog()
+                                }
                             }
                     ) {
                         Icon(
@@ -156,22 +196,27 @@ fun MovieScreenContent(
                     review = movie.myReview,
                     modifier = modifier.padding(horizontal = PaddingMedium),
                     onEditClick = {
-                        isDialogOpened = !isDialogOpened
+                        if (reviewState is ReviewState.DialogClosed) {
+                            viewModel.onOpenDialog()
+                        }
                     },
                     onDeleteClick = viewModel::deleteReview,
-                    shimmerStartOffsetX = shimmerStartOffsetX
+                    shimmerStartOffsetXProvider = shimmerStartOffsetXProvider
                 )
 
                 Spacer(modifier = Modifier.height(Padding20))
             }
         }
 
-        items(count = movie.usersReviews.size) { reviewIndex ->
+        items(
+            count = movie.usersReviews.size,
+            key = { movie.usersReviews[it].id }
+        ) { reviewIndex ->
             val review = movie.usersReviews[reviewIndex]
 
             MovieReviewItem(
                 review = review,
-                shimmerStartOffsetX = shimmerStartOffsetX,
+                shimmerStartOffsetXProvider = shimmerStartOffsetXProvider,
                 modifier = modifier.padding(horizontal = PaddingMedium)
             )
 

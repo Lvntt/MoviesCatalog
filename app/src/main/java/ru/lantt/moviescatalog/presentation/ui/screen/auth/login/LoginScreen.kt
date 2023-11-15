@@ -17,11 +17,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import org.koin.androidx.compose.koinViewModel
 import ru.lantt.moviescatalog.R
+import ru.lantt.moviescatalog.presentation.ui.event.LoginEvent
 import ru.lantt.moviescatalog.presentation.ui.screen.common.AccentButton
 import ru.lantt.moviescatalog.presentation.ui.screen.common.AuthBottomBar
 import ru.lantt.moviescatalog.presentation.ui.screen.common.AuthPasswordTextField
@@ -36,19 +38,19 @@ import ru.lantt.moviescatalog.presentation.ui.theme.PaddingMedium
 import ru.lantt.moviescatalog.presentation.ui.theme.PaddingSmall
 import ru.lantt.moviescatalog.presentation.ui.theme.Text_R_14
 import ru.lantt.moviescatalog.presentation.ui.theme.Title_2_B_20
-import ru.lantt.moviescatalog.presentation.uistate.auth.login.LoginUiState
+import ru.lantt.moviescatalog.presentation.uistate.auth.login.LoginState
 import ru.lantt.moviescatalog.presentation.viewmodel.auth.LoginViewModel
 
 @Composable
 fun LoginScreen(
     onFunctionalTextClick: () -> Unit,
     goToAuthorizationScreen: () -> Unit,
-    goToMainScreen: () -> Unit,
+    goToHomeScreen: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: LoginViewModel = koinViewModel()
 ) {
     val loginContent by remember { viewModel.loginContent }
-    val loginUiState by remember { viewModel.loginUiState }
+    val loginUiState by remember { viewModel.loginState }
     val focusManager = LocalFocusManager.current
 
     Scaffold(
@@ -79,14 +81,12 @@ fun LoginScreen(
                     )
                 }
         ) {
-            when (loginUiState) {
-                LoginUiState.Initial -> Unit
-                LoginUiState.Loading -> Unit
-                LoginUiState.Error -> LaunchedEffect(Unit) {
-                    goToAuthorizationScreen()
-                }
-                LoginUiState.Success -> LaunchedEffect(Unit) {
-                    goToMainScreen()
+            LaunchedEffect(key1 = LocalContext.current) {
+                viewModel.loginEventFlow.collect { event ->
+                    when (event) {
+                        LoginEvent.LoginError -> goToAuthorizationScreen()
+                        LoginEvent.LoggedIn -> goToHomeScreen()
+                    }
                 }
             }
 
@@ -130,7 +130,7 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(Padding20))
 
-            if (loginUiState is LoginUiState.Loading) {
+            if (loginUiState is LoginState.Loading) {
                 LoadingAccentButton(
                     modifier = Modifier.fillMaxWidth()
                 )

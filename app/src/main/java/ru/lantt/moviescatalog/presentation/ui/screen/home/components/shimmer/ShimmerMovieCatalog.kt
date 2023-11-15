@@ -1,4 +1,4 @@
-package ru.lantt.moviescatalog.presentation.ui.screen.main.components.shimmer
+package ru.lantt.moviescatalog.presentation.ui.screen.home.components.shimmer
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -13,14 +13,14 @@ import ru.lantt.moviescatalog.presentation.ui.theme.PaddingMedium
 import ru.lantt.moviescatalog.presentation.ui.theme.Title_B_24
 
 @Composable
-fun ShimmerMovieCatalog(shimmerStartOffsetX: Float) {
+fun ShimmerMovieCatalog(shimmerStartOffsetXProvider: () -> Float) {
     Column {
-        ShimmerFilmCarousel(shimmerStartOffsetX = shimmerStartOffsetX)
+        ShimmerFilmCarousel(shimmerStartOffsetXProvider = shimmerStartOffsetXProvider)
 
         ShimmerBox(
             width = 100.dp,
             height = with(LocalDensity.current) { Title_B_24.fontSize.toDp() },
-            shimmerStartOffsetX = shimmerStartOffsetX,
+            shimmerStartOffsetXProvider = shimmerStartOffsetXProvider,
             modifier = Modifier.padding(
                 top = PaddingMedium,
                 start = PaddingMedium,
@@ -32,7 +32,7 @@ fun ShimmerMovieCatalog(shimmerStartOffsetX: Float) {
 
         repeat(5) {
             ShimmerMovieCard(
-                shimmerStartOffsetX = shimmerStartOffsetX,
+                shimmerStartOffsetXProvider = shimmerStartOffsetXProvider,
                 modifier = Modifier.padding(horizontal = PaddingMedium)
             )
 

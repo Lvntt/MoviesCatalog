@@ -31,7 +31,7 @@ import ru.lantt.moviescatalog.presentation.ui.theme.Title_2_B_20
 @Composable
 fun FavoriteMoviesContent(
     favorites: List<Movie>,
-    shimmerStartOffsetX: Float,
+    shimmerStartOffsetXProvider: () -> Float,
     navController: NavController,
     modifier: Modifier = Modifier,
 ) {
@@ -87,7 +87,7 @@ fun FavoriteMoviesContent(
                         onMovieClick = {
                             navController.navigate("${MoviesCatalogDestinations.MOVIE}/$it")
                         },
-                        shimmerStartOffsetX = shimmerStartOffsetX,
+                        shimmerStartOffsetXProvider = shimmerStartOffsetXProvider,
                         modifier = Modifier.weight(1f)
                     )
 
@@ -99,7 +99,7 @@ fun FavoriteMoviesContent(
                             onMovieClick = {
                                 navController.navigate("${MoviesCatalogDestinations.MOVIE}/$it")
                             },
-                            shimmerStartOffsetX = shimmerStartOffsetX,
+                            shimmerStartOffsetXProvider = shimmerStartOffsetXProvider,
                             modifier = Modifier.weight(1f)
                         )
                     }
@@ -113,7 +113,7 @@ fun FavoriteMoviesContent(
                         onMovieClick = {
                             navController.navigate("${MoviesCatalogDestinations.MOVIE}/$it")
                         },
-                        shimmerStartOffsetX = shimmerStartOffsetX
+                        shimmerStartOffsetXProvider = shimmerStartOffsetXProvider
                     )
                 }
             }
@@ -136,7 +136,7 @@ fun FavoriteMoviesContent(
                         onMovieClick = {
                             navController.navigate("${MoviesCatalogDestinations.MOVIE}/$it")
                         },
-                        shimmerStartOffsetX = shimmerStartOffsetX,
+                        shimmerStartOffsetXProvider = shimmerStartOffsetXProvider,
                         modifier = Modifier.weight(1f)
                     )
 
@@ -147,7 +147,7 @@ fun FavoriteMoviesContent(
                         onMovieClick = {
                             navController.navigate("${MoviesCatalogDestinations.MOVIE}/$it")
                         },
-                        shimmerStartOffsetX = shimmerStartOffsetX,
+                        shimmerStartOffsetXProvider = shimmerStartOffsetXProvider,
                         modifier = Modifier.weight(1f)
                     )
                 } else {
@@ -157,7 +157,7 @@ fun FavoriteMoviesContent(
                             onMovieClick = {
                                 navController.navigate("${MoviesCatalogDestinations.MOVIE}/$it")
                             },
-                            shimmerStartOffsetX = shimmerStartOffsetX
+                            shimmerStartOffsetXProvider = shimmerStartOffsetXProvider
                         )
                     }
                 }

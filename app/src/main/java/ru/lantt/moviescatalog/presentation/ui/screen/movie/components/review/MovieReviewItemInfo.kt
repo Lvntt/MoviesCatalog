@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import ru.lantt.moviescatalog.R
-import ru.lantt.moviescatalog.presentation.ui.screen.main.components.MovieCardReviewRating
+import ru.lantt.moviescatalog.presentation.ui.screen.home.components.MovieCardReviewRating
 import ru.lantt.moviescatalog.presentation.ui.theme.Label_M_14
 import ru.lantt.moviescatalog.presentation.ui.theme.MovieRegularPadding
 

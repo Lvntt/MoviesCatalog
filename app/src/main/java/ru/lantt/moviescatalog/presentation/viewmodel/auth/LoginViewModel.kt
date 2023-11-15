@@ -7,13 +7,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import ru.lantt.moviescatalog.domain.entity.LoginCredentials
 import ru.lantt.moviescatalog.domain.usecase.LoginUserUseCase
 import ru.lantt.moviescatalog.presentation.common.ErrorCodes.BAD_REQUEST
+import ru.lantt.moviescatalog.presentation.ui.event.LoginEvent
 import ru.lantt.moviescatalog.presentation.uistate.auth.login.LoginContent
-import ru.lantt.moviescatalog.presentation.uistate.auth.login.LoginUiState
+import ru.lantt.moviescatalog.presentation.uistate.auth.login.LoginState
 
 class LoginViewModel(
     private val loginUserUseCase: LoginUserUseCase
@@ -21,28 +24,35 @@ class LoginViewModel(
 
     val loginContent: State<LoginContent>
         get() = _loginContent
-    // TODO remove default values
     private val _loginContent: MutableState<LoginContent> = mutableStateOf(
-        LoginContent(
-            login = "string",
-            password = "string"
-        )
+        LoginContent()
     )
 
-    val loginUiState: State<LoginUiState>
-        get() = _loginUiState
-    private val _loginUiState: MutableState<LoginUiState> = mutableStateOf(LoginUiState.Initial)
+    private val loginEventChannel = Channel<LoginEvent>()
+    val loginEventFlow = loginEventChannel.receiveAsFlow()
+
+    val loginState: State<LoginState>
+        get() = _loginState
+    private val _loginState: MutableState<LoginState> = mutableStateOf(LoginState.Editing)
 
     private val loginExceptionHandler = CoroutineExceptionHandler { _, exception ->
         when (exception) {
             is HttpException -> when (exception.code()) {
                 BAD_REQUEST -> {
                     _loginContent.value = _loginContent.value.copy(isError = true)
-                    _loginUiState.value = LoginUiState.Initial
+                    _loginState.value = LoginState.Editing
                 }
-                else -> _loginUiState.value = LoginUiState.Error
+                else -> {
+                    viewModelScope.launch {
+                        loginEventChannel.send(LoginEvent.LoginError)
+                    }
+                }
             }
-            else -> _loginUiState.value = LoginUiState.Error
+            else -> {
+                viewModelScope.launch {
+                    loginEventChannel.send(LoginEvent.LoginError)
+                }
+            }
         }
     }
 
@@ -62,11 +72,11 @@ class LoginViewModel(
     fun canLogIn(): Boolean {
         return _loginContent.value.login.isNotEmpty()
                 && _loginContent.value.password.isNotEmpty()
-                && _loginUiState.value !is LoginUiState.Loading
+                && _loginState.value !is LoginState.Loading
     }
 
     fun logIn() {
-        _loginUiState.value = LoginUiState.Loading
+        _loginState.value = LoginState.Loading
         _loginContent.value = _loginContent.value.copy(isError = false)
         viewModelScope.launch(Dispatchers.IO + loginExceptionHandler) {
             loginUserUseCase(
@@ -77,7 +87,7 @@ class LoginViewModel(
                     )
                 }
             )
-            _loginUiState.value = LoginUiState.Success
+            loginEventChannel.send(LoginEvent.LoggedIn)
         }
     }
 

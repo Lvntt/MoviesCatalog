@@ -1,4 +1,4 @@
-package ru.lantt.moviescatalog.presentation.ui.screen.main.components.shimmer
+package ru.lantt.moviescatalog.presentation.ui.screen.home.components.shimmer
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,7 +19,7 @@ import ru.lantt.moviescatalog.presentation.ui.theme.PaddingSmall
 
 @Composable
 fun ShimmerMovieCardDescription(
-    shimmerStartOffsetX: Float,
+    shimmerStartOffsetXProvider: () -> Float,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -33,7 +33,7 @@ fun ShimmerMovieCardDescription(
             ShimmerBox(
                 width = 250.dp,
                 height = with(LocalDensity.current) { Label_B_16.fontSize.toDp() },
-                shimmerStartOffsetX = shimmerStartOffsetX
+                shimmerStartOffsetXProvider = shimmerStartOffsetXProvider
             )
         }
 
@@ -42,7 +42,7 @@ fun ShimmerMovieCardDescription(
         ShimmerBox(
             width = 150.dp,
             height = with(LocalDensity.current) { Label_R_12.fontSize.toDp() },
-            shimmerStartOffsetX = shimmerStartOffsetX
+            shimmerStartOffsetXProvider = shimmerStartOffsetXProvider
         )
 
         Spacer(modifier = modifier.height(MovieCardRegularPadding))
@@ -50,7 +50,7 @@ fun ShimmerMovieCardDescription(
         ShimmerBox(
             width = 100.dp,
             height = with(LocalDensity.current) { Label_R_13.fontSize.toDp() },
-            shimmerStartOffsetX = shimmerStartOffsetX
+            shimmerStartOffsetXProvider = shimmerStartOffsetXProvider
         )
     }
 }

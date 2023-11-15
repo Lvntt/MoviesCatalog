@@ -7,11 +7,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ru.lantt.moviescatalog.presentation.ui.screen.main.components.shimmer.ShimmerBox
+import ru.lantt.moviescatalog.presentation.ui.screen.home.components.shimmer.ShimmerBox
 
 @Composable
 fun ShimmerMovieInfo(
-    shimmerStartOffsetX: Float,
+    shimmerStartOffsetXProvider: () -> Float,
     modifier: Modifier = Modifier
 ) {
 
@@ -20,18 +20,18 @@ fun ShimmerMovieInfo(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        ShimmerMovieRating(shimmerStartOffsetX)
+        ShimmerMovieRating(shimmerStartOffsetXProvider)
 
         ShimmerBox(
             width = 212.dp,
             height = 26.dp,
-            shimmerStartOffsetX = shimmerStartOffsetX
+            shimmerStartOffsetXProvider = shimmerStartOffsetXProvider
         )
 
         ShimmerBox(
             width = 40.dp,
             height = 40.dp,
-            shimmerStartOffsetX = shimmerStartOffsetX
+            shimmerStartOffsetXProvider = shimmerStartOffsetXProvider
         )
     }
 }

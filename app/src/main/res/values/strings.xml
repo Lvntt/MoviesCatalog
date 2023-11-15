@@ -73,4 +73,5 @@
     <string name="review_deleted">Отзыв удален</string>
     <string name="added_to_favorites">Добавлено в любимое</string>
     <string name="removed_from_favorites">Удалено из любимого</string>
+    <string name="authentication_required">Необходима авторизация</string>
 </resources>

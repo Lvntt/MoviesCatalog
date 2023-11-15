@@ -6,12 +6,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ru.lantt.moviescatalog.presentation.ui.screen.main.components.shimmer.ShimmerBox
+import ru.lantt.moviescatalog.presentation.ui.screen.home.components.shimmer.ShimmerBox
 import ru.lantt.moviescatalog.presentation.ui.theme.MovieRegularPadding
 
 @Composable
 fun ShimmerMovieGenres(
-    shimmerStartOffsetX: Float,
+    shimmerStartOffsetXProvider: () -> Float,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -20,7 +20,7 @@ fun ShimmerMovieGenres(
         ShimmerBox(
             width = 60.dp,
             height = 19.dp,
-            shimmerStartOffsetX = shimmerStartOffsetX
+            shimmerStartOffsetXProvider = shimmerStartOffsetXProvider
         )
 
         Spacer(modifier = Modifier.height(MovieRegularPadding))
@@ -28,7 +28,7 @@ fun ShimmerMovieGenres(
         ShimmerBox(
             width = 328.dp,
             height = 64.dp,
-            shimmerStartOffsetX = shimmerStartOffsetX
+            shimmerStartOffsetXProvider = shimmerStartOffsetXProvider
         )
     }
 }

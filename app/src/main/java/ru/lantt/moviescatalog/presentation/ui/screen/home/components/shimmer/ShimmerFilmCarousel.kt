@@ -1,4 +1,4 @@
-package ru.lantt.moviescatalog.presentation.ui.screen.main.components.shimmer
+package ru.lantt.moviescatalog.presentation.ui.screen.home.components.shimmer
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,13 +10,13 @@ import ru.lantt.moviescatalog.presentation.ui.util.shimmerEffect
 
 @Composable
 fun ShimmerFilmCarousel(
-    shimmerStartOffsetX: Float,
+    shimmerStartOffsetXProvider: () -> Float,
     modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier
             .fillMaxWidth()
             .height(CarouselImageHeight)
-            .shimmerEffect(shimmerStartOffsetX)
+            .shimmerEffect(shimmerStartOffsetXProvider)
     )
 }

@@ -20,11 +20,8 @@ import androidx.navigation.navArgument
 import ru.lantt.moviescatalog.presentation.ui.screen.auth.authorization.AuthorizationScreen
 import ru.lantt.moviescatalog.presentation.ui.screen.auth.login.LoginScreen
 import ru.lantt.moviescatalog.presentation.ui.screen.auth.registration.RegistrationScreen
-import ru.lantt.moviescatalog.presentation.ui.screen.favorites.FavoriteMoviesScreen
 import ru.lantt.moviescatalog.presentation.ui.screen.launch.LaunchScreen
-import ru.lantt.moviescatalog.presentation.ui.screen.main.MainScreen
 import ru.lantt.moviescatalog.presentation.ui.screen.movie.MovieScreen
-import ru.lantt.moviescatalog.presentation.ui.screen.profile.ProfileScreen
 import ru.lantt.moviescatalog.presentation.ui.theme.Accent
 import ru.lantt.moviescatalog.presentation.ui.theme.BottomNavigationBackground
 import ru.lantt.moviescatalog.presentation.ui.theme.Gray400
@@ -35,7 +32,7 @@ object MoviesCatalogDestinations {
     const val AUTHORIZATION = "authorization"
     const val LOGIN = "login"
     const val REGISTRATION = "registration"
-    const val MAIN = "main"
+    const val HOME = "home"
     const val FAVORITES = "favorites"
     const val PROFILE = "profile"
     const val LAUNCH = "launch"
@@ -44,8 +41,9 @@ object MoviesCatalogDestinations {
 
 
 @Composable
-fun MoviesCatalogNavigation(
-    navController: NavHostController
+fun RootNavigation(
+    navController: NavHostController,
+    onCloseApp: () -> Unit
 ) {
     NavHost(
         navController = navController,
@@ -61,6 +59,7 @@ fun MoviesCatalogNavigation(
                 }
             )
         }
+
         composable(MoviesCatalogDestinations.LOGIN) {
             LoginScreen(
                 onFunctionalTextClick = {
@@ -69,11 +68,12 @@ fun MoviesCatalogNavigation(
                 goToAuthorizationScreen = {
                     navController.navigate(MoviesCatalogDestinations.AUTHORIZATION)
                 },
-                goToMainScreen = {
-                    navController.navigate(MoviesCatalogDestinations.MAIN)
+                goToHomeScreen = {
+                    navController.navigate(MoviesCatalogDestinations.HOME)
                 }
             )
         }
+
         composable(MoviesCatalogDestinations.REGISTRATION) {
             RegistrationScreen(
                 onFunctionalTextClick = {
@@ -82,37 +82,25 @@ fun MoviesCatalogNavigation(
                 goToAuthorizationScreen = {
                     navController.navigate(MoviesCatalogDestinations.AUTHORIZATION)
                 },
-                goToMainScreen = {
-                    navController.navigate(MoviesCatalogDestinations.MAIN)
+                goToHomeScreen = {
+                    navController.navigate(MoviesCatalogDestinations.HOME)
                 }
             )
         }
-        composable(MoviesCatalogDestinations.MAIN) {
-            MainScreen(
-                navController = navController
+
+        composable(MoviesCatalogDestinations.HOME) {
+            MainNavigationWrapper(
+                rootNavController = navController,
+                onCloseApp = onCloseApp
             )
         }
-        composable(MoviesCatalogDestinations.FAVORITES) {
-            FavoriteMoviesScreen(
-                navController = navController,
-                goToAuthorizationScreen = {
-                    navController.navigate(MoviesCatalogDestinations.AUTHORIZATION)
-                }
-            )
-        }
-        composable(MoviesCatalogDestinations.PROFILE) {
-            ProfileScreen(
-                navController = navController,
-                goToAuthorizationScreen = {
-                    navController.navigate(MoviesCatalogDestinations.AUTHORIZATION)
-                }
-            )
-        }
+
         composable(MoviesCatalogDestinations.LAUNCH) {
             LaunchScreen(
                 navController = navController
             )
         }
+
         composable(
             route = "${MoviesCatalogDestinations.MOVIE}/{movieId}",
             arguments = listOf(
@@ -122,7 +110,7 @@ fun MoviesCatalogNavigation(
             val movieId = backStackEntry.arguments?.getString("movieId") ?: ""
             MovieScreen(
                 id = movieId,
-                onBackButtonClick = {
+                onBack = {
                     navController.popBackStack()
                 },
                 goToAuthorizationScreen = {

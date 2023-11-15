@@ -25,7 +25,7 @@ import ru.lantt.moviescatalog.presentation.viewmodel.profile.ProfileViewModel
 fun ProfileScreenContent(
     viewModel: ProfileViewModel,
     profile: ProfileContent,
-    shimmerStartOffsetX: Float,
+    shimmerStartOffsetXProvider: () -> Float,
     modifier: Modifier = Modifier
 ) {
     val focusManager = LocalFocusManager.current
@@ -54,7 +54,7 @@ fun ProfileScreenContent(
             nickname = profile.nickname,
             avatarLink = avatarLink,
             onLogoutClick = viewModel::logOut,
-            shimmerStartOffsetX = shimmerStartOffsetX
+            shimmerStartOffsetXProvider = shimmerStartOffsetXProvider
         )
 
         ProfileInfo(
