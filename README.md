@@ -8,6 +8,8 @@ The app provides the following functionality:
 + Managing user's favorite movies list
 + Managing user's profile
 
+The application UI was made based on a [Figma](https://www.figma.com/file/YItWDHRSilOE6pjngqrLB7/MovieCatalog--2023?type=design&node-id=0-1&mode=design&t=teJNzPL3WlWsgIxC-0) file that was provided to all the students.
+
 # Project screenshots
 
 <p>
