@@ -16,7 +16,7 @@ The application UI was made based on a [Figma](https://www.figma.com/file/YItWDH
     <img src="https://github.com/Lvntt/MoviesCatalog/assets/53006125/b622a04a-4022-4141-b69c-b205fbebe581" width="250" height="540">
     <img src="https://github.com/Lvntt/MoviesCatalog/assets/53006125/fc6a827d-7ad7-4eda-9043-91fc4725b523" width="250" height="540">
     <img src="https://github.com/Lvntt/MoviesCatalog/assets/53006125/5e41a894-ad45-4f73-bbdc-633f03041a3c" width="250" height="540">
-    <img src="https://github.com/Lvntt/MoviesCatalog/assets/53006125/ed8b0e68-87e3-4d64-8db4-1e563c2efabe" width="250" height="540">
+    <img src="https://github.com/Lvntt/MoviesCatalog/assets/53006125/c182afdb-afad-4c95-b14f-e1014a07c0fa" width="250" height="540">
     <img src="https://github.com/Lvntt/MoviesCatalog/assets/53006125/91f95e14-468a-44df-b5d3-f66826b70cbd" width="250" height="540">
     <img src="https://github.com/Lvntt/MoviesCatalog/assets/53006125/103adef3-6f4c-490c-b101-3249f53b6ff0" width="250" height="540">
 </p>
