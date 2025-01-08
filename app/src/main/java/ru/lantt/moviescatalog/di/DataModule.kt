@@ -17,11 +17,15 @@ import ru.lantt.moviescatalog.data.repository.FavoriteMoviesRepositoryImpl
 import ru.lantt.moviescatalog.data.repository.MovieRepositoryImpl
 import ru.lantt.moviescatalog.data.repository.ReviewRepositoryImpl
 import ru.lantt.moviescatalog.data.repository.UserRepositoryImpl
+import ru.lantt.moviescatalog.data.validator.EmailValidatorImpl
+import ru.lantt.moviescatalog.data.validator.UrlValidatorImpl
 import ru.lantt.moviescatalog.domain.repository.AuthRepository
 import ru.lantt.moviescatalog.domain.repository.FavoriteMoviesRepository
 import ru.lantt.moviescatalog.domain.repository.MovieRepository
 import ru.lantt.moviescatalog.domain.repository.ReviewRepository
 import ru.lantt.moviescatalog.domain.repository.UserRepository
+import ru.lantt.moviescatalog.domain.validator.EmailValidator
+import ru.lantt.moviescatalog.domain.validator.UrlValidator
 
 private fun provideTokenDataSource(context: Context): TokenDataSource =
     TokenDataSource(context)
@@ -59,6 +63,10 @@ private fun provideReviewRepository(
 ): ReviewRepository =
     ReviewRepositoryImpl(reviewApiService)
 
+private fun provideEmailValidator(): EmailValidator = EmailValidatorImpl()
+
+private fun provideUrlValidator(): UrlValidator = UrlValidatorImpl()
+
 fun provideDataModule(): Module = module {
 
     single { provideTokenDataSource(androidContext().applicationContext) }
@@ -74,5 +82,9 @@ fun provideDataModule(): Module = module {
     single { provideFavoriteMoviesRepository(get(), get()) }
 
     single { provideReviewRepository(get()) }
+
+    single { provideEmailValidator() }
+
+    single { provideUrlValidator() }
 
 }

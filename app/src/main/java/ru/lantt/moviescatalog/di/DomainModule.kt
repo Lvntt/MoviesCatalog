@@ -33,7 +33,7 @@ fun provideDomainModule(): Module = module {
 
     factory { ValidateLoginUseCase() }
 
-    factory { ValidateEmailUseCase() }
+    factory { ValidateEmailUseCase(get()) }
 
     factory { ValidateDateOfBirthUseCase() }
 
@@ -75,6 +75,6 @@ fun provideDomainModule(): Module = module {
 
     factory { EditUserProfileUseCase(get()) }
 
-    factory { ValidateUrlUseCase() }
+    factory { ValidateUrlUseCase(get()) }
 
 }

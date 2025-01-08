@@ -4,12 +4,15 @@ import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import ru.lantt.moviescatalog.data.validator.UrlValidatorImpl
 import ru.lantt.moviescatalog.domain.entity.ValidationErrorType
 
 @RunWith(RobolectricTestRunner::class)
 class ValidateUrlUseCaseTest {
 
-    private val useCase = ValidateUrlUseCase()
+    private val urlValidator = UrlValidatorImpl()
+
+    private val useCase = ValidateUrlUseCase(urlValidator)
 
     @Test
     fun `get empty url returns EMPTY_FIELD error`() {
