@@ -4,12 +4,15 @@ import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import ru.lantt.moviescatalog.data.validator.EmailValidatorImpl
 import ru.lantt.moviescatalog.domain.entity.ValidationErrorType
 
 @RunWith(RobolectricTestRunner::class)
 class ValidateEmailUseCaseTest {
 
-    private val useCase = ValidateEmailUseCase()
+    private val emailValidator = EmailValidatorImpl()
+
+    private val useCase = ValidateEmailUseCase(emailValidator)
 
     @Test
     fun `get empty email returns EMPTY_FIELD error`() {
